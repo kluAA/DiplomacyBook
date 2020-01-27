@@ -1,6 +1,6 @@
 import React from 'react';
 import SignupFormContainer from './signup_form_container';
-import SessionFormContainer from './session_form_container';
+import NavLoginContainer from '../nav/nav_login_container';
 
 class Splash extends React.Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class Splash extends React.Component {
     render() {
         return (
             <div>
-                <SessionFormContainer />
+                <NavLoginContainer />
                 <SignupFormContainer />
             </div>
         )

@@ -14,3 +14,60 @@ html, body, textarea, button, input, label, div, hr, p, form, a {
     resize: none;
     
 }
+
+body {
+    overflow: scroll;
+}
+
+.nav-login {
+    background: #3f5c9a;
+    height: 82px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.nav-login-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 980px;
+    height: 78px;
+    margin: 0 auto;
+}
+
+.nav-login form {
+    display: flex;
+    align-items: center;
+}
+
+.nav-login p {
+    color: white;
+    font-size: 12px;
+    margin-left: 7px;
+}
+
+.nav-login input[type='text'], .nav-login input[type='password'] {
+    background: white;
+    border: 1px solid black;
+    width: 145px;
+    height: 15px;
+    margin: 5px 6px;
+    padding: 3px 3px 4px;
+}
+
+.nav-login input[type='submit'] {
+    border: 1px solid #29487d;
+    border-radius: 2px;
+    color: white;
+    background: #4267b2;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    margin: 15px 5px 0 5px;
+    cursor: pointer;
+}
+
+.nav-login input[type='submit']:hover {
+    background: #3f5c9a;
+}

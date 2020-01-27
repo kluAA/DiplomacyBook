@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { login } from '../../actions/session_actions';
-import NavLogin from './session_form';
+import NavLogin from './nav_login';
 import { withRouter } from 'react-router-dom'
 
 

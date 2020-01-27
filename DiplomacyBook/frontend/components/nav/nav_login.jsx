@@ -19,18 +19,22 @@ class NavLogin extends React.Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Email
-                        <input type="text" onChange={this.handleChange("email")} value={this.state.email}></input>
-                    </label>
+            <div className="nav-login">
+                <div className="nav-login-container">
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            <p>Email</p>
+                            <input type="text" onChange={this.handleChange("email")} value={this.state.email}></input>
+                        </label>
 
-                    <label>Password
-                        <input type="password" onChange={this.handleChange("password")} value={this.state.password}></input>
-                    </label>
+                        <label>
+                            <p>Password</p>
+                            <input type="password" onChange={this.handleChange("password")} value={this.state.password}></input>
+                        </label>
 
-                    <input type="submit" value="Log In"></input>
-                </form>
+                        <input type="submit" value="Log In"></input>
+                    </form>
+                </div>
             </div>
         )
     }
