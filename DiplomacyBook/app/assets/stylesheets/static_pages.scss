@@ -1,3 +1,16 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+html, body, textarea, button, input, label, div, hr, p, form, a {
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-family: system-ui;
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+    resize: none;
+    
+}
