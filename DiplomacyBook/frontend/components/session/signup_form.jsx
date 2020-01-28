@@ -96,7 +96,7 @@ class SignupForm extends React.Component {
                     </div>
                     <div className="signup-fields">
                         <h1>Sign Up</h1>
-                        <h3>It's quick and easy.</h3>
+                        <h2>It's quick and easy.</h2>
                         <form onSubmit={this.handleSubmit} className="signup-form">
                             <div className="signup-form-name">
                                 <input className="signup-fn" type="text" onChange={this.handleChange("first_name")} placeholder="First name" value={this.state.first_name}></input>
@@ -104,17 +104,26 @@ class SignupForm extends React.Component {
                             </div>
                             <input className="signup-email" type="text" onChange={this.handleChange("email")} placeholder="Email" value={this.state.email}></input>
                             <input className="signup-password" type="password" onChange={this.handleChange("password")} placeholder="New password" value={this.state.password}></input>
-                            <label><p>Birthday</p>
-                                {/* <input className="signup-bday" type="date" onChange={this.handleChange("birthday")} value={this.state.birthday}></input> */}
+                            <label className="signup-bday"><p>Birthday</p>
                                 {this.dateMonth()}
                                 {this.dateDay()}
                                 {this.dateYear()}
                             </label>
-                            <label><p>Gender</p>
-                                <input type="radio" onClick={this.handleChange("gender")} name="gender" value="ally"/>Ally
-                                <input type ="radio" onClick={this.handleChange("gender")} name="gender" value="comrade"/>Comrade
-                            </label>
-                            <input type="submit" value="Sign Up"></input>
+                            <div className="signup-gender"><p>Gender</p>
+                                <span>
+                                    <input type="radio" onClick={this.handleChange("gender")} id="ally" name="gender" value="ally"/>
+                                    <label htmlFor="ally">Ally</label>
+                                </span>
+                                <span>
+                                    <input type="radio" onClick={this.handleChange("gender")} id="comrade" name="gender" value="comrade"/>
+                                    <label htmlFor="comrade">Comrade</label>
+                                </span>
+                                <span>
+                                    <input type="radio" onClick={this.handleChange("gender")} id="other" name="gender" value="other" />
+                                    <label htmlFor="other">Other</label>
+                                </span>
+                            </div>
+                            <input type="submit" className="signup-btn" value="Sign Up"></input>
                         </form>
                     </div>
                 </div>

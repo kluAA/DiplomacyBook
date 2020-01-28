@@ -1,7 +1,7 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-html, body, textarea, button, input, label, div, hr, p, form, a, h1 {
+html, body, textarea, button, input, label, div, hr, p, form, a, h1, h2, select {
     vertical-align: baseline;
     margin: 0;
     padding: 0;
@@ -12,6 +12,7 @@ html, body, textarea, button, input, label, div, hr, p, form, a, h1 {
     text-decoration: none;
     color: inherit;
     resize: none;
+    outline: none;
     // font-size: inherit;
     // font-weight: inherit;
     
@@ -100,7 +101,21 @@ body {
     flex-direction: column;
     width: 400px;
     height: 582px;
+    
+}
 
+.signup-container h1 {
+    color: #333333;
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.signup-container h2 {
+    color: #333333;
+    font-size: 19px;
+    font-weight: 200;
+    margin: 10px 0 20px 0;
 }
 
 .signup-fields form {
@@ -130,9 +145,53 @@ body {
     color: #90949c;
     font-size: 16px;
     font-weight: bold;
+    margin: 10px 0 5px;
 }
 
 .signup-bday {
+    margin-top: 8px;
+}
+
+.signup-bday select {
     background: white;
-    border: 1px solid #bdc7d8
+    border: 1px solid #bdc7d8;
+    height: 30px;
+    font-size: 13px;
+}
+
+.signup-gender span {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 5px 0 5px 4px;
+}
+
+.signup-gender label {
+    padding: 0 10px 0 3px;
+    font-size: 18px;
+}
+
+.signup-gender input {
+    margin: 3px;
+}
+
+.signup-btn {
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 7px 20px;
+    height: 39px;
+    width: 180px;
+    font-size: 19px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    text-shadow: 1px 0 rgb(61, 60, 60);
+    border: 1px solid black;
+    background: linear-gradient(#67ae55, #578843);
+    box-shadow: inset 0 1px 1px #a4e388;
+    border-color: #3b6e22 #3b6e22 #2c5115;
+}
+
+.signup-btn:hover {
+    background: linear-gradient(#76b467, #659452);
+    
 }

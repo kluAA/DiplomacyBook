@@ -1,4 +1,5 @@
 import React from 'react';
+import NavUserContainer from '../nav/nav_user_container';
 
 class FeedIndex extends React.Component {
     constructor(props) {
@@ -6,7 +7,12 @@ class FeedIndex extends React.Component {
     }
 
     render() {
-        return <div>Feed</div>
+        return (
+            <div>
+                <NavUserContainer />
+                Feed
+            </div>
+        )
     }
 }
 

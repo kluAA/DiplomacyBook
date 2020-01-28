@@ -14,7 +14,7 @@ class NavLogin extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.login(Object.assign({}, this.state))
-            .then(this.props.history.push("/"))
+           
     }
 
     render() {
