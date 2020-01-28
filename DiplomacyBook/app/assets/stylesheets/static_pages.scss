@@ -1,7 +1,7 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-html, body, textarea, button, input, label, div, hr, p, form, a {
+html, body, textarea, button, input, label, div, hr, p, form, a, h1 {
     vertical-align: baseline;
     margin: 0;
     padding: 0;
@@ -12,11 +12,13 @@ html, body, textarea, button, input, label, div, hr, p, form, a {
     text-decoration: none;
     color: inherit;
     resize: none;
+    // font-size: inherit;
+    // font-weight: inherit;
     
 }
 
 body {
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .nav-login {
@@ -53,6 +55,7 @@ body {
     height: 15px;
     margin: 5px 6px;
     padding: 3px 3px 4px;
+    font-size: 12px;
 }
 
 .nav-login input[type='submit'] {
@@ -70,4 +73,66 @@ body {
 
 .nav-login input[type='submit']:hover {
     background: #3f5c9a;
+}
+
+.signup-container {
+    width: 100%;
+    height: 622px;
+    background: #EDF0F5;
+    margin-top: 82px;
+}
+
+.signup-inner {
+    display: flex;
+    width: 980px;
+    height: 620px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.signup-info {
+    width: 565px;
+    height: 582px;
+}
+
+.signup-fields {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 582px;
+
+}
+
+.signup-fields form {
+    display:flex;
+    flex-direction: column;
+}
+
+.signup-fn, .signup-ln, .signup-email, .signup-password {
+    height: 23px;
+    padding: 8px 10px;
+    border: 1px solid #bdc7d8;
+    border-radius: 5px;
+    margin: 5px 0 5px 0;
+    background: white;
+    font-size: 18px;
+}
+
+.signup-fn, .signup-ln {
+    width: 172px;
+}
+
+.signup-ln {
+    margin-left: 10px;
+}
+
+.signup-form p {
+    color: #90949c;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.signup-bday {
+    background: white;
+    border: 1px solid #bdc7d8
 }

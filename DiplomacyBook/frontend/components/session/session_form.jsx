@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
 
 class SessionForm extends React.Component {
     constructor(props) {
@@ -16,7 +15,6 @@ class SessionForm extends React.Component {
         e.preventDefault();
         this.props.login(Object.assign({}, this.state))
             .then(this.props.history.push("/"))
-            // .then(()=> <Redirect to='/' />);
     }
 
     render() {

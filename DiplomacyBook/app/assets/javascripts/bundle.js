@@ -427,6 +427,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 var SignupForm =
 /*#__PURE__*/
@@ -439,15 +440,21 @@ function (_React$Component) {
     _classCallCheck(this, SignupForm);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SignupForm).call(this, props));
+    _this.date = new Date();
     _this.state = {
       first_name: "",
       last_name: "",
       email: "",
       password: "",
-      birthday: "",
+      month: MONTHS[_this.date.getMonth()],
+      day: _this.date.getUTCDate(),
+      year: _this.date.getFullYear() - 25,
       gender: ""
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.dateMonth = _this.dateMonth.bind(_assertThisInitialized(_this));
+    _this.dateDay = _this.dateDay.bind(_assertThisInitialized(_this));
+    _this.dateYear = _this.dateYear.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -464,43 +471,117 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      this.props.signup(Object.assign({}, this.state));
+      var _this$state = this.state,
+          month = _this$state.month,
+          day = _this$state.day,
+          year = _this$state.year;
+      var bday = "".concat(month, "-").concat(day, "-").concat(year);
+      var newState = Object.assign({}, this.state, {
+        birthday: bday
+      });
+      delete newState.month;
+      delete newState.day;
+      delete newState.year;
+      this.props.signup(Object.assign({}, newState));
+    }
+  }, {
+    key: "dateMonth",
+    value: function dateMonth() {
+      var index = this.date.getMonth();
+      var currentMonth = MONTHS[index];
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        defaultValue: currentMonth,
+        onChange: this.handleChange("month")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Month"), MONTHS.map(function (month, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: month
+        }, month);
+      }));
+    }
+  }, {
+    key: "dateDay",
+    value: function dateDay() {
+      var numDays = Array.from(Array(31)).map(function (day, i) {
+        return ++i;
+      });
+      var currentDay = this.date.getUTCDate();
+      var days = numDays.map(function (day, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: day
+        }, day);
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        defaultValue: currentDay,
+        onChange: this.handleChange("day")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Day"), days);
+    }
+  }, {
+    key: "dateYear",
+    value: function dateYear() {
+      var endYear = this.date.getFullYear();
+      var numYears = Array.from(Array(116)).map(function (year, i) {
+        return endYear - i++;
+      });
+      var years = numYears.map(function (year, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: year
+        }, year);
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        defaultValue: endYear - 25,
+        onChange: this.handleChange("year")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Year"), years);
     }
   }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sign-up-container"
+        className: "signup-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "signup-inner"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "signup-info"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "signup-fields"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Sign Up"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "It's quick and easy."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
-        className: "sign-up-form"
+        className: "signup-form"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sign-up-form-name"
+        className: "signup-form-name"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "signup-fn",
         type: "text",
         onChange: this.handleChange("first_name"),
         placeholder: "First name",
         value: this.state.first_name
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "signup-ln",
         type: "text",
         onChange: this.handleChange("last_name"),
         placeholder: "Last name",
         value: this.state.last_name
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "signup-email",
         type: "text",
         onChange: this.handleChange("email"),
         placeholder: "Email",
         value: this.state.email
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "signup-password",
         type: "password",
         onChange: this.handleChange("password"),
         placeholder: "New password",
         value: this.state.password
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Birthday", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "date",
-        onChange: this.handleChange("birthday"),
-        value: this.state.birthday
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Gender", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Birthday"), this.dateMonth(), this.dateDay(), this.dateYear()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gender"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
         onClick: this.handleChange("gender"),
         name: "gender",
@@ -513,7 +594,7 @@ function (_React$Component) {
       }), "Comrade"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Sign Up"
-      })));
+      })))));
     }
   }]);
 
@@ -754,9 +835,8 @@ var sessionReducer = function sessionReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      debugger;
       return Object.assign({}, state, {
-        id: Object.keys(action.user)[0]
+        id: action.user.id
       });
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
@@ -781,6 +861,8 @@ var sessionReducer = function sessionReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 var usersReducer = function usersReducer() {
@@ -790,7 +872,7 @@ var usersReducer = function usersReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      return Object.assign({}, state, action.user);
+      return Object.assign({}, state, _defineProperty({}, action.user.id, action.user));
 
     default:
       return state;
