@@ -27,6 +27,7 @@ class SignupForm extends React.Component {
         this.dateYear = this.dateYear.bind(this);
         
     }
+    //requireAttribute
 
     handleChange(field) {
         return (e) => {
@@ -99,11 +100,11 @@ class SignupForm extends React.Component {
                         <h2>It's quick and easy.</h2>
                         <form onSubmit={this.handleSubmit} className="signup-form">
                             <div className="signup-form-name">
-                                <input className="signup-fn" type="text" onChange={this.handleChange("first_name")} placeholder="First name" value={this.state.first_name}></input>
-                                <input className="signup-ln" type="text" onChange={this.handleChange("last_name")} placeholder ="Last name" value={this.state.last_name}></input>
+                                <input className="signup-fn" required type="text" onChange={this.handleChange("first_name")} placeholder="First name" value={this.state.first_name}></input>
+                                <input className="signup-ln" required type="text" onChange={this.handleChange("last_name")} placeholder ="Last name" value={this.state.last_name}></input>
                             </div>
-                            <input className="signup-email" type="text" onChange={this.handleChange("email")} placeholder="Email" value={this.state.email}></input>
-                            <input className="signup-password" type="password" onChange={this.handleChange("password")} placeholder="New password" value={this.state.password}></input>
+                            <input className="signup-email" required type="text" onChange={this.handleChange("email")} placeholder="Email" value={this.state.email}></input>
+                            <input className="signup-password" required type="password" onChange={this.handleChange("password")} placeholder="New password" value={this.state.password}></input>
                             <label className="signup-bday"><p>Birthday</p>
                                 {this.dateMonth()}
                                 {this.dateDay()}

@@ -22,6 +22,9 @@ body {
     overflow-y: scroll;
 }
 
+
+//nav for logging in
+
 .nav-login {
     background: #3f5c9a;
     height: 82px;
@@ -75,6 +78,8 @@ body {
 .nav-login input[type='submit']:hover {
     background: #3f5c9a;
 }
+
+//splash signup
 
 .signup-container {
     width: 100%;
@@ -194,4 +199,48 @@ body {
 .signup-btn:hover {
     background: linear-gradient(#76b467, #659452);
     
+}
+
+//user nav bar when logged in
+.nav-user {
+    background: #4267b2;
+    height: 42px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid #29487d;
+}
+
+.nav-user-container {
+    height: 100%;
+    width: 1012px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.fa-facebook-square {
+    font-size: 24px;
+    color: white;
+}
+
+.nav-search {
+    position: relative;
+}
+
+.nav-search input{
+    background: white;
+    height: 23px;
+    width: 393px;
+    border: 1px solid #3b5998;
+    border-radius: 3px;
+    padding-left: 5px;
+    font-size: 12px;
+}
+
+.fa-search {
+    color: #4b4f56;
+    position: absolute;
+    right: 5px;
+   
 }
