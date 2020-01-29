@@ -8,7 +8,7 @@ class NavUser extends React.Component {
         this.handleDropClose = this.handleDropClose.bind(this);
         this.state = { dropDownOpen: false }
     }
-//componentdidmount addeventlistener on doc itself
+
     handleClick(e) {
         e.preventDefault()
         this.props.logout();
@@ -37,7 +37,7 @@ class NavUser extends React.Component {
                 <hr className="menu-divider"></hr>
                 <li>Another Item Here</li>
                 <hr className="menu-divider"></hr>
-                <li onClick={this.handleClick}>Logout</li>
+                <li onClick={this.handleClick}>Log Out</li>
             </ul>
         </div>
         )

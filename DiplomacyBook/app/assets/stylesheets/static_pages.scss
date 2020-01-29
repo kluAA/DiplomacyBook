@@ -40,6 +40,34 @@ body {
     width: 980px;
     height: 78px;
     margin: 0 auto;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.nav-signup-btn {
+    cursor: pointer;
+    position: absolute;
+    width: 68px;
+    height: 32px;
+    left: 240px;
+    bottom: 8px;
+    color: white;
+    background: #42b72a;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.nav-signup-btn:hover {
+    background: #36a420;
 }
 
 .nav-login form {
@@ -202,6 +230,66 @@ body {
     
 }
 
+//login page
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 82px;
+    height: 450px;
+    background: #E9EBEE;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 288px;
+    width: 612px;
+    background: white;
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+}
+
+.login-form h1 {
+    font-size: 18px;
+    color: #1C1E21;
+    font-weight: 500;
+    padding: 18px 0;
+}
+
+.login-form input[type='text'], .login-form input[type='password'] {
+    height: 22px;
+    width: 284px;
+    background: white;
+    border: 1px solid #dddfe2;
+    padding: 5px 8px;
+    margin: 6px 0;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1D2129;
+   
+}
+
+.login-form input[type='submit'] {
+    height: 44px;
+    width: 302px;
+    background: #4267B2;
+    margin-top: 6px;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 3px;
+}
+
+.login-form input[type='submit']:hover {
+    background: #29487D;
+}
+
 //user nav bar when logged in
 .nav-user {
     background: #4267b2;
@@ -353,7 +441,6 @@ body {
     top: 4px;
     left: calc(50% + 250px);
     width: 200px;
-    // height: 150px;
     background: white;
     z-index: 11;
     padding: 5px 0;
