@@ -4,6 +4,9 @@ class NavUser extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDropDown = this.handleDropDown.bind(this);
+        this.handleDropClose = this.handleDropClose.bind(this);
+        this.state = { dropDownOpen: false }
     }
 //componentdidmount addeventlistener on doc itself
     handleClick(e) {
@@ -11,7 +14,34 @@ class NavUser extends React.Component {
         this.props.logout();
     }
 
+    handleDropDown(e) {
+        e.preventDefault();
+        this.setState({dropDownOpen: !this.state.dropDownOpen})
+    }
+
+    handleDropClose(e) {
+        e.preventDefault();
+        if (e.target.className !== "menu") {
+            this.setState({dropDownOpen: false})
+        }
+    }
     render() {
+     
+        const menu = (
+            <div onClick={this.handleDropClose} className="menu-modal">
+            <ul className="menu">
+                <i className="fas fa-caret-up"></i>
+                <li>First Item</li>
+                <hr className="menu-divider"></hr>
+                <li>Second Item</li>
+                <hr className="menu-divider"></hr>
+                <li>Another Item Here</li>
+                <hr className="menu-divider"></hr>
+                <li onClick={this.handleClick}>Logout</li>
+            </ul>
+        </div>
+        )
+
         return (
             <div className="nav-user">
                 <div className="nav-user-container">
@@ -45,8 +75,9 @@ class NavUser extends React.Component {
                         <i className="fas fa-bell"></i>
                     </div>
                     <div className="nav-separator"></div>
-                    <i className="fas fa-caret-down"></i>
-                    <button onClick={this.handleClick}>Logout</button>
+                    <i onClick={this.handleDropDown} className={this.state.dropDownOpen ? "fas fa-caret-down open" : "fas fa-caret-down"}>
+                    </i>
+                        {this.state.dropDownOpen && menu}
                 </div>
             </div>
         )

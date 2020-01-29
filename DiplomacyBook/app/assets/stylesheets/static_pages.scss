@@ -1,7 +1,7 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-html, body, textarea, button, input, label, div, hr, p, form, a, h1, h2, select {
+html, body, textarea, button, input, label, div, hr, p, form, a, h1, h2, ul, li, select {
     vertical-align: baseline;
     margin: 0;
     padding: 0;
@@ -13,9 +13,10 @@ html, body, textarea, button, input, label, div, hr, p, form, a, h1, h2, select 
     color: inherit;
     resize: none;
     outline: none;
+    list-style: none;
     // font-size: inherit;
     // font-weight: inherit;
-    
+    // -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -289,9 +290,6 @@ body {
 
 .nav-profile {
     margin-left: 36px;
-    // padding-right: 10px;
-    // padding-left: 2px;
-    // padding-bottom: 1px;
     padding: 0 10px 0 2px;
 }
 
@@ -329,5 +327,73 @@ body {
 
 .fa-bell {
     margin-right: 11px;
+}
+
+.fa-caret-down {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.open {
+    color: white;
+}
+
+.menu-modal {
+    position: fixed;
+    top: 42px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    z-index: 10;
+}
+
+.menu {
+    position: absolute;
+    top: 4px;
+    left: calc(50% + 250px);
+    width: 200px;
+    // height: 150px;
+    background: white;
+    z-index: 11;
+    padding: 5px 0;
+    border: 1px solid rgba(0, 0, 0, 0.247);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+}
+
+.fa-caret-up {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: -18px;
+    right: 10px;
+}
+
+.menu li {
+    cursor: pointer;
+    padding: 0 34px;
+    color: #1D2129;
+    font-size: 12px;
+    line-height: 22px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.menu li:hover {
+    background: #4267b2;
+}
+
+.menu-divider {
+    border-bottom: 1px solid #E9EBEE;
+    margin: 5px 7px 6px;
+    padding-top: 1px;
+}
+
+.feed-container {
+    position:fixed;
+    margin-top: 42px;
+    min-height: 100%;
+    min-width: 100%;
+    background: #E9EBEE;
+    z-index: -1;
 }
 

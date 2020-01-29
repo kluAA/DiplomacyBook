@@ -224,7 +224,9 @@ function (_React$Component) {
   _createClass(FeedIndex, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_nav_user_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), "Feed");
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "feed-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_nav_user_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null));
     }
   }]);
 
@@ -412,6 +414,11 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(NavUser).call(this, props));
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.handleDropDown = _this.handleDropDown.bind(_assertThisInitialized(_this));
+    _this.handleDropClose = _this.handleDropClose.bind(_assertThisInitialized(_this));
+    _this.state = {
+      dropDownOpen: false
+    };
     return _this;
   } //componentdidmount addeventlistener on doc itself
 
@@ -423,8 +430,43 @@ function (_React$Component) {
       this.props.logout();
     }
   }, {
+    key: "handleDropDown",
+    value: function handleDropDown(e) {
+      e.preventDefault();
+      this.setState({
+        dropDownOpen: !this.state.dropDownOpen
+      });
+    }
+  }, {
+    key: "handleDropClose",
+    value: function handleDropClose(e) {
+      e.preventDefault();
+
+      if (e.target.className !== "menu") {
+        this.setState({
+          dropDownOpen: false
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.handleDropClose,
+        className: "menu-modal"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "menu"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-caret-up"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "First Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "menu-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Second Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "menu-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Another Item Here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "menu-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: this.handleClick
+      }, "Logout")));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "nav-user"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -477,10 +519,9 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "nav-separator"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-caret-down"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.handleClick
-      }, "Logout")));
+        onClick: this.handleDropDown,
+        className: this.state.dropDownOpen ? "fas fa-caret-down open" : "fas fa-caret-down"
+      }), this.state.dropDownOpen && menu));
     }
   }]);
 
