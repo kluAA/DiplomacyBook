@@ -9,6 +9,9 @@
     <%= javascript_include_tag 'application' %>
     <script src="https://kit.fontawesome.com/f391d4e959.js" crossorigin="anonymous"></script>
   </head>
+  <script type="text/javascript">
+    window.defaultProfileURL = "<%= image_url('default_profile.jpg') %>";
+  </script>
 
   <body>
     <%= yield %>

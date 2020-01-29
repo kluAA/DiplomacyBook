@@ -220,7 +220,7 @@ body {
 }
 
 .fa-facebook-square {
-    font-size: 24px;
+    font-size: 28px;
     color: white;
 }
 
@@ -230,23 +230,104 @@ body {
 
 .nav-search input{
     background: white;
-    height: 23px;
+    height: 24px;
     width: 393px;
     border: 1px solid #3b5998;
     border-radius: 3px;
     padding-left: 5px;
-    font-size: 12px;
+    padding-right: 48px;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.nav-search-btn {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-radius: 0 3px 3px 0;
+    color: #4b4f56;
+    background: #f5f6f7;
+    text-align: center;
+    border: 1px solid #3b5998;
+    border-left: none;
+    width: 46px;
+}
+
+.nav-search-btn:hover {
+    background: #eef0f3;
 }
 
 .fa-search {
-    background: #f5f6f7;
-    color: #4b4f56;
-    position: absolute;
     font-size: 16px;
-    font-weight: 100;
-    padding: 0 16px;
-    right: 5px;
-    top: 5px;
-
-   
+    padding: 4px 0;
+    text-align:center;
 }
+
+.nav-profile img {
+    max-width: 24px;
+    max-height: 24px;
+    border-radius: 50%;
+}
+
+.nav-user section {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 28px;
+}
+
+.nav-user section:hover {
+    background: #3B5DA1;
+}
+
+.nav-user span {
+    color: white;
+    font-size: 12px;
+    font-weight: 550;
+}
+
+.nav-profile {
+    margin-left: 36px;
+    // padding-right: 10px;
+    // padding-left: 2px;
+    // padding-bottom: 1px;
+    padding: 0 10px 0 2px;
+}
+
+.nav-profile-fn {
+    margin-left: 5px;
+}
+
+.nav-separator {
+    height: 18px;
+    border-right: 1px solid #3B5DA1;
+}
+
+.nav-home, .nav-find-friends, .nav-create {
+    padding: 0 12px;
+}
+
+.nav-alerts i {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 20px;
+    color: rgb(25, 37, 71);
+}
+
+.nav-alerts i:hover {
+    color: black;
+}
+
+.fa-user-friends {
+    margin-left: 11px;
+}
+
+.fa-facebook-messenger {
+    margin: 0 15px;
+}
+
+.fa-bell {
+    margin-right: 11px;
+}
+
