@@ -52,7 +52,7 @@ class NavUser extends React.Component {
                         <input type="text" placeholder="Search"></input>
                         <button className="nav-search-btn"><i className="fas fa-search"></i></button>
                     </div>
-                    <Link to='/profile'><section className="nav-profile">
+                    <Link to={`/profile/${this.props.currentUser.id}`}><section className="nav-profile">
                         <img src={window.defaultProfileURL} />
                         <span className="nav-profile-fn">{this.props.currentUser.first_name}</span>
                     </section></Link>
