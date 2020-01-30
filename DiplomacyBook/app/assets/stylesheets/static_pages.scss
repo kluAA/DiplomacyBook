@@ -484,3 +484,82 @@ body {
     z-index: -1;
 }
 
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 981px;
+}
+
+.profile-cover {
+    min-height: 205px;
+    width: 851px;
+    background: #1b1e21;
+    position: relative;
+}
+
+.profile-photo-container {
+    position: absolute;
+    height: 166px;
+    width: 166px;
+    left: 15px;
+    bottom: -25px;
+    background: white;
+    border: 1px solid #dedede;
+    border-radius: 50%;
+}
+
+.profile-photo {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    height: 158px;
+    width: 158px;
+    border-radius: 50%;
+    
+}
+
+.profile-fn {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    text-transform: capitalize;
+    bottom: 15px;
+    left: 200px;
+}
+
+.profile-nav {
+    width: 648px;
+    height: 42px;
+    padding-left: 201px;
+    background: white;
+    border: 1px solid #d3d6db;
+    border-top: none;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+
+.profile-nav li {
+    height: 100%;
+    border-left: 1px solid #d3d6db;
+    display: flex;
+    align-items: center;
+    color: #385898;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.profile-nav li a {
+    padding: 12px 20px;
+}
+
+.profile-nav li:last-child {
+    border-right: 1px solid #d3d6db;
+}
+
+.profile-nav li:hover {
+    background: #f5f6f7;
+}
