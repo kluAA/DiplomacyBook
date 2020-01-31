@@ -419,6 +419,7 @@ body {
 
 .fa-caret-down {
     margin-left: 5px;
+    color: rgb(25, 37, 71);
     cursor: pointer;
 }
 
@@ -489,6 +490,8 @@ body {
     flex-direction: column;
     margin: 0 auto;
     width: 981px;
+    position: relative;
+    z-index: -1;
 }
 
 .profile-cover {
@@ -496,6 +499,7 @@ body {
     width: 851px;
     background: #1b1e21;
     position: relative;
+    z-index: -1;
 }
 
 .profile-photo-container {
@@ -526,6 +530,29 @@ body {
     text-transform: capitalize;
     bottom: 15px;
     left: 200px;
+}
+
+.profile-add-friend {
+    cursor: pointer;
+    position: absolute;
+    height:28px;
+    right: 25px;
+    bottom: 15px;
+    background: #f5f6f7;
+    padding: 0 10px;
+    color: #4b4f56;
+    border: 1px solid black;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.profile-add-friend:hover {
+    background: #dddfe2;
+}
+
+.fa-user-plus {
+    margin: 0 4px;
 }
 
 .profile-nav {

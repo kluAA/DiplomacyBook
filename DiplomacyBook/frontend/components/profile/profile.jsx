@@ -14,15 +14,18 @@ class Profile extends React.Component {
     componentDidUpdate(prevProps) {
    
         if (this.props.match.params.userId !== prevProps.match.params.userId) {
-         
             this.props.fetchUser(this.props.match.params.userId);
         }
     }
 
     render() {
         if (!this.props.user) return null
+
+        const addFriendBtn = <button className="profile-add-friend"><i className="fas fa-user-plus"></i>Add Friend</button>
+
         const userId = this.props.match.params.userId
         const user = this.props.user;
+        const photoUrl = user.photoUrl ? user.photoUrl : window.defaultProfileURL;
         return (
             <div className="bg-container">
                 <NavUserContainer />
@@ -30,8 +33,9 @@ class Profile extends React.Component {
                     <div className="profile-cover">
                         <span className="profile-fn">{`${user.first_name} ${user.last_name}`}</span>
                         <div className="profile-photo-container">
-                            <img className="profile-photo" src={window.defaultProfileURL}></img>
+                            <img className="profile-photo" src={photoUrl}></img>
                         </div>
+                        {this.props.currentUserId !== this.props.user.id && addFriendBtn}
                     </div>
                     <ul className="profile-nav">
                         <li>
@@ -51,6 +55,7 @@ class Profile extends React.Component {
                         </li>
                     </ul>
                 </div>
+                
             </div>
         )
     }

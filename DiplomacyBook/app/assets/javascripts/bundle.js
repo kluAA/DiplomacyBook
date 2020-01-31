@@ -696,8 +696,14 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       if (!this.props.user) return null;
+      var addFriendBtn = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "profile-add-friend"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-user-plus"
+      }), "Add Friend");
       var userId = this.props.match.params.userId;
       var user = this.props.user;
+      var photoUrl = user.photoUrl ? user.photoUrl : window.defaultProfileURL;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "bg-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_nav_user_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -710,8 +716,8 @@ function (_React$Component) {
         className: "profile-photo-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-photo",
-        src: window.defaultProfileURL
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        src: photoUrl
+      })), this.props.currentUserId !== this.props.user.id && addFriendBtn), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "profile-nav"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(userId)
@@ -752,7 +758,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    user: state.entities.users[ownProps.match.params.userId]
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUserId: state.session.id
   };
 };
 

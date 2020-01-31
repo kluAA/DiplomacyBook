@@ -3,9 +3,26 @@ class User < ApplicationRecord
         :password_digest, :session_token, presence: true
     validates :email, :password_digest, :session_token, uniqueness: true
     validates :password, length: {minimum: 6}, allow_nil: true
+    has_one_attached :photo
+    has_one_attached :cover
+  
 
     attr_reader :password
     after_initialize :ensure_session_token
+
+
+    def ensure_photo
+        unless self.photo.attached?
+            errors[:photo] << "must be attached"
+        end
+    end
+
+    def ensure_cover
+        unless self.cover.attached?
+            errors[:cover] << "must be attached"
+        end
+    end
+
 
     def self.generate_session_token
         SecureRandom.urlsafe_base64

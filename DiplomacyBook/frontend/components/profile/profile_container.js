@@ -3,7 +3,8 @@ import Profile from './profile';
 import { fetchUser } from '../../actions/user_actions';
 
 const mapStateToProps = (state, ownProps) => ({
-    user: state.entities.users[ownProps.match.params.userId]
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUserId: state.session.id,
 })
 
 const mapDispatchToProps = (dispatch) => ({
