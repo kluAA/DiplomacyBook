@@ -19,15 +19,29 @@ class SignupForm extends React.Component {
             month: MONTHS[this.date.getMonth()],
             day: this.date.getUTCDate(),
             year: this.date.getFullYear()-25,
-            gender: ""
+            gender: "", 
+            touched_first_name: false,
+            touched_last_name: false,
+            touched_email: false,
+            touched_password: false,
+            errors_first_name: false,
+            errors_last_name: false,
+            errors_email: false,
+            errors_password: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.dateMonth = this.dateMonth.bind(this);
         this.dateDay = this.dateDay.bind(this);
-        this.dateYear = this.dateYear.bind(this);
-        
+        this.dateYear = this.dateYear.bind(this);  
+        this.handleCN = this.handleCN.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
+        this.errorMsg = this.errorMsg.bind(this);
+
+
     }
-    //requireAttribute
+    
+   
 
     handleChange(field) {
         return (e) => {
@@ -40,12 +54,22 @@ class SignupForm extends React.Component {
         const { month, day, year } = this.state; 
         const bday = `${month}-${day}-${year}`;
         const newState = Object.assign({}, this.state, { birthday: bday });
-        delete newState.month;
-        delete newState.day;
-        delete newState.year;
-        this.props.signup(Object.assign({}, newState));
+        // delete newState.month;
+        // delete newState.day;
+        // delete newState.year;
+        this.props.signup(Object.assign({}, newState))
+            .fail(() => this.setErrors());
     }
 
+    setErrors() {
+        const errors = Object.keys(this.props.errors);
+        let newState = {};
+        errors.forEach(error => {
+            let errorKey = `errors_${error}`
+            newState[errorKey] = true;
+        })
+        this.setState(newState);
+    }
 
     dateMonth() {
 
@@ -88,23 +112,100 @@ class SignupForm extends React.Component {
             );
     }
 
+
+    handleFocus(field) {
+        let touched = `touched_${field}`;
+        return e => {
+            this.state.errors_first_name ? this.setState({[touched]: true}) : null
+        }
+    }
+
+    handleBlur(field) {
+        let error = `errors_${field}`
+        let touched = `touched_${field}`;
+        return e => {
+            // debugger
+            (this.state[error] && e.target.value === "") ? this.setState({[touched]: false}) : this.setState({[error]: false});
+        }
+    }
+
+
+    handleCN(name, cn) {
+            let stateName = `touched_${name}`;
+            if (this.props.errors[name] && this.state[stateName]) {
+                return `${cn}`;
+            } else if (this.props.errors[name]) {
+                return `${cn} error`;
+            } else {
+                return `${cn}`;
+            }
+    }
+
+    errorMsg(field) {
+        let msg = this.props.errors[field];
+        return (
+            <div className={`error-msg error-${field}`}>
+                {msg}
+                <div className={`error-arrow error-arrow-${field}`}></div>
+            </div>
+        )
+    }
+
+    //if there are errors then all errored fields are turned red
+    //if we click on the individual error, .error is removed
+    //
+
     render() {
+        
+        const errors = {
+            name: "What's your name?",
+            email: "Please enter a valid mobile number or email address.",
+            password: "Enter a combination of at least six numbers, letters and punctuation marks (like ! and &)",
+            gender: "Please choose a gender. You can switch sides later."
+        }
+        const errorIcon = <span className="error-icon"><i className="fas fa-exclamation-circle"></i></span>
         return (
             <div className="signup-container">
                 <div className="signup-inner">
                     <div className="signup-info">
-
                     </div>
                     <div className="signup-fields">
                         <h1>Sign Up</h1>
                         <h2>It's quick and easy.</h2>
                         <form onSubmit={this.handleSubmit} className="signup-form">
                             <div className="signup-form-name">
-                                <input className="signup-fn" required type="text" onChange={this.handleChange("first_name")} placeholder="First name" value={this.state.first_name}></input>
-                                <input className="signup-ln" required type="text" onChange={this.handleChange("last_name")} placeholder ="Last name" value={this.state.last_name}></input>
+                                <span className="error-container">
+                                    <input className={this.handleCN("first_name", "signup-fn")} type="text" 
+                                        onChange={this.handleChange("first_name")}
+                                        placeholder="First name" 
+                                        onFocus={this.handleFocus("first_name")} 
+                                        onBlur={this.handleBlur("first_name")}
+                                        value={this.state.first_name}>   
+                                    </input>
+                                   {this.state.errors_first_name && !this.state.touched_first_name && errorIcon}
+                                   {this.state.errors_first_name && this.state.touched_first_name && this.errorMsg("first_name")}
+                                </span>
+                                <span className="error-container">
+                                    <input className={this.handleCN("first_name", "signup-ln")} type="text" 
+                                        onChange={this.handleChange("last_name")} 
+                                        placeholder ="Last name" 
+                                        onFocus={this.handleFocus("last_name")}
+                                        onBlur={this.handleBlur("last_name")}
+                                        value={this.state.last_name}></input>
+                                    {this.state.errors_last_name && !this.state.touched_last_name && errorIcon}
+                                    {this.state.errors_last_name && this.state.touched_last_name && this.errorMsg("last_name")}
+                                    </span>
                             </div>
-                            <input className="signup-email" required type="text" onChange={this.handleChange("email")} placeholder="Email" value={this.state.email}></input>
-                            <input className="signup-password" required type="password" onChange={this.handleChange("password")} placeholder="New password" value={this.state.password}></input>
+                            <input className="signup-email" type="text" 
+                                onChange={this.handleChange("email")} 
+                                placeholder="Email" 
+                                value={this.state.email}>
+                            </input>
+                            <input className="signup-password" type="password" 
+                                    onChange={this.handleChange("password")} 
+                                    placeholder="New password" 
+                                    value={this.state.password}>
+                                </input>
                             <label className="signup-bday"><p>Birthday</p>
                                 {this.dateMonth()}
                                 {this.dateDay()}

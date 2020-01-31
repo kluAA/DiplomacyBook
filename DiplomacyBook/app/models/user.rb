@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-    validates :email, :first_name, :last_name, :birthday, :gender, 
+    validates :first_name, :last_name, presence: { message: "What's your name?" }
+    validates :email, :birthday, :gender, 
         :password_digest, :session_token, presence: true
     validates :email, :password_digest, :session_token, uniqueness: true
     validates :password, length: {minimum: 6}, allow_nil: true

@@ -1,0 +1,1 @@
+json.extract! @errors, :email, :first_name, :last_name, :birthday, :gender, :password

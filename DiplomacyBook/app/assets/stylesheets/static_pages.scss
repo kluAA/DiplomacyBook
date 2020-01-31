@@ -230,6 +230,70 @@ body {
     
 }
 
+//error handling
+
+.error {
+    border-color: red;
+}
+
+.error-container {
+    position: relative;
+}
+
+.error-icon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.fa-exclamation-circle {
+    color: #b94a48;
+}
+
+.error-msg {
+    position: absolute;
+    background: #be4b49;
+    color: white;
+    padding: 13px;
+    font-size: 13px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(139, 3, 0, .75), 0 1px 10px rgba(0, 0, 0, .35);
+
+}
+
+.error-arrow {
+    position: absolute;
+    width: 0; 
+    height: 0; 
+
+}
+
+.error-arrow-first_name {
+    right: -10px;
+    top: 12px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #be4b49;
+}
+
+.error-first_name {
+    left: -160px;
+    bottom: -10px;
+}
+
+.error-arrow-last_name {
+    top: -10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #be4b49;
+
+}
+
+.error-last_name {
+    left: 10px;
+    bottom: -70px;
+}
+
 //login page
 
 .login-container {
