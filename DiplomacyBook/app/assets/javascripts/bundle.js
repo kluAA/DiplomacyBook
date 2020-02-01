@@ -837,7 +837,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {};
+  return {
+    error: Object.values(state.errors.session)[0]
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -900,13 +902,28 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LoginForm).call(this, props));
     _this.state = {
       email: "",
-      password: ""
+      password: "",
+      touched: false,
+      error: Boolean(_this.props.error)
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.demo = _this.demo.bind(_assertThisInitialized(_this));
+    _this.handleCN = _this.handleCN.bind(_assertThisInitialized(_this));
+    _this.handleBlur = _this.handleBlur.bind(_assertThisInitialized(_this));
+    _this.handleFocus = _this.handleFocus.bind(_assertThisInitialized(_this));
+    _this.errorMsg = _this.errorMsg.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(LoginForm, [{
+    key: "setErrors",
+    value: function setErrors() {
+      this.setState({
+        touched: false,
+        error: true
+      });
+    }
+  }, {
     key: "handleChange",
     value: function handleChange(field) {
       var _this2 = this;
@@ -918,31 +935,101 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this3 = this;
+
       e.preventDefault();
-      this.props.login(Object.assign({}, this.state));
+      this.props.login(Object.assign({}, this.state)).fail(function () {
+        return _this3.setErrors();
+      });
+    }
+  }, {
+    key: "handleFocus",
+    value: function handleFocus(e) {
+      return this.state.error ? this.setState({
+        touched: true
+      }) : null;
+    }
+  }, {
+    key: "handleCN",
+    value: function handleCN(cn) {
+      if (this.state.error && this.state.touched) {
+        return "".concat(cn);
+      } else if (this.state.error) {
+        return "".concat(cn, " error");
+      } else {
+        return "".concat(cn);
+      }
+    }
+  }, {
+    key: "errorMsg",
+    value: function errorMsg(field) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "error-msg error-".concat(field)
+      }, this.props.error, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "error-arrow error-arrow-".concat(field)
+      }));
+    }
+  }, {
+    key: "handleBlur",
+    value: function handleBlur(e) {
+      this.state.error && e.target.value === "" ? this.setState({
+        touched: false
+      }) : this.setState({
+        error: false
+      });
+    }
+  }, {
+    key: "demo",
+    value: function demo(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      this.setState({
+        email: "potato@potato.com",
+        password: "potato"
+      }, function () {
+        return setTimeout(function () {
+          return _this4.props.login(_this4.state);
+        }, 500);
+      });
     }
   }, {
     key: "render",
     value: function render() {
+      var errorIcon = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "error-icon2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-exclamation-circle"
+      }));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_nav_login_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "login-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "login-form",
         onSubmit: this.handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Log Into Diplomacybook"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Log Into Diplomacybook"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "error-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: this.handleCN("email", ""),
         type: "text",
         onChange: this.handleChange("email"),
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur,
+        autoFocus: true,
         value: this.state.email,
         placeholder: "Email"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), this.state.error && !this.state.touched && errorIcon, this.state.error && this.state.touched && this.errorMsg("login-email")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "error-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         onChange: this.handleChange("password"),
         value: this.state.password,
         placeholder: "Password"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Log In"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null)));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.demo
+      }, "Demo Login")));
     }
   }]);
 

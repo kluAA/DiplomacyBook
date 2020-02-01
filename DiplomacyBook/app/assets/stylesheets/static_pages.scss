@@ -235,7 +235,7 @@ body {
 }
 
 .signup-gender-field {
-   border-radius: 5px;
+    border-radius: 5px;
 }
 
 
@@ -243,7 +243,7 @@ body {
 //error handling
 
 .error {
-    border: 1px solid red;
+    border: 1px solid red !important;
 }
 
 .error-container {
@@ -335,6 +335,21 @@ body {
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
     border-left: 10px solid #be4b49;
+}
+
+.error-login-email {
+    top: 20px;
+    right: -255px;
+    width: 210px;
+    text-align: center;
+}
+
+.error-arrow-login-email {
+    left: -10px;
+    top: 20px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #be4b49;
 }
 
 //login page

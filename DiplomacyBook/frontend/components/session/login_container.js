@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 
 
 const mapStateToProps = state => ({
+    error: Object.values(state.errors.session)[0]
 
 })
 
