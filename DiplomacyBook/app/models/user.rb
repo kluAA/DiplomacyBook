@@ -1,9 +1,10 @@
 class User < ApplicationRecord
-    validates :first_name, :last_name, presence: { message: "What's your name?" }
-    validates :email, :birthday, :gender, 
-        :password_digest, :session_token, presence: true
+    validates :first_name, presence: { message: "What's your name?" }
+    validates :last_name, presence: {message: "Don't be shy."}
+    validates :birthday, :gender, :password_digest, :session_token, presence: true
     validates :email, :password_digest, :session_token, uniqueness: true
-    validates :password, length: {minimum: 6}, allow_nil: true
+    validates :email, format: {with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "Please enter a valid email." }
+    validates :password, length: {minimum: 6, message: "Password is too short, minimum is 6 characters."}, allow_nil: true
     has_one_attached :photo
     has_one_attached :cover
   

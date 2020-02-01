@@ -942,7 +942,7 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Log In"
-      }))));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null)));
     }
   }]);
 
@@ -1012,10 +1012,12 @@ function (_React$Component) {
       touched_last_name: false,
       touched_email: false,
       touched_password: false,
+      touched_gender: false,
       errors_first_name: false,
       errors_last_name: false,
       errors_email: false,
-      errors_password: false
+      errors_password: false,
+      errors_gender: false
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.dateMonth = _this.dateMonth.bind(_assertThisInitialized(_this));
@@ -1024,6 +1026,7 @@ function (_React$Component) {
     _this.handleCN = _this.handleCN.bind(_assertThisInitialized(_this));
     _this.handleBlur = _this.handleBlur.bind(_assertThisInitialized(_this));
     _this.handleFocus = _this.handleFocus.bind(_assertThisInitialized(_this));
+    _this.handleGender = _this.handleGender.bind(_assertThisInitialized(_this));
     _this.errorMsg = _this.errorMsg.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -1065,7 +1068,9 @@ function (_React$Component) {
       var newState = {};
       errors.forEach(function (error) {
         var errorKey = "errors_".concat(error);
+        var touchedError = "touched_".concat(error);
         newState[errorKey] = true;
+        newState[touchedError] = false;
       });
       this.setState(newState);
     }
@@ -1131,9 +1136,10 @@ function (_React$Component) {
     value: function handleFocus(field) {
       var _this4 = this;
 
+      var error = "errors_".concat(field);
       var touched = "touched_".concat(field);
       return function (e) {
-        _this4.state.errors_first_name ? _this4.setState(_defineProperty({}, touched, true)) : null;
+        _this4.state[error] ? _this4.setState(_defineProperty({}, touched, true)) : null;
       };
     }
   }, {
@@ -1149,13 +1155,22 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "handleGender",
+    value: function handleGender(e) {
+      this.setState({
+        errors_gender: false,
+        touched_gender: false
+      });
+    }
+  }, {
     key: "handleCN",
-    value: function handleCN(name, cn) {
-      var stateName = "touched_".concat(name);
+    value: function handleCN(field, cn) {
+      var error = "errors_".concat(field);
+      var touched = "touched_".concat(field);
 
-      if (this.props.errors[name] && this.state[stateName]) {
+      if (this.state[error] && this.state[touched]) {
         return "".concat(cn);
-      } else if (this.props.errors[name]) {
+      } else if (this.state[error]) {
         return "".concat(cn, " error");
       } else {
         return "".concat(cn);
@@ -1177,6 +1192,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _React$createElement, _React$createElement2;
+
       var errors = {
         name: "What's your name?",
         email: "Please enter a valid mobile number or email address.",
@@ -1185,6 +1202,16 @@ function (_React$Component) {
       };
       var errorIcon = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "error-icon"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-exclamation-circle"
+      }));
+      var errorIcon2 = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "error-icon2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-exclamation-circle"
+      }));
+      var errorIcon3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "error-icon3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-exclamation-circle"
       }));
@@ -1214,54 +1241,63 @@ function (_React$Component) {
       }), this.state.errors_first_name && !this.state.touched_first_name && errorIcon, this.state.errors_first_name && this.state.touched_first_name && this.errorMsg("first_name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "error-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: this.handleCN("first_name", "signup-ln"),
+        className: this.handleCN("last_name", "signup-ln"),
         type: "text",
         onChange: this.handleChange("last_name"),
         placeholder: "Last name",
         onFocus: this.handleFocus("last_name"),
         onBlur: this.handleBlur("last_name"),
         value: this.state.last_name
-      }), this.state.errors_last_name && !this.state.touched_last_name && errorIcon, this.state.errors_last_name && this.state.touched_last_name && this.errorMsg("last_name"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "signup-email",
+      }), this.state.errors_last_name && !this.state.touched_last_name && errorIcon, this.state.errors_last_name && this.state.touched_last_name && this.errorMsg("last_name"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "error-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: this.handleCN("email", "signup-email"),
         type: "text",
         onChange: this.handleChange("email"),
+        onFocus: this.handleFocus("email"),
+        onBlur: this.handleBlur("email"),
         placeholder: "Email",
         value: this.state.email
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "signup-password",
+      }), this.state.errors_email && !this.state.touched_email && errorIcon2, this.state.errors_email && this.state.touched_email && this.errorMsg("email")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "error-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: this.handleCN("password", "signup-password"),
         type: "password",
         onChange: this.handleChange("password"),
+        onFocus: this.handleFocus("password"),
+        onBlur: this.handleBlur("password"),
         placeholder: "New password",
         value: this.state.password
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }), this.state.errors_password && !this.state.touched_password && errorIcon2, this.state.errors_password && this.state.touched_password && this.errorMsg("password")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "signup-bday"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Birthday"), this.dateMonth(), this.dateDay(), this.dateYear()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signup-gender"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gender"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Gender"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: this.handleCN("gender", "signup-gender-field")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
         onClick: this.handleChange("gender"),
+        onFocus: this.handleGender,
         id: "ally",
         name: "gender",
         value: "ally"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "ally"
-      }, "Ally")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Ally")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: this.handleCN("gender", "signup-gender-field")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", (_React$createElement = {
         type: "radio",
-        onClick: this.handleChange("gender"),
-        id: "comrade",
-        name: "gender",
-        value: "comrade"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        onClick: this.handleChange("gender")
+      }, _defineProperty(_React$createElement, "onClick", this.handleGender), _defineProperty(_React$createElement, "id", "comrade"), _defineProperty(_React$createElement, "name", "gender"), _defineProperty(_React$createElement, "value", "comrade"), _React$createElement)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comrade"
-      }, "Comrade")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Comrade")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: this.handleCN("gender", "signup-gender-field")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", (_React$createElement2 = {
         type: "radio",
-        onClick: this.handleChange("gender"),
-        id: "other",
-        name: "gender",
-        value: "other"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        onClick: this.handleChange("gender")
+      }, _defineProperty(_React$createElement2, "onClick", this.handleGender), _defineProperty(_React$createElement2, "id", "other"), _defineProperty(_React$createElement2, "name", "gender"), _defineProperty(_React$createElement2, "value", "other"), _React$createElement2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "other"
-      }, "Other"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Other")), this.state.errors_gender && !this.state.touched_gender && errorIcon3, this.state.errors_gender && this.state.touched_gender && this.errorMsg("gender")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         className: "signup-btn",
         value: "Sign Up"

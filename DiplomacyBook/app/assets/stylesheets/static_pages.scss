@@ -182,6 +182,10 @@ body {
     margin: 10px 0 5px;
 }
 
+.signup-email, .signup-password {
+    width: 378px;
+}
+
 .signup-bday {
     margin-top: 8px;
 }
@@ -230,10 +234,16 @@ body {
     
 }
 
+.signup-gender-field {
+   border-radius: 5px;
+}
+
+
+
 //error handling
 
 .error {
-    border-color: red;
+    border: 1px solid red;
 }
 
 .error-container {
@@ -246,12 +256,19 @@ body {
     right: 10px;
 }
 
+.error-icon2 {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
+
 .fa-exclamation-circle {
     color: #b94a48;
 }
 
 .error-msg {
     position: absolute;
+    z-index: 5;
     background: #be4b49;
     color: white;
     padding: 13px;
@@ -268,6 +285,11 @@ body {
 
 }
 
+.error-first_name {
+    left: -160px;
+    bottom: -10px;
+}
+
 .error-arrow-first_name {
     right: -10px;
     top: 12px;
@@ -276,9 +298,9 @@ body {
     border-left: 10px solid #be4b49;
 }
 
-.error-first_name {
-    left: -160px;
-    bottom: -10px;
+.error-last_name {
+    left: 10px;
+    bottom: -70px;
 }
 
 .error-arrow-last_name {
@@ -289,9 +311,30 @@ body {
 
 }
 
-.error-last_name {
-    left: 10px;
-    bottom: -70px;
+.error-email {
+    left: -200px;
+    bottom: 5px;
+}
+
+.error-arrow-email {
+    right: -10px;
+    top: 10px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #be4b49;
+}
+
+.error-password {
+    left: -335px;
+    bottom: 5px;
+}
+
+.error-arrow-password {
+    right: -10px;
+    top: 10px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #be4b49;
 }
 
 //login page

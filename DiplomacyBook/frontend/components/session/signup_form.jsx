@@ -24,10 +24,12 @@ class SignupForm extends React.Component {
             touched_last_name: false,
             touched_email: false,
             touched_password: false,
+            touched_gender: false,
             errors_first_name: false,
             errors_last_name: false,
             errors_email: false,
             errors_password: false,
+            errors_gender: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.dateMonth = this.dateMonth.bind(this);
@@ -36,6 +38,7 @@ class SignupForm extends React.Component {
         this.handleCN = this.handleCN.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
+        this.handleGender = this.handleGender.bind(this);
         this.errorMsg = this.errorMsg.bind(this);
 
 
@@ -66,7 +69,9 @@ class SignupForm extends React.Component {
         let newState = {};
         errors.forEach(error => {
             let errorKey = `errors_${error}`
+            let touchedError = `touched_${error}`
             newState[errorKey] = true;
+            newState[touchedError] = false;
         })
         this.setState(newState);
     }
@@ -114,9 +119,10 @@ class SignupForm extends React.Component {
 
 
     handleFocus(field) {
+        let error = `errors_${field}`
         let touched = `touched_${field}`;
         return e => {
-            this.state.errors_first_name ? this.setState({[touched]: true}) : null
+            this.state[error] ? this.setState({[touched]: true}) : null
         }
     }
 
@@ -129,12 +135,17 @@ class SignupForm extends React.Component {
         }
     }
 
+    handleGender(e) {
+        this.setState({errors_gender: false, touched_gender: false})
+    }
 
-    handleCN(name, cn) {
-            let stateName = `touched_${name}`;
-            if (this.props.errors[name] && this.state[stateName]) {
+
+    handleCN(field, cn) {
+            let error = `errors_${field}`
+            let touched = `touched_${field}`;
+            if (this.state[error] && this.state[touched]) {
                 return `${cn}`;
-            } else if (this.props.errors[name]) {
+            } else if (this.state[error]) {
                 return `${cn} error`;
             } else {
                 return `${cn}`;
@@ -164,6 +175,8 @@ class SignupForm extends React.Component {
             gender: "Please choose a gender. You can switch sides later."
         }
         const errorIcon = <span className="error-icon"><i className="fas fa-exclamation-circle"></i></span>
+        const errorIcon2 = <span className="error-icon2"><i className="fas fa-exclamation-circle"></i></span>
+        const errorIcon3 = <span className="error-icon3" ><i className="fas fa-exclamation-circle"></i></span>
         return (
             <div className="signup-container">
                 <div className="signup-inner">
@@ -186,7 +199,7 @@ class SignupForm extends React.Component {
                                    {this.state.errors_first_name && this.state.touched_first_name && this.errorMsg("first_name")}
                                 </span>
                                 <span className="error-container">
-                                    <input className={this.handleCN("first_name", "signup-ln")} type="text" 
+                                    <input className={this.handleCN("last_name", "signup-ln")} type="text" 
                                         onChange={this.handleChange("last_name")} 
                                         placeholder ="Last name" 
                                         onFocus={this.handleFocus("last_name")}
@@ -196,34 +209,57 @@ class SignupForm extends React.Component {
                                     {this.state.errors_last_name && this.state.touched_last_name && this.errorMsg("last_name")}
                                     </span>
                             </div>
-                            <input className="signup-email" type="text" 
-                                onChange={this.handleChange("email")} 
-                                placeholder="Email" 
-                                value={this.state.email}>
-                            </input>
-                            <input className="signup-password" type="password" 
-                                    onChange={this.handleChange("password")} 
-                                    placeholder="New password" 
-                                    value={this.state.password}>
+                            <span className="error-container">
+                                <input className={this.handleCN("email", "signup-email")} type="text" 
+                                    onChange={this.handleChange("email")}
+                                    onFocus={this.handleFocus("email")}
+                                    onBlur={this.handleBlur("email")}
+                                    placeholder="Email"
+                                    value={this.state.email}>
                                 </input>
+                                {this.state.errors_email && !this.state.touched_email && errorIcon2}
+                                {this.state.errors_email && this.state.touched_email && this.errorMsg("email")}
+                            </span>
+                            <span className="error-container">
+                                <input className={this.handleCN("password", "signup-password")} type="password" 
+                                        onChange={this.handleChange("password")} 
+                                        onFocus={this.handleFocus("password")}
+                                        onBlur={this.handleBlur("password")}
+                                        placeholder="New password" 
+                                        value={this.state.password}>
+                                </input>
+                                {this.state.errors_password && !this.state.touched_password && errorIcon2}
+                                {this.state.errors_password && this.state.touched_password && this.errorMsg("password")}
+                            </span>
                             <label className="signup-bday"><p>Birthday</p>
                                 {this.dateMonth()}
                                 {this.dateDay()}
                                 {this.dateYear()}
                             </label>
                             <div className="signup-gender"><p>Gender</p>
-                                <span>
-                                    <input type="radio" onClick={this.handleChange("gender")} id="ally" name="gender" value="ally"/>
+                                <span className={this.handleCN("gender", "signup-gender-field")} >
+                                    <input type="radio" 
+                                    onClick={this.handleChange("gender")}
+                                    onFocus={this.handleGender}
+                                    id="ally" name="gender" value="ally"/>
                                     <label htmlFor="ally">Ally</label>
                                 </span>
-                                <span>
-                                    <input type="radio" onClick={this.handleChange("gender")} id="comrade" name="gender" value="comrade"/>
+                                <span className={this.handleCN("gender", "signup-gender-field")}>
+                                    <input type="radio" 
+                                    onClick={this.handleChange("gender")} 
+                                    onClick={this.handleGender}
+                                    id="comrade" name="gender" value="comrade"/>
                                     <label htmlFor="comrade">Comrade</label>
                                 </span>
-                                <span>
-                                    <input type="radio" onClick={this.handleChange("gender")} id="other" name="gender" value="other" />
+                                <span className={this.handleCN("gender", "signup-gender-field")}>
+                                    <input type="radio" 
+                                    onClick={this.handleChange("gender")}
+                                    onClick={this.handleGender}
+                                    id="other" name="gender" value="other" />
                                     <label htmlFor="other">Other</label>
                                 </span>
+                                {this.state.errors_gender && !this.state.touched_gender && errorIcon3}
+                                {this.state.errors_gender && this.state.touched_gender && this.errorMsg("gender")}
                             </div>
                             <input type="submit" className="signup-btn" value="Sign Up"></input>
                         </form>
