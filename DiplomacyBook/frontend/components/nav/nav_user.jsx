@@ -42,6 +42,9 @@ class NavUser extends React.Component {
         </div>
         )
 
+        const user = this.props.currentUser
+        const photoUrl = user.photoUrl ? user.photoUrl : window.defaultProfileURL;
+
         return (
             <div className="nav-user">
                 <div className="nav-user-container">
@@ -53,7 +56,7 @@ class NavUser extends React.Component {
                         <button className="nav-search-btn"><i className="fas fa-search"></i></button>
                     </div>
                     <Link to={`/profile/${this.props.currentUser.id}`}><section className="nav-profile">
-                        <img src={window.defaultProfileURL} />
+                        <img src={photoUrl} />
                         <span className="nav-profile-fn">{this.props.currentUser.first_name}</span>
                     </section></Link>
                     <div className="nav-separator"></div>

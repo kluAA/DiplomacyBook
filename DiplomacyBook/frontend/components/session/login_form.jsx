@@ -63,11 +63,6 @@ class LoginForm extends React.Component {
     }
 
     demo(email, password) {
-        // return e => {
-        //     e.preventDefault();
-        //     this.setState({email: email, password: password}) 
-        //     setTimeout(() => this.props.login(this.state), 1000)
-        // }
         return e => {
             e.preventDefault();
             return this.typeWriter(email, password)

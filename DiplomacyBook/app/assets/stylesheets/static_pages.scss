@@ -605,8 +605,8 @@ button, input[type='submit'] {
 }
 
 .nav-profile img {
-    max-width: 24px;
-    max-height: 24px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
 }
 
@@ -774,6 +774,49 @@ button, input[type='submit'] {
     
 }
 
+.profile-update-photo {
+    cursor: pointer;
+    position: absolute;
+    height: 79px;
+    width: 158px;
+    border-bottom-right-radius: 80px;
+    border-bottom-left-radius: 80px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    border-left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 500;
+    bottom: 4px;
+    left: 4px;
+    transition: 0.13s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-update-photo:hover {
+    background: black;
+}
+
+.fa-camera {
+    color: #c0c0c0;
+    font-size: 20px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.profile-update-photo:hover > .fa-camera {
+    transform: scale(.75);
+}
+
+.profile-update-photo span {
+    font-size: 12px;
+    color: #fff;
+    font-weight: 600;
+}
+
 .profile-fn {
     position: absolute;
     color: white;
@@ -817,6 +860,7 @@ button, input[type='submit'] {
     border-bottom-right-radius: 3px;
     display: flex;
     align-items: center;
+    z-index: -2;
 }
 
 
@@ -840,4 +884,54 @@ button, input[type='submit'] {
 
 .profile-nav li:hover {
     background: #f5f6f7;
+}
+
+.profile-modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-photo-form-container {
+    position: absolute;
+    width: 700px;
+    height: 580px;
+    background: white;
+    border-radius: 3px;
+    color: #1d2129;
+    
+}
+
+.profile-photo-form-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 11px 12px;
+    background: #f5f6f7;
+    border-radius: 3px 3px 0 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.profile-photo-form-header span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.fa-times {
+    color: #cfcece;
+}
+
+.fa-times:hover {
+    cursor: pointer;
+    color: #9FA4AF;
+}
+
+.profile-photo-form {
+
 }

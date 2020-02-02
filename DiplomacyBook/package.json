@@ -1,5 +1,5 @@
 {
-  "name": "PrototypeAuth",
+  "name": "DiplomacyBook",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.8.3",
