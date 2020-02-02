@@ -23,6 +23,10 @@ body {
     overflow-y: scroll;
 }
 
+button, input[type='submit'] {
+    cursor: pointer;
+}
+
 
 //nav for logging in
 
@@ -73,6 +77,7 @@ body {
 .nav-login form {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .nav-login p {
@@ -108,6 +113,65 @@ body {
     background: #3f5c9a;
 }
 
+.nav-forgot {
+    position: absolute;
+    top: 62px;
+    right: 127px;
+    font-size: 12px;
+    color: #9cb4d8;
+}
+
+.nav-forgot:hover {
+    text-decoration: underline;
+}
+
+//splash signup info
+
+.signup-info h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333333;
+    width: 510px;
+    line-height: 36px;
+    padding: 16px 0;
+}
+
+.splash-captions-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.splash-caption {
+    color: #666666;
+    font-size: 15px;
+}
+
+.splash-bolded {
+    color: #333333;
+    font-size: 17px;
+    font-weight: 600;
+    margin-right: 2px;
+}
+
+.fa-newspaper, .fa-desktop, .fa-recycle {
+    color: #adb9d3;
+    margin-right: 16px;
+    width: 56px;
+}
+
+.fa-newspaper {
+    font-size: 50px;
+}
+
+.fa-desktop {
+    font-size: 50px;
+}
+
+.fa-recycle {
+    font-size: 50px;
+}
+
+
 //splash signup
 
 .signup-container {
@@ -135,7 +199,7 @@ body {
     flex-direction: column;
     width: 400px;
     height: 582px;
-    
+    margin-left: 10px;
 }
 
 .signup-container h1 {
@@ -212,7 +276,7 @@ body {
     margin: 3px;
 }
 
-.signup-btn {
+.signup-btn, .demo-btn {
     cursor: pointer;
     margin-top: 20px;
     padding: 7px 20px;
@@ -224,14 +288,28 @@ body {
     font-weight: 600;
     text-shadow: 1px 0 rgb(61, 60, 60);
     border: 1px solid black;
+}
+
+.signup-btn {
     background: linear-gradient(#67ae55, #578843);
     box-shadow: inset 0 1px 1px #a4e388;
     border-color: #3b6e22 #3b6e22 #2c5115;
+    margin-right: 10px;
 }
 
 .signup-btn:hover {
     background: linear-gradient(#76b467, #659452);
+}
+
+.demo-btn {
+    background: linear-gradient(#d89f25, #e2850a);
+    box-shadow: inset 0 1px 1px #f7cf4e;
+    border-color: #b17f14 #ac6305 #945a02;
     
+}
+
+.demo-btn:hover {
+    background: linear-gradient(#e4a929, #e98a0e);
 }
 
 .signup-gender-field {
@@ -359,7 +437,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 82px;
-    height: 450px;
+    height: 536px;
     background: #E9EBEE;
 }
 
@@ -368,7 +446,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 288px;
+    height: 376px;
     width: 612px;
     background: white;
     border: 1px solid #dddfe2;
@@ -410,6 +488,57 @@ body {
 
 .login-form input[type='submit']:hover {
     background: #29487D;
+}
+
+.login-or {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 330px;
+    height: 16px;
+    font-size: 12px;
+}
+
+.login-or-line {
+    width: 145px;
+    height: 1px;
+    background: #ccd0d5;
+    margin: 0 10px;
+    margin-top: 1px;
+}
+
+.login-demos-container {
+    height: 44px;
+    width: 380px;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.demo {
+    height: 44px;
+    width: 142px;
+    font-size: 14px;
+    color: white;
+    margin: 0 5px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.demo-ally {
+    background: #42b72a;
+}
+
+.demo-ally:hover {
+    background: #2b9217;
+}
+
+.demo-comrade {
+    background: rgb(243, 6, 6);
+}
+
+.demo-comrade:hover {
+    background: rgb(202, 30, 30);
 }
 
 //user nav bar when logged in

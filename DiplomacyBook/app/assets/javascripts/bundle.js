@@ -90,7 +90,7 @@
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_SESSION_ERRORS, login, logout, signup */
+/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_SESSION_ERRORS, REMOVE_SESSION_ERRORS, removeSessionErrors, login, logout, signup */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,6 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CURRENT_USER", function() { return RECEIVE_CURRENT_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT_CURRENT_USER", function() { return LOGOUT_CURRENT_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SESSION_ERRORS", function() { return RECEIVE_SESSION_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_SESSION_ERRORS", function() { return REMOVE_SESSION_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeSessionErrors", function() { return removeSessionErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
@@ -106,6 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 var LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 var RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
+var REMOVE_SESSION_ERRORS = 'REMOVE_SESSION_ERRORS';
 
 var receiveCurrentUser = function receiveCurrentUser(user) {
   return {
@@ -127,6 +130,11 @@ var receiveSessionErrors = function receiveSessionErrors(errors) {
   };
 };
 
+var removeSessionErrors = function removeSessionErrors() {
+  return {
+    type: REMOVE_SESSION_ERRORS
+  };
+};
 var login = function login(user) {
   return function (dispatch) {
     return _utils_session_api_util__WEBPACK_IMPORTED_MODULE_0__["login"](user).then(function (user) {
@@ -391,7 +399,11 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Log In"
-      }));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-forgot"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      }, "Forgot account?")));
       var signupBtn = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.toSignup,
         className: "nav-signup-btn"
@@ -907,11 +919,12 @@ function (_React$Component) {
       error: Boolean(_this.props.error)
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    _this.demo = _this.demo.bind(_assertThisInitialized(_this));
-    _this.handleCN = _this.handleCN.bind(_assertThisInitialized(_this));
-    _this.handleBlur = _this.handleBlur.bind(_assertThisInitialized(_this));
     _this.handleFocus = _this.handleFocus.bind(_assertThisInitialized(_this));
+    _this.handleBlur = _this.handleBlur.bind(_assertThisInitialized(_this));
+    _this.handleCN = _this.handleCN.bind(_assertThisInitialized(_this));
     _this.errorMsg = _this.errorMsg.bind(_assertThisInitialized(_this));
+    _this.demo = _this.demo.bind(_assertThisInitialized(_this));
+    _this.typeWriter = _this.typeWriter.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -980,18 +993,52 @@ function (_React$Component) {
     }
   }, {
     key: "demo",
-    value: function demo(e) {
+    value: function demo(email, password) {
       var _this4 = this;
 
-      e.preventDefault();
-      this.setState({
-        email: "potato@potato.com",
-        password: "potato"
-      }, function () {
-        return setTimeout(function () {
-          return _this4.props.login(_this4.state);
-        }, 500);
-      });
+      // return e => {
+      //     e.preventDefault();
+      //     this.setState({email: email, password: password}) 
+      //     setTimeout(() => this.props.login(this.state), 1000)
+      // }
+      return function (e) {
+        e.preventDefault();
+        return _this4.typeWriter(email, password);
+      };
+    }
+  }, {
+    key: "typeWriter",
+    value: function typeWriter(email, password) {
+      var _this5 = this;
+
+      var i = 0;
+      var j = 0;
+      var speed = 50;
+      var emailInput = document.getElementById("email");
+      var pwInput = document.getElementById("password");
+      emailInput.value = "";
+      pwInput.value = "";
+
+      var login = function login() {
+        if (i < email.length) {
+          emailInput.value += email.charAt(i);
+          i++;
+          setTimeout(login, speed);
+        } else if (j < password.length) {
+          pwInput.value += password.charAt(j);
+          j++;
+          setTimeout(login, speed);
+        } else {
+          _this5.setState({
+            email: email,
+            password: password
+          });
+
+          _this5.props.login(_this5.state);
+        }
+      };
+
+      return login();
     }
   }, {
     key: "render",
@@ -1009,6 +1056,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Log Into Diplomacybook"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "error-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "email",
         className: this.handleCN("email", ""),
         type: "text",
         onChange: this.handleChange("email"),
@@ -1020,6 +1068,7 @@ function (_React$Component) {
       }), this.state.error && !this.state.touched && errorIcon, this.state.error && this.state.touched && this.errorMsg("login-email")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "error-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "password",
         type: "password",
         onChange: this.handleChange("password"),
         value: this.state.password,
@@ -1027,9 +1076,21 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Log In"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.demo
-      }, "Demo Login")));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "login-or"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "login-or-line"
+      }), "or", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "login-or-line"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "login-demos-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "demo-ally demo",
+        onClick: this.demo("allykat@gmail.com", "tomato")
+      }, "Demo A"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "demo-comrade demo",
+        onClick: this.demo("comradepupper@gmail.com", "potato")
+      }, "Demo B")))));
     }
   }]);
 
@@ -1115,6 +1176,7 @@ function (_React$Component) {
     _this.handleFocus = _this.handleFocus.bind(_assertThisInitialized(_this));
     _this.handleGender = _this.handleGender.bind(_assertThisInitialized(_this));
     _this.errorMsg = _this.errorMsg.bind(_assertThisInitialized(_this));
+    _this.handleDemo = _this.handleDemo.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1147,6 +1209,13 @@ function (_React$Component) {
       this.props.signup(Object.assign({}, newState)).fail(function () {
         return _this3.setErrors();
       });
+    }
+  }, {
+    key: "handleDemo",
+    value: function handleDemo(e) {
+      e.preventDefault();
+      this.props.removeSessionErrors();
+      this.props.history.push("/login");
     }
   }, {
     key: "setErrors",
@@ -1237,7 +1306,6 @@ function (_React$Component) {
       var error = "errors_".concat(field);
       var touched = "touched_".concat(field);
       return function (e) {
-        // debugger
         _this5.state[error] && e.target.value === "" ? _this5.setState(_defineProperty({}, touched, false)) : _this5.setState(_defineProperty({}, error, false));
       };
     }
@@ -1272,21 +1340,10 @@ function (_React$Component) {
       }, msg, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "error-arrow error-arrow-".concat(field)
       }));
-    } //if there are errors then all errored fields are turned red
-    //if we click on the individual error, .error is removed
-    //
-
+    }
   }, {
     key: "render",
     value: function render() {
-      var _React$createElement, _React$createElement2;
-
-      var errors = {
-        name: "What's your name?",
-        email: "Please enter a valid mobile number or email address.",
-        password: "Enter a combination of at least six numbers, letters and punctuation marks (like ! and &)",
-        gender: "Please choose a gender. You can switch sides later."
-      };
       var errorIcon = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "error-icon"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -1308,7 +1365,31 @@ function (_React$Component) {
         className: "signup-inner"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signup-info"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Connect with friends and the ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "world around you on Diplomacybook.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "splash-captions-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-newspaper"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "splash-caption"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "splash-bolded"
+      }, "See photos and updates"), " from friends in News Feed.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "splash-captions-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-desktop"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "splash-caption"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "splash-bolded"
+      }, "Share what's new"), " in your life on your Timeline.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "splash-captions-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-recycle"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "splash-caption"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "splash-bolded"
+      }, "Find more"), " of what you're missing out in life. \xAF\\_(\u30C4)_/\xAF"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signup-fields"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Sign Up"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "It's quick and easy."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
@@ -1372,23 +1453,36 @@ function (_React$Component) {
         htmlFor: "ally"
       }, "Ally")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: this.handleCN("gender", "signup-gender-field")
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", (_React$createElement = {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
-        onClick: this.handleChange("gender")
-      }, _defineProperty(_React$createElement, "onClick", this.handleGender), _defineProperty(_React$createElement, "id", "comrade"), _defineProperty(_React$createElement, "name", "gender"), _defineProperty(_React$createElement, "value", "comrade"), _React$createElement)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        onClick: this.handleChange("gender"),
+        onFocus: this.handleGender,
+        id: "comrade",
+        name: "gender",
+        value: "comrade"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comrade"
       }, "Comrade")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: this.handleCN("gender", "signup-gender-field")
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", (_React$createElement2 = {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
-        onClick: this.handleChange("gender")
-      }, _defineProperty(_React$createElement2, "onClick", this.handleGender), _defineProperty(_React$createElement2, "id", "other"), _defineProperty(_React$createElement2, "name", "gender"), _defineProperty(_React$createElement2, "value", "other"), _React$createElement2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        onClick: this.handleChange("gender"),
+        onFocus: this.handleGender,
+        id: "other",
+        name: "gender",
+        value: "other"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "other"
-      }, "Other")), this.state.errors_gender && !this.state.touched_gender && errorIcon3, this.state.errors_gender && this.state.touched_gender && this.errorMsg("gender")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Unsure")), this.state.errors_gender && !this.state.touched_gender && errorIcon3, this.state.errors_gender && this.state.touched_gender && this.errorMsg("gender")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         className: "signup-btn",
         value: "Sign Up"
-      })))));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onClick: this.handleDemo,
+        type: "submit",
+        className: "demo-btn",
+        value: "Demo Login"
+      }))))));
     }
   }]);
 
@@ -1411,6 +1505,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _signup_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./signup_form */ "./frontend/components/session/signup_form.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
 
 
 
@@ -1425,11 +1522,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     signup: function signup(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["signup"])(user));
+    },
+    removeSessionErrors: function removeSessionErrors() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["removeSessionErrors"])());
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_signup_form__WEBPACK_IMPORTED_MODULE_1__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_signup_form__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
@@ -1653,6 +1753,9 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SESSION_ERRORS"]:
       return Object.assign({}, action.errors.responseJSON);
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_SESSION_ERRORS"]:
+      return {};
 
     default:
       return state;

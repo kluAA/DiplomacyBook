@@ -38,6 +38,9 @@ class NavLogin extends React.Component {
                 </label>
 
                 <input type="submit" value="Log In"></input>
+                <div className="nav-forgot">
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Forgot account?</a>
+                </div>
             </form>
         )
 

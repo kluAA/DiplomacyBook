@@ -12,11 +12,12 @@ class LoginForm extends React.Component {
             
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.demo = this.demo.bind(this);
-        this.handleCN = this.handleCN.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+        this.handleCN = this.handleCN.bind(this);
         this.errorMsg = this.errorMsg.bind(this);
+        this.demo = this.demo.bind(this);
+        this.typeWriter = this.typeWriter.bind(this);
         
     }
     
@@ -61,12 +62,43 @@ class LoginForm extends React.Component {
         (this.state.error && e.target.value === "") ? this.setState({ touched: false }) : this.setState({ error: false }); 
     }
 
-    demo(e) {
-        e.preventDefault();
-        this.setState({email: "potato@potato.com", password: "potato"}, 
-            () => setTimeout(() => this.props.login(this.state), 500))
+    demo(email, password) {
+        // return e => {
+        //     e.preventDefault();
+        //     this.setState({email: email, password: password}) 
+        //     setTimeout(() => this.props.login(this.state), 1000)
+        // }
+        return e => {
+            e.preventDefault();
+            return this.typeWriter(email, password)
+        }        
     }
     
+    typeWriter(email, password) {
+        let i = 0;
+        let j = 0;
+        let speed = 50; 
+        let emailInput = document.getElementById("email")
+        let pwInput = document.getElementById("password");
+        emailInput.value = "";
+        pwInput.value = "";
+        const login = () => {
+            if (i < email.length) {
+                emailInput.value += email.charAt(i);
+                i++;
+                setTimeout(login, speed);
+            } else if (j < password.length) {
+                pwInput.value += password.charAt(j);
+                j++;
+                setTimeout(login, speed)
+            } else {
+                this.setState({email: email, password: password});
+                this.props.login(this.state);
+            }
+
+        }
+        return login()
+    }
   
 
     render() {
@@ -78,7 +110,7 @@ class LoginForm extends React.Component {
                     <form className="login-form" onSubmit={this.handleSubmit}>
                         <h1>Log Into Diplomacybook</h1>
                         <div className="error-container">
-                            <input className={this.handleCN("email", "")} type="text" 
+                            <input id="email" className={this.handleCN("email", "")} type="text" 
                                 onChange={this.handleChange("email")}
                                 onFocus={this.handleFocus} 
                                 onBlur={this.handleBlur}
@@ -89,11 +121,21 @@ class LoginForm extends React.Component {
                             {this.state.error && this.state.touched && this.errorMsg("login-email")}
                         </div>
                         <div className="error-container">
-                            <input type="password" onChange={this.handleChange("password")} value={this.state.password} placeholder="Password"></input>
+                            <input id="password" type="password" onChange={this.handleChange("password")} value={this.state.password} placeholder="Password"></input>
                         </div>
                         <input type="submit" value="Log In"></input>
+                        <div className="login-or">
+                            <span className="login-or-line"></span>
+                                or
+                            <span className="login-or-line"></span>
+                        </div>
+                        <div className="login-demos-container">
+                            <button className="demo-ally demo" 
+                                onClick={this.demo("allykat@gmail.com", "tomato")}>Demo A</button>
+                            <button className="demo-comrade demo" 
+                                onClick={this.demo("comradepupper@gmail.com", "potato")}>Demo B</button>
+                        </div>
                     </form>
-                    <button onClick={this.demo}>Demo Login</button>
                 </div>
             </div>
         )

@@ -40,8 +40,7 @@ class SignupForm extends React.Component {
         this.handleFocus = this.handleFocus.bind(this);
         this.handleGender = this.handleGender.bind(this);
         this.errorMsg = this.errorMsg.bind(this);
-
-
+        this.handleDemo = this.handleDemo.bind(this);
     }
     
    
@@ -63,6 +62,13 @@ class SignupForm extends React.Component {
         this.props.signup(Object.assign({}, newState))
             .fail(() => this.setErrors());
     }
+
+    handleDemo(e) {
+        e.preventDefault();
+        this.props.removeSessionErrors();
+        this.props.history.push("/login")
+    }
+
 
     setErrors() {
         const errors = Object.keys(this.props.errors);
@@ -130,7 +136,6 @@ class SignupForm extends React.Component {
         let error = `errors_${field}`
         let touched = `touched_${field}`;
         return e => {
-            // debugger
             (this.state[error] && e.target.value === "") ? this.setState({[touched]: false}) : this.setState({[error]: false});
         }
     }
@@ -162,25 +167,30 @@ class SignupForm extends React.Component {
         )
     }
 
-    //if there are errors then all errored fields are turned red
-    //if we click on the individual error, .error is removed
-    //
-
     render() {
-        
-        const errors = {
-            name: "What's your name?",
-            email: "Please enter a valid mobile number or email address.",
-            password: "Enter a combination of at least six numbers, letters and punctuation marks (like ! and &)",
-            gender: "Please choose a gender. You can switch sides later."
-        }
         const errorIcon = <span className="error-icon"><i className="fas fa-exclamation-circle"></i></span>
         const errorIcon2 = <span className="error-icon2"><i className="fas fa-exclamation-circle"></i></span>
         const errorIcon3 = <span className="error-icon3" ><i className="fas fa-exclamation-circle"></i></span>
+        
         return (
             <div className="signup-container">
                 <div className="signup-inner">
                     <div className="signup-info">
+                        <div>
+                            <h3>Connect with friends and the <br />world around you on Diplomacybook.</h3>
+                        </div>
+                        <div className="splash-captions-container">
+                         <i className="far fa-newspaper"></i>
+                         <span className="splash-caption"><span className="splash-bolded">See photos and updates</span> from friends in News Feed.</span>
+                        </div>
+                        <div className="splash-captions-container">
+                            <i className="fas fa-desktop"></i>
+                            <span className="splash-caption"><span className="splash-bolded">Share what's new</span> in your life on your Timeline.</span>
+                        </div>
+                        <div className="splash-captions-container">
+                            <i className="fas fa-recycle"></i>
+                            <span className="splash-caption"><span className="splash-bolded">Find more</span> of what you're missing out in life. ¯\_(ツ)_/¯</span>
+                        </div>
                     </div>
                     <div className="signup-fields">
                         <h1>Sign Up</h1>
@@ -247,21 +257,24 @@ class SignupForm extends React.Component {
                                 <span className={this.handleCN("gender", "signup-gender-field")}>
                                     <input type="radio" 
                                     onClick={this.handleChange("gender")} 
-                                    onClick={this.handleGender}
+                                    onFocus={this.handleGender}
                                     id="comrade" name="gender" value="comrade"/>
                                     <label htmlFor="comrade">Comrade</label>
                                 </span>
                                 <span className={this.handleCN("gender", "signup-gender-field")}>
                                     <input type="radio" 
                                     onClick={this.handleChange("gender")}
-                                    onClick={this.handleGender}
+                                    onFocus={this.handleGender}
                                     id="other" name="gender" value="other" />
-                                    <label htmlFor="other">Other</label>
+                                    <label htmlFor="other">Unsure</label>
                                 </span>
                                 {this.state.errors_gender && !this.state.touched_gender && errorIcon3}
                                 {this.state.errors_gender && this.state.touched_gender && this.errorMsg("gender")}
                             </div>
-                            <input type="submit" className="signup-btn" value="Sign Up"></input>
+                            <div>
+                                <input type="submit" className="signup-btn" value="Sign Up"></input>
+                                <input onClick={this.handleDemo} type="submit" className="demo-btn" value="Demo Login"></input>
+                            </div>
                         </form>
                     </div>
                 </div>
