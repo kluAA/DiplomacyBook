@@ -937,7 +937,7 @@ function (_React$Component) {
         formData.append('user[photo]', this.state.photoFile);
       }
 
-      return $.ajax({
+      $.ajax({
         url: "/api/users/".concat(this.props.currentUser.id),
         method: 'PATCH',
         data: formData,
@@ -958,9 +958,14 @@ function (_React$Component) {
         className: "profile-photo-form",
         onSubmit: this.handleSubmit.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "profile-photo-file",
         type: "file",
         onChange: this.handleFile.bind(this)
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Image preview "), preview, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Add photo!"));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "profile-photo-file"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-plus"
+      }), "Upload Photo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.photoUrl ? "Image Preview" : null, " "), preview, this.state.photoUrl ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Save") : null);
     }
   }]);
 

@@ -9,7 +9,6 @@ class ProfilePhotoForm extends React.Component {
         };
     }
 
-
     handleFile(e) {
         const file = e.currentTarget.files[0];
         const fileReader = new FileReader();
@@ -29,7 +28,7 @@ class ProfilePhotoForm extends React.Component {
 
             formData.append('user[photo]', this.state.photoFile);
         }
-       return $.ajax({
+      $.ajax({
             url: `/api/users/${this.props.currentUser.id}`,
             method: 'PATCH',
             data: formData,
@@ -43,11 +42,12 @@ class ProfilePhotoForm extends React.Component {
         const preview = this.state.photoUrl ? <img src={this.state.photoUrl} /> : null;
         return (
             <form className="profile-photo-form" onSubmit={this.handleSubmit.bind(this)}>
-                <input type="file"
+                <input id="profile-photo-file" type="file"
                     onChange={this.handleFile.bind(this)} />
-                <h3>Image preview </h3>
+                <label htmlFor="profile-photo-file"><i className="fas fa-plus"></i>Upload Photo</label>
+                <h3>{this.state.photoUrl ? "Image Preview" : null} </h3>
                 {preview}
-                <button>Add photo!</button>
+               {this.state.photoUrl ? <button>Save</button> : null}
             </form>
         );
     }
