@@ -9,7 +9,7 @@ class FeedIndex extends React.Component {
     render() {
         return (
             <div className="bg-container">
-                <NavUserContainer />
+                {/* <NavUserContainer /> */}
                 <div>
 
                 </div>

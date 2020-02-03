@@ -55,7 +55,7 @@ class Profile extends React.Component {
         )
         return (
             <div className="bg-container">
-                <NavUserContainer />
+                {/* <NavUserContainer /> */}
                 {this.state.formModal && changeProfilePhoto}
                 <div className="profile-container">
                     <div className="profile-cover">

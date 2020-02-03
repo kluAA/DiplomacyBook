@@ -6,9 +6,11 @@ import LoginFormContainer from './session/login_container';
 import ProfileContainer from './profile/profile_container';
 import { AuthRoute, ProtectedRoute } from '../utils/route_util';
 import ProfilePhotoForm from './profile/profile_photo_form';
+import NavUserContainer from './nav/nav_user_container';
 const App = () => {
     return (
         <div>
+            <ProtectedRoute path='/' component={NavUserContainer} />
             <AuthRoute exact path='/signup' component={Splash} />
             <ProtectedRoute exact path='/' component={FeedIndex} />
             <AuthRoute exact path='/login' component={LoginFormContainer} />

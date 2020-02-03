@@ -212,6 +212,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profile_profile_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile/profile_container */ "./frontend/components/profile/profile_container.js");
 /* harmony import */ var _utils_route_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/route_util */ "./frontend/utils/route_util.jsx");
 /* harmony import */ var _profile_profile_photo_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./profile/profile_photo_form */ "./frontend/components/profile/profile_photo_form.jsx");
+/* harmony import */ var _nav_nav_user_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./nav/nav_user_container */ "./frontend/components/nav/nav_user_container.jsx");
+
 
 
 
@@ -222,7 +224,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
+    path: "/",
+    component: _nav_nav_user_container__WEBPACK_IMPORTED_MODULE_8__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/signup",
     component: _session_splash__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -296,7 +301,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "bg-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_nav_user_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null));
     }
   }]);
 
@@ -785,7 +790,7 @@ function (_React$Component) {
       })));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "bg-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_nav_user_container__WEBPACK_IMPORTED_MODULE_2__["default"], null), this.state.formModal && changeProfilePhoto, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.formModal && changeProfilePhoto, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profile-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profile-cover"
@@ -950,7 +955,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.state);
       var preview = this.state.photoUrl ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.state.photoUrl
       }) : null;
