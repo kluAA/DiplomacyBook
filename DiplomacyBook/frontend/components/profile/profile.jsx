@@ -88,7 +88,7 @@ class Profile extends React.Component {
                         </li>
                     </ul>
                 </div>
-                <FriendRequestContainer />
+                {/* <FriendRequestContainer /> */}
             </div>
         )
     }

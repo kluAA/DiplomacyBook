@@ -627,8 +627,15 @@ button, input[type='submit'] {
     font-weight: 550;
 }
 
+.nav-profile-container {
+    width: 120px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
 .nav-profile {
-    margin-left: 36px;
+    // margin-left: 36px;
     padding: 0 10px 0 2px;
 }
 
@@ -690,8 +697,8 @@ button, input[type='submit'] {
 
 .menu {
     position: absolute;
-    top: 4px;
-    left: calc(50% + 250px);
+    top: 3px;
+    left: calc(50% + 255px);
     width: 200px;
     background: white;
     z-index: 11;
@@ -704,7 +711,7 @@ button, input[type='submit'] {
     color: white;
     font-size: 20px;
     position: absolute;
-    top: -18px;
+    top: -12px;
     right: 10px;
 }
 
@@ -987,4 +994,13 @@ button, input[type='submit'] {
 
 .profile-photo-form button:hover {
     background: #365899;
+}
+
+//friend requests
+
+.friendrequests-container {
+    margin-top: 72px;
+    height: 200px;
+    width: 200px;
+    background: red;
 }

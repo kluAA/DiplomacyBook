@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchFriendRequests: () => dispatch(fetchFriendRequests()),
-    destroyFriendRequest: friendrequestId => dispatch(destroyFriendRequest(friendrequestId))
+    destroyFriendRequest: (friendrequestId, action) => dispatch(destroyFriendRequest(friendrequestId, action))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FriendRequest));

@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FriendRequestContainer from '../profile/friend_request_container';
 class NavUser extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { 
+            dropDownOpen: false,
+            dropFriends: false
+        }
         this.handleClick = this.handleClick.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.handleDropClose = this.handleDropClose.bind(this);
-        this.state = { dropDownOpen: false }
     }
 
     handleClick(e) {
@@ -14,21 +18,31 @@ class NavUser extends React.Component {
         this.props.logout();
     }
 
-    handleDropDown(e) {
-        e.preventDefault();
-        this.setState({dropDownOpen: !this.state.dropDownOpen})
+    handleDropDown(key) {
+       return e => {
+           e.preventDefault();
+           this.setState({[key]: !this.state[key]})
+       }
     }
 
-    handleDropClose(e) {
-        e.preventDefault();
-        if (e.target.className !== "menu") {
-            this.setState({dropDownOpen: false})
-        }
+    handleDropClose(key, name) {
+        return e => {
+            e.preventDefault();
+            if (e.target.className !== name) {
+                this.setState({[key]: false})
+            }
+    }
     }
     render() {
+
+        const friendrequests = (
+            <div onClick={this.handleDropClose("dropFriends", "friendrequests-container")} className="menu-modal">
+                <FriendRequestContainer />
+            </div>
+        )
      
         const menu = (
-            <div onClick={this.handleDropClose} className="menu-modal">
+            <div onClick={this.handleDropClose("dropDownOpen", "menu")} className="menu-modal">
             <ul className="menu">
                 <i className="fas fa-caret-up"></i>
                 <li>First Item</li>
@@ -57,10 +71,12 @@ class NavUser extends React.Component {
                         <input type="text" placeholder="Search"></input>
                         <button className="nav-search-btn"><i className="fas fa-search"></i></button>
                     </div>
+                    <div className="nav-profile-container">
                     <Link to={`/profile/${this.props.currentUser.id}`}><section className="nav-profile">
                         <img src={photoUrl} />
                         <span className="nav-profile-fn">{this.props.currentUser.first_name}</span>
                     </section></Link>
+                    </div>
                     <div className="nav-separator"></div>
                     <Link to='/'><section className="nav-home">
                         <span>Home</span>
@@ -75,14 +91,15 @@ class NavUser extends React.Component {
                     </section>
                     <div className="nav-separator"></div>
                     <div className="nav-alerts">
-                        <i className="fas fa-user-friends"></i>
+                        <i onClick={this.handleDropDown("dropFriends")} className="fas fa-user-friends"></i>
                         <i className="fab fa-facebook-messenger"></i>
                         <i className="fas fa-bell"></i>
                     </div>
                     <div className="nav-separator"></div>
-                    <i onClick={this.handleDropDown} className={this.state.dropDownOpen ? "fas fa-caret-down open" : "fas fa-caret-down"}>
+                    <i onClick={this.handleDropDown("dropDownOpen")} className={this.state.dropDownOpen ? "fas fa-caret-down open" : "fas fa-caret-down"}>
                     </i>
                         {this.state.dropDownOpen && menu}
+                        {this.state.dropFriends && friendrequests}
                 </div>
             </div>
         )

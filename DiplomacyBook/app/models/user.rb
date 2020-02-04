@@ -13,12 +13,12 @@ class User < ApplicationRecord
         class_name: :Friendrequest,
         dependent: :destroy
     
-        has_many :sent_requests, 
+    has_many :sent_requests, 
         foreign_key: :sender_id,
         class_name: :Friendrequest,
         dependent: :destroy
     
-        has_many :friendships,
+    has_many :friendships,
         foreign_key: :user_id,
         class_name: :Friendship
     
