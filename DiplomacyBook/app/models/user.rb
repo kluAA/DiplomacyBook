@@ -7,8 +7,26 @@ class User < ApplicationRecord
     validates :password, length: {minimum: 6, message: "Password is too short, minimum is 6 characters."}, allow_nil: true
     has_one_attached :photo
     has_one_attached :cover
-  
+   
+    has_many :friend_requests,
+        foreign_key: :receiver_id,
+        class_name: :Friendrequest,
+        dependent: :destroy
+    
+        has_many :sent_requests, 
+        foreign_key: :sender_id,
+        class_name: :Friendrequest,
+        dependent: :destroy
+    
+        has_many :friendships,
+        foreign_key: :user_id,
+        class_name: :Friendship
+    
+    has_many :friends,
+        through: :friendships,
+        source: :friend
 
+    
     attr_reader :password
     after_initialize :ensure_session_token
 

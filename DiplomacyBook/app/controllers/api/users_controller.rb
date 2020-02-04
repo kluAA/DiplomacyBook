@@ -18,6 +18,7 @@ class Api::UsersController < ApplicationController
     def update
         @user = current_user
         if @user.update(user_params)
+        
             render 'api/users/show'
         else
             render json: @user.errors.full_messages, status: 401

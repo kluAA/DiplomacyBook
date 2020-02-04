@@ -10,7 +10,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchUser: userId => dispatch(fetchUser(userId)),
-    receiveUser: user => dispatch(receiveUser(user))
+    receiveUser: user => dispatch(receiveUser(user)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

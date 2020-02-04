@@ -41,7 +41,9 @@ class NavUser extends React.Component {
             </ul>
         </div>
         )
-
+        //when modal opened, add event listener to document for clicking to close modal
+        //modal to have eventlistener to stop propogation of click event
+        //when modal closes remove document 
         const user = this.props.currentUser
         const photoUrl = user.photoUrl ? user.photoUrl : window.defaultProfileURL;
 

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import NavUserContainer from '../nav/nav_user_container';
 import ProfilePhotoForm from './profile_photo_form';
+import ProfileFriendButtonContainer from './profile_friend_button_container';
+import FriendRequestContainer from './friend_request_container';
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = { formModal: false }
         this.updatePicture = this.updatePicture.bind(this);
+        this.addFriend = this.addFriend.bind(this);
     }
 
     componentDidMount() {
@@ -26,10 +28,13 @@ class Profile extends React.Component {
         this.props.receiveUser(user)
     }
 
+    addFriend(e) {
+        e.preventDefault();
+    }
+
     render() {
         if (!this.props.user) return null
 
-        const addFriendBtn = <button className="profile-add-friend"><i className="fas fa-user-plus"></i>Add Friend</button>
         const userId = this.props.match.params.userId
         const user = this.props.user;
         const currentUserId = this.props.currentUser.id;
@@ -55,7 +60,6 @@ class Profile extends React.Component {
         )
         return (
             <div className="bg-container">
-                {/* <NavUserContainer /> */}
                 {this.state.formModal && changeProfilePhoto}
                 <div className="profile-container">
                     <div className="profile-cover">
@@ -64,7 +68,7 @@ class Profile extends React.Component {
                             <img className="profile-photo" src={photoUrl}></img>
                             {currentUserId === user.id ? photoUpdate : null}
                         </div>
-                        {this.props.currentUser.id !== this.props.user.id && addFriendBtn}
+                        <ProfileFriendButtonContainer />
                     </div>
                     <ul className="profile-nav">
                         <li>
@@ -84,10 +88,19 @@ class Profile extends React.Component {
                         </li>
                     </ul>
                 </div>
-                
+                <FriendRequestContainer />
             </div>
         )
     }
 }
 
 export default Profile;
+
+//friends table
+//friend_1 => sender
+//friend_2 => receiver
+
+//polymorphic association/self join for reference with dependent destroy
+
+//friend request table 
+//transaction 
