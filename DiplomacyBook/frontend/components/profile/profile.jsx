@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ProfilePhotoForm from './profile_photo_form';
 import ProfileFriendButtonContainer from './profile_friend_button_container';
-import FriendRequestContainer from './friend_request_container';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -88,7 +87,6 @@ class Profile extends React.Component {
                         </li>
                     </ul>
                 </div>
-                {/* <FriendRequestContainer /> */}
             </div>
         )
     }

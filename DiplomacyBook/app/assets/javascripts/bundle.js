@@ -592,6 +592,7 @@ function (_React$Component) {
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleDropDown = _this.handleDropDown.bind(_assertThisInitialized(_this));
     _this.handleDropClose = _this.handleDropClose.bind(_assertThisInitialized(_this));
+    _this.closeExcept = _this.closeExcept.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -607,21 +608,33 @@ function (_React$Component) {
       var _this2 = this;
 
       return function (e) {
-        e.preventDefault();
+        e.preventDefault(); //    this.setState({[key]: !this.state[key]})
 
-        _this2.setState(_defineProperty({}, key, !_this2.state[key]));
+        _this2.setState(_this2.closeExcept(key));
       };
     }
   }, {
-    key: "handleDropClose",
-    value: function handleDropClose(key, name) {
+    key: "closeExcept",
+    value: function closeExcept(key) {
       var _this3 = this;
+
+      var dropdowns = Object.keys(this.state);
+      var newState = {};
+      dropdowns.forEach(function (name) {
+        name !== key ? newState[name] = false : newState[name] = !_this3.state[name];
+      });
+      return newState;
+    }
+  }, {
+    key: "handleDropClose",
+    value: function handleDropClose(key) {
+      var _this4 = this;
 
       return function (e) {
         e.preventDefault();
 
-        if (e.target.className !== name) {
-          _this3.setState(_defineProperty({}, key, false));
+        if (e.target.className === "menu-modal") {
+          _this4.setState(_defineProperty({}, key, false));
         }
       };
     }
@@ -629,11 +642,11 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var friendrequests = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onClick: this.handleDropClose("dropFriends", "friendrequests-container"),
+        onClick: this.handleDropClose("dropFriends"),
         className: "menu-modal"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_friend_request_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
       var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onClick: this.handleDropClose("dropDownOpen", "menu"),
+        onClick: this.handleDropClose("dropDownOpen"),
         className: "menu-modal"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "menu"
@@ -700,7 +713,7 @@ function (_React$Component) {
         className: "nav-alerts"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         onClick: this.handleDropDown("dropFriends"),
-        className: "fas fa-user-friends"
+        className: this.state.dropFriends ? "fas fa-user-friends open" : "fas fa-user-friends"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fab fa-facebook-messenger"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -768,6 +781,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -785,6 +799,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -820,19 +835,37 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      if (!this.props.friendrequests || this.props.friendrequests === []) return null;
-      var requests = this.props.friendrequests.map(function (friendrequest) {
+      var friendrequests = this.props.friendrequests;
+      if (!friendrequests || friendrequests === []) return null;
+      var requests = friendrequests.map(function (friendrequest) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: friendrequest.id
-        }, friendrequest.sender.first_name, " ", friendrequest.sender.last_name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/profile/".concat(friendrequest.sender_id)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "friend-requests-pic",
+          src: friendrequest.sender.photoUrl
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "friend-requests-info"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/profile/".concat(friendrequest.sender_id)
+        }, friendrequest.sender.first_name, " ", friendrequest.sender.last_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "friend-requests-buttons"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "confirm",
           onClick: _this2.handleClick(friendrequest.id, "accept")
-        }, "Accept"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, "Confirm"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "delete",
           onClick: _this2.handleClick(friendrequest.id, "decline")
-        }, "Decline"));
+        }, "Delete"))));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "friendrequests-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, requests));
+        className: "friend-requests-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "friend-requests-header"
+      }, "Friend Requests"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "friend-requests"
+      }, requests));
     }
   }]);
 
@@ -897,7 +930,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _profile_photo_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./profile_photo_form */ "./frontend/components/profile/profile_photo_form.jsx");
 /* harmony import */ var _profile_friend_button_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./profile_friend_button_container */ "./frontend/components/profile/profile_friend_button_container.js");
-/* harmony import */ var _friend_request_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./friend_request_container */ "./frontend/components/profile/friend_request_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -915,7 +947,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 

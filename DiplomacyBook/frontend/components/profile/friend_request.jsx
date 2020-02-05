@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 class FriendRequest extends React.Component {
     constructor(props) {
         super(props);
@@ -17,17 +17,25 @@ class FriendRequest extends React.Component {
     } 
 
     render() {
-
-        if (!this.props.friendrequests || this.props.friendrequests === []) return null;
-       const requests = this.props.friendrequests.map( friendrequest => 
+        const { friendrequests } = this.props;
+        if (!friendrequests || friendrequests === []) return null;
+       const requests = friendrequests.map( friendrequest => 
             <li key={friendrequest.id}>
-                {friendrequest.sender.first_name} {friendrequest.sender.last_name}
-                <button onClick={this.handleClick(friendrequest.id, "accept")}>Accept</button>
-                <button onClick={this.handleClick(friendrequest.id, "decline")}>Decline</button>
+                <Link to={`/profile/${friendrequest.sender_id}`}><img className="friend-requests-pic" src={friendrequest.sender.photoUrl}></img></Link>
+                <div className="friend-requests-info">
+                    <span>
+                        <Link to={`/profile/${friendrequest.sender_id}`}>{friendrequest.sender.first_name} {friendrequest.sender.last_name}</Link>
+                    </span>
+                    <div className="friend-requests-buttons">
+                        <button className="confirm" onClick={this.handleClick(friendrequest.id, "accept")}>Confirm</button>
+                        <button className="delete" onClick={this.handleClick(friendrequest.id, "decline")}>Delete</button>
+                    </div>
+                </div>
             </li>)
         return (
-            <div className="friendrequests-container">
-                <ul>
+            <div className="friend-requests-container">
+                <div className="friend-requests-header">Friend Requests</div>
+                <ul className="friend-requests">
                     {requests}
                 </ul>
             </div>

@@ -11,6 +11,7 @@ class NavUser extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.handleDropClose = this.handleDropClose.bind(this);
+        this.closeExcept = this.closeExcept.bind(this);
     }
 
     handleClick(e) {
@@ -21,28 +22,38 @@ class NavUser extends React.Component {
     handleDropDown(key) {
        return e => {
            e.preventDefault();
-           this.setState({[key]: !this.state[key]})
+        //    this.setState({[key]: !this.state[key]})
+           this.setState(this.closeExcept(key));
        }
     }
 
-    handleDropClose(key, name) {
+    closeExcept(key) {
+        const dropdowns = Object.keys(this.state)
+        let newState = {};
+        dropdowns.forEach(name => {
+            (name !== key) ? newState[name] = false : newState[name] = !this.state[name] 
+        })
+        return newState;
+    }
+
+    handleDropClose(key) {
         return e => {
             e.preventDefault();
-            if (e.target.className !== name) {
+            if (e.target.className === "menu-modal") {
                 this.setState({[key]: false})
             }
-    }
+        }
     }
     render() {
 
         const friendrequests = (
-            <div onClick={this.handleDropClose("dropFriends", "friendrequests-container")} className="menu-modal">
+            <div onClick={this.handleDropClose("dropFriends")} className="menu-modal">
                 <FriendRequestContainer />
             </div>
         )
      
         const menu = (
-            <div onClick={this.handleDropClose("dropDownOpen", "menu")} className="menu-modal">
+            <div onClick={this.handleDropClose("dropDownOpen")} className="menu-modal">
             <ul className="menu">
                 <i className="fas fa-caret-up"></i>
                 <li>First Item</li>
@@ -91,7 +102,7 @@ class NavUser extends React.Component {
                     </section>
                     <div className="nav-separator"></div>
                     <div className="nav-alerts">
-                        <i onClick={this.handleDropDown("dropFriends")} className="fas fa-user-friends"></i>
+                        <i onClick={this.handleDropDown("dropFriends")} className={this.state.dropFriends ? "fas fa-user-friends open" : "fas fa-user-friends"}></i>
                         <i className="fab fa-facebook-messenger"></i>
                         <i className="fas fa-bell"></i>
                     </div>
