@@ -34,6 +34,14 @@ class User < ApplicationRecord
         through: :friend_requests,
         source: :sender
 
+
+    has_many :posts,
+        foreign_key: :user_id,
+        class_name: :Post
+
+    has_many :authored_posts,
+        foreign_key: :user_id,
+        class_name: :Post
     
     attr_reader :password
     after_initialize :ensure_session_token
