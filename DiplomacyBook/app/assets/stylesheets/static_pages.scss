@@ -1182,8 +1182,76 @@ button, input[type='submit'] {
 }
 
 
-
 .profile-component-friends img {
     height: 100px;
     width: 100px;
+}
+
+//timeline
+
+.timeline-container {
+    width: 851px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+
+}
+
+.timeline-left {
+    width: 321px;
+}
+
+.timeline-friends {
+    height: 300px;
+    border: 1px solid #dddfe2;
+}
+
+.post-index-container {
+    width: 512px;
+}
+
+
+.posts-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+    background: white;
+    margin-bottom: 5px;
+    height: 190px;
+    
+}
+
+.posts-form label {
+    border-bottom: 1px solid #dddfe2;
+    background: whitesmoke;
+    padding: 10px;
+    color: darkslategray;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.posts-form textarea {
+    resize: none;
+    padding: 10px 15px;
+    height: 90px;
+    font-size: 20px;
+}
+
+.posts-form button {
+    // background: #9CB4D8;
+    background: steelblue;
+    color: white;
+    font-weight: 500;
+    height: 25px;
+    font-size: 12px;
+    width: 95%;
+    margin: 10px auto;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.posts-form button:hover {
+    background: rgb(40, 97, 145);
 }

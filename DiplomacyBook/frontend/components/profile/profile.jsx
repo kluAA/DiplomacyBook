@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch } from 'react-router-dom';
 import ProfilePhotoForm from './profile_photo_form';
 import ProfileFriendButtonContainer from './profile_friend_button_container';
 import FriendsIndexContainer from './friends/friends_index_container'
 import { ProtectedRoute } from '../../utils/route_util';
+import TimelineContainer from './timeline_container'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -88,8 +89,11 @@ class Profile extends React.Component {
                             <Link to={`/profile/${userId}/#`}>More</Link>
                         </li>
                     </ul>
-                    
-                    <ProtectedRoute path='/profile/:id/friends' component={FriendsIndexContainer} />
+                    <Switch>
+                        <ProtectedRoute exact path='/profile/:id/friends' component={FriendsIndexContainer} />
+                        <ProtectedRoute path='/profile/:id' component={TimelineContainer} />
+
+                    </Switch>
                 </div>
 
             </div>
