@@ -11,8 +11,9 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        @user = User.includes(:friends, :requesters, :requesteds).find(params[:id])
         render :show
+      
     end
 
     def update

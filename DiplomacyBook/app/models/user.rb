@@ -26,6 +26,14 @@ class User < ApplicationRecord
         through: :friendships,
         source: :friend
 
+    has_many :requesteds,
+        through: :sent_requests,
+        source: :receiver
+
+    has_many :requesters,
+        through: :friend_requests,
+        source: :sender
+
     
     attr_reader :password
     after_initialize :ensure_session_token

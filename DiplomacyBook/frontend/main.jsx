@@ -21,3 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.store = store;
     ReactDOM.render(<Root store={store} />, root);
 })
+
+// Post.a ll  
+
+// @posts = 
+// @comments =
+
+//@post.each 
+//JSON.set! post.id 
+//post.comment_ids 
+

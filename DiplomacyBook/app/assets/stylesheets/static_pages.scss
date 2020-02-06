@@ -837,7 +837,7 @@ button, input[type='submit'] {
     left: 200px;
 }
 
-.profile-add-friend {
+.profile-button {
     cursor: pointer;
     position: absolute;
     height:28px;
@@ -852,12 +852,39 @@ button, input[type='submit'] {
     font-weight: 600;
 }
 
-.profile-add-friend:hover {
+.profile-button:hover {
     background: #dddfe2;
 }
 
-.fa-user-plus {
-    margin: 0 4px;
+
+.profile-button-unfriend {
+    position: absolute;
+    top: 31px;
+    left: 0;
+    background:white;
+    border: 1px solid #666666;
+    padding: 6px 0;
+    width: 100px;
+    display: none;
+}
+
+.profile-button:hover .profile-button-unfriend {
+    display: block;
+}
+
+.triangle {
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -5px;
+    left: 7px;
+}
+
+.fa-user-plus, .fa-check {
+    margin-right: 3px;
 }
 
 .profile-nav {
@@ -1082,4 +1109,81 @@ button, input[type='submit'] {
 
 .delete:hover {
     background: #ebedf0;
+}
+
+//profile components
+
+.profile-component-container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 850px;
+    margin-top: 10px;
+    border: 1px solid #d3d6db;
+    border-radius: 3px;
+}
+
+.profile-component-header {
+    background: #f5f6f7;
+    padding: 17px 10px;
+    border-bottom: 1px solid #d3d6db;
+
+}
+
+.profile-component-header span {
+    color: #4f4f56;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.profile-component-friends {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    // justify-content: space-evenly;
+}
+
+.profile-component-friends li:nth-child(odd) {
+    margin-left: 15px;
+}
+
+.profile-component-friends li:nth-child(even) {
+    margin-left: 15px;
+}
+
+.profile-component-friends li {
+    display: flex;
+    align-items: center;
+    width: 400px;
+    border: 1px solid #e9ebee;
+    margin-bottom: 15px;
+    height: 102px;
+}
+
+.friends-info {
+    margin-left: 10px;
+    text-transform: capitalize
+}
+
+.friends-info a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #385898;
+}
+
+.friends-info p {
+    font-size: 12px;
+    color: #90949c;
+    font-weight: 400;
+}
+
+.friends-info a:hover {
+    text-decoration: underline;
+}
+
+
+
+.profile-component-friends img {
+    height: 100px;
+    width: 100px;
 }

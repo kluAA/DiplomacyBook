@@ -6,3 +6,25 @@ if @user.photo.attached?
 else
     json.photoUrl image_url('default_profile.jpg')
 end
+
+# json.friends do
+#     @user.friend_ids.each do |friend_id|
+#         json.set! friend_id, true
+#     end
+# end
+
+# json.requesters do
+#     @user.requester_ids.each do |requester_id|
+#         json.set! requester_id, true
+#     end
+# end
+
+# json.requesteds do  
+#     @user.requested_ids.each do |requested_id|
+#         json.set! requested_id, true
+#     end
+# end
+
+json.friends @user.friend_ids
+json.requesters @user.requester_ids
+json.requesteds @user.requested_ids
