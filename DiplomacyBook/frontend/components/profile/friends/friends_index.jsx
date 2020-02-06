@@ -16,7 +16,7 @@ class FriendsIndex extends React.Component {
         const listFriends = friends.map(friend => {
             return (
                 <li key={friend.id}>
-                    <Link to={`profile${friend.id}`}><img src={friend.photoUrl}></img></Link>
+                    <Link to={`/profile/${friend.id}`}><img src={friend.photoUrl}></img></Link>
                     <div className="friends-info">
                         <span>
                             <Link to={`/profile/${friend.id}`}>

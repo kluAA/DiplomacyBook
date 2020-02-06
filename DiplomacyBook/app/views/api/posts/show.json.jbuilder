@@ -9,5 +9,6 @@
 #         json.photoUrl image_url('default_profile.jpg')
 #     end   
 # end
-
-json.partial! 'api/posts/post', post: @post
+json.post do
+    json.partial! 'api/posts/post', post: @post
+end

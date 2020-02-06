@@ -205,31 +205,41 @@ var fetchFriendRequests = function fetchFriendRequests() {
 /*!******************************************!*\
   !*** ./frontend/actions/post_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_POSTS, RECEIVE_POST, fetchUserPosts, createPost */
+/*! exports provided: RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST, fetchUserPosts, createPost, deletePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_POSTS", function() { return RECEIVE_POSTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_POST", function() { return RECEIVE_POST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_POST", function() { return REMOVE_POST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserPosts", function() { return fetchUserPosts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPost", function() { return createPost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePost", function() { return deletePost; });
 /* harmony import */ var _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/post_api_util */ "./frontend/utils/post_api_util.js");
 
 var RECEIVE_POSTS = 'RECEIVE_POSTS';
 var RECEIVE_POST = 'RECEIVE_POST';
+var REMOVE_POST = 'REMOVE_POST';
 
-var receivePosts = function receivePosts(posts) {
+var receivePosts = function receivePosts(payload) {
   return {
     type: RECEIVE_POSTS,
-    posts: posts
+    payload: payload
   };
 };
 
-var receivePost = function receivePost(post) {
+var receivePost = function receivePost(payload) {
   return {
     type: RECEIVE_POST,
-    post: post
+    payload: payload
+  };
+};
+
+var removePost = function removePost(postId) {
+  return {
+    type: REMOVE_POST,
+    postId: postId
   };
 };
 
@@ -244,6 +254,13 @@ var createPost = function createPost(post) {
   return function (dispatch) {
     return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["createPost"](post).then(function (post) {
       return dispatch(receivePost(post));
+    });
+  };
+};
+var deletePost = function deletePost(postId) {
+  return function (dispatch) {
+    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["deletePost"](postId).then(function () {
+      return dispatch(removePost(postId));
     });
   };
 };
@@ -960,7 +977,9 @@ function (_React$Component) {
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "post-body"
-      }, "Create Post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "fas fa-pencil-alt"
+      }), " Create Post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         onChange: this.handleChange,
         value: this.state.body,
         placeholder: placeholder
@@ -1064,6 +1083,13 @@ function (_React$Component) {
       this.props.fetchUserPosts(this.props.match.params.id);
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.match.params.id !== prevProps.match.params.id) {
+        this.props.fetchUserPosts(this.props.match.params.id);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var posts = this.props.posts;
@@ -1150,9 +1176,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -1166,18 +1192,63 @@ function (_React$Component) {
   _inherits(PostItem, _React$Component);
 
   function PostItem(props) {
+    var _this;
+
     _classCallCheck(this, PostItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(PostItem).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PostItem).call(this, props));
+    _this.state = {
+      drop: false
+    };
+    _this.closeDrop = _this.closeDrop.bind(_assertThisInitialized(_this));
+    _this.handleDelete = _this.handleDelete.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(PostItem, [{
+    key: "closeDrop",
+    value: function closeDrop(e) {
+      this.setState({
+        drop: false
+      });
+    }
+  }, {
+    key: "handleDelete",
+    value: function handleDelete(e) {
+      this.props.deletePost(this.props.postId);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _this$props = this.props,
           postId = _this$props.postId,
-          posts = _this$props.posts;
+          posts = _this$props.posts,
+          currentUser = _this$props.currentUser;
       var post = posts[postId];
+      var time = new Date(post.created_at);
+      var parsedTime = time.toDateString();
+      var actionsMenu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        onMouseLeave: this.closeDrop,
+        className: "post-actions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "post-actions-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: this.handleDelete
+      }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "post-actions-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: this.closeDrop
+      }, "Cancel"));
+      var postActions = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-ellipsis-h",
+        onClick: function onClick(e) {
+          return _this2.setState({
+            drop: !_this2.state.drop
+          });
+        }
+      }, this.state.drop && actionsMenu);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1189,11 +1260,25 @@ function (_React$Component) {
         className: "post-username"
       }, post.author.first_name, " ", post.author.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "post-time"
-      }, "2 hrs ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-user-friends"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, parsedTime, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-user-tie"
+      }))), currentUser.id == post.author_id && postActions), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "post-body"
-      }, post.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+      }, post.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "post-options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "like"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-thumbs-up"
+      }), "Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "comment"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-comment-alt"
+      }), "Comment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "share"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-share-square"
+      }), "Share")));
     }
   }]);
 
@@ -1215,19 +1300,25 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _post_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./post_item */ "./frontend/components/posts/post_item.jsx");
+/* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/post_actions */ "./frontend/actions/post_actions.js");
+
 
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    // currentUser: state.entities.users[state.session.id],
+    currentUser: state.entities.users[state.session.id],
     // user: state.entities.users[ownProps.match.params.id]
     posts: state.entities.posts
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    deletePost: function deletePost(postId) {
+      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_2__["deletePost"])(postId));
+    }
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_post_item__WEBPACK_IMPORTED_MODULE_1__["default"]));
@@ -1438,7 +1529,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: friend.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "profile".concat(friend.id)
+          to: "/profile/".concat(friend.id)
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: friend.photoUrl
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3085,7 +3176,10 @@ var friendsReducer = function friendsReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/post_actions */ "./frontend/actions/post_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3093,13 +3187,19 @@ var postsReducer = function postsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
+  var nextState;
 
   switch (action.type) {
     case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_POSTS"]:
-      return action.posts;
+      return action.payload.posts;
 
     case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_POST"]:
-      return Object.assign({}, state, _defineProperty({}, action.post.id, action.post));
+      return Object.assign({}, state, _defineProperty({}, action.payload.post.id, action.payload.post));
+
+    case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_POST"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state);
+      delete nextState[action.postId];
+      return nextState;
 
     default:
       return state;
@@ -3366,13 +3466,14 @@ var destroyFriendRequest = function destroyFriendRequest(friendrequestId, action
 /*!*****************************************!*\
   !*** ./frontend/utils/post_api_util.js ***!
   \*****************************************/
-/*! exports provided: fetchUserPosts, createPost */
+/*! exports provided: fetchUserPosts, createPost, deletePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserPosts", function() { return fetchUserPosts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPost", function() { return createPost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePost", function() { return deletePost; });
 var fetchUserPosts = function fetchUserPosts(userId) {
   return $.ajax({
     method: "GET",
@@ -3386,6 +3487,12 @@ var createPost = function createPost(post) {
     data: {
       post: post
     }
+  });
+};
+var deletePost = function deletePost(postId) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/posts/".concat(postId)
   });
 };
 

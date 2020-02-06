@@ -14,6 +14,13 @@ class Api::PostsController < ApplicationController
         render :index
     end
 
+
+    def destroy
+        @post = current_user.posts.find(params[:id])
+        @post.destroy
+        render 'api/posts/show'
+    end
+
     def post_params
         params.require(:post).permit(:body, :user_id, :author_id)
     end
