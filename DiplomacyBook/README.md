@@ -17,5 +17,9 @@ Diplomacybook is a social media web application designed to provide users a way 
 
 ## Features
 
-### User Auth with Error Handling
+### User Authentication with Error Handling
 ![](https://github.com/kluAA/DiplomacyBook/blob/master/DiplomacyBook/app/assets/images/readme-userauth.png)
+
+Visiting Diplomacybook for the first time will display a splash signup page prompting you to create a new account or log into an existing account. Inside the login page, demo accounts are provided to preview the application's features.
+
+### Profile
