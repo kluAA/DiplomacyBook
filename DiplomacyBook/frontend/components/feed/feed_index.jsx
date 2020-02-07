@@ -1,5 +1,5 @@
 import React from 'react';
-import PostFormContainer from '../posts/post_form_container';
+import FeedFormContainer from './feed_form_container';
 import PostItemContainer from '../posts/post_item_container';
 
 class FeedIndex extends React.Component {
@@ -7,28 +7,27 @@ class FeedIndex extends React.Component {
         super(props);
     }
 
-    // componentDidMount() {
-    //     this.props.fetchUserPosts(this.props.match.params.id)
-    // }
+    componentDidMount() {
+        this.props.fetchFeedPosts();
+    }
 
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.match.params.id !== prevProps.match.params.id) {
-    //         this.props.fetchUserPosts(this.props.match.params.id);
-    //     }
-    // }
 
     render() {
-        // const { posts } = this.props;
-        // if (!posts || posts === []) return null;
-        // let showPosts = posts.map(post => <li className="post" key={post.id}><PostItemContainer postId={post.id} /></li>)
+        const { posts } = this.props;
+        if (!posts || posts === []) return null;
+        let showPosts = posts.map(post => <li className="post" key={post.id}><PostItemContainer postId={post.id} /></li>)
         return (
-            // <div className="post-index-container">
-            //     <PostFormContainer />
-            //     <ul className="posts-container">
-            //         {showPosts}
-            //     </ul>
-            // </div>
-        <div className="bg-container"></div>
+            <div className="bg-container">
+                <div className="feed-container">
+                    <div className="post-index-container">
+                        <FeedFormContainer />
+                        <ul className="posts-container">
+                            {showPosts}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+     
         )
     }
 }

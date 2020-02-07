@@ -20,7 +20,7 @@ class TimelineFriends extends React.Component {
         if (!friends) return null;
         const mapFriends = friends.map(friend => {
             return (
-                <li>
+                <li key={friend.id}>
                     <Link to={`/profile/${friend.id}`}>
                         <img src={friend.photoUrl}></img>
                         <span>{friend.first_name} {friend.last_name}</span>

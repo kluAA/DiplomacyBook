@@ -14,6 +14,12 @@ class Api::PostsController < ApplicationController
         render :index
     end
 
+    def index
+        ids = current_user.friends.pluck(:id) 
+        ids << current_user.id
+        @posts = Post.includes(:author, comments: [:author]).where(author_id: ids)
+        render :index
+    end
 
     def destroy
         @post = current_user.authored_posts.find(params[:id])

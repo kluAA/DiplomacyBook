@@ -237,7 +237,7 @@ var fetchFriendRequests = function fetchFriendRequests() {
 /*!******************************************!*\
   !*** ./frontend/actions/post_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST, fetchUserPosts, createPost, deletePost */
+/*! exports provided: RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST, fetchUserPosts, createPost, deletePost, fetchFeedPosts */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -248,6 +248,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserPosts", function() { return fetchUserPosts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPost", function() { return createPost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePost", function() { return deletePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFeedPosts", function() { return fetchFeedPosts; });
 /* harmony import */ var _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/post_api_util */ "./frontend/utils/post_api_util.js");
 
 var RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -293,6 +294,13 @@ var deletePost = function deletePost(postId) {
   return function (dispatch) {
     return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["deletePost"](postId).then(function () {
       return dispatch(removePost(postId));
+    });
+  };
+};
+var fetchFeedPosts = function fetchFeedPosts() {
+  return function (dispatch) {
+    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFeedPosts"]().then(function (posts) {
+      return dispatch(receivePosts(posts));
     });
   };
 };
@@ -420,7 +428,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _session_splash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session/splash */ "./frontend/components/session/splash.jsx");
-/* harmony import */ var _feed_feed_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./feed/feed_index */ "./frontend/components/feed/feed_index.jsx");
+/* harmony import */ var _feed_feed_index_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./feed/feed_index_container */ "./frontend/components/feed/feed_index_container.js");
 /* harmony import */ var _session_login_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./session/login_container */ "./frontend/components/session/login_container.js");
 /* harmony import */ var _profile_profile_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile/profile_container */ "./frontend/components/profile/profile_container.js");
 /* harmony import */ var _utils_route_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/route_util */ "./frontend/utils/route_util.jsx");
@@ -447,7 +455,7 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     exact: true,
     path: "/",
-    component: _feed_feed_index__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _feed_feed_index_container__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/login",
@@ -466,6 +474,43 @@ var App = function App() {
 
 /***/ }),
 
+/***/ "./frontend/components/feed/feed_form_container.js":
+/*!*********************************************************!*\
+  !*** ./frontend/components/feed/feed_form_container.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _posts_post_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../posts/post_form */ "./frontend/components/posts/post_form.jsx");
+/* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/post_actions */ "./frontend/actions/post_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    currentUser: state.entities.users[state.session.id],
+    user: state.entities.users[state.session.id]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createPost: function createPost(post) {
+      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_2__["createPost"])(post));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_posts_post_form__WEBPACK_IMPORTED_MODULE_1__["default"])));
+
+/***/ }),
+
 /***/ "./frontend/components/feed/feed_index.jsx":
 /*!*************************************************!*\
   !*** ./frontend/components/feed/feed_index.jsx ***!
@@ -477,7 +522,7 @@ var App = function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _posts_post_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../posts/post_form_container */ "./frontend/components/posts/post_form_container.js");
+/* harmony import */ var _feed_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./feed_form_container */ "./frontend/components/feed/feed_form_container.js");
 /* harmony import */ var _posts_post_item_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../posts/post_item_container */ "./frontend/components/posts/post_item_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -510,32 +555,35 @@ function (_React$Component) {
     _classCallCheck(this, FeedIndex);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(FeedIndex).call(this, props));
-  } // componentDidMount() {
-  //     this.props.fetchUserPosts(this.props.match.params.id)
-  // }
-  // componentDidUpdate(prevProps) {
-  //     if (this.props.match.params.id !== prevProps.match.params.id) {
-  //         this.props.fetchUserPosts(this.props.match.params.id);
-  //     }
-  // }
-
+  }
 
   _createClass(FeedIndex, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchFeedPosts();
+    }
+  }, {
     key: "render",
     value: function render() {
-      // const { posts } = this.props;
-      // if (!posts || posts === []) return null;
-      // let showPosts = posts.map(post => <li className="post" key={post.id}><PostItemContainer postId={post.id} /></li>)
-      return (// <div className="post-index-container">
-        //     <PostFormContainer />
-        //     <ul className="posts-container">
-        //         {showPosts}
-        //     </ul>
-        // </div>
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "bg-container"
-        })
-      );
+      var posts = this.props.posts;
+      if (!posts || posts === []) return null;
+      var showPosts = posts.map(function (post) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "post",
+          key: post.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_posts_post_item_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          postId: post.id
+        }));
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bg-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "feed-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "post-index-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_feed_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "posts-container"
+      }, showPosts))));
     }
   }]);
 
@@ -543,6 +591,44 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (FeedIndex);
+
+/***/ }),
+
+/***/ "./frontend/components/feed/feed_index_container.js":
+/*!**********************************************************!*\
+  !*** ./frontend/components/feed/feed_index_container.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _feed_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./feed_index */ "./frontend/components/feed/feed_index.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/post_actions */ "./frontend/actions/post_actions.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUser: state.entities.users[state.session.id],
+    posts: Object.values(state.entities.posts).reverse()
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchFeedPosts: function fetchFeedPosts() {
+      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFeedPosts"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_feed_index__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
@@ -1267,6 +1353,8 @@ function (_React$Component) {
 
       if (currentUser === user) {
         placeholder = "What's on your mind ".concat(currentUser.first_name, "?");
+      } else if (this.props.match.path === "/") {
+        placeholder = "What's on your mind?";
       } else {
         placeholder = "Write something to ".concat(user.first_name, "...");
       }
@@ -2479,8 +2567,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {};
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    user: state.entities.users[ownProps.match.params.userId],
+    currentUser: state.entities.users[state.session.id]
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -2555,7 +2646,9 @@ function (_React$Component) {
           friendsCount = _this$props.friendsCount;
       if (!friends) return null;
       var mapFriends = friends.map(function (friend) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: friend.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/profile/".concat(friend.id)
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: friend.photoUrl
@@ -3993,18 +4086,25 @@ var destroyFriendRequest = function destroyFriendRequest(friendrequestId, action
 /*!*****************************************!*\
   !*** ./frontend/utils/post_api_util.js ***!
   \*****************************************/
-/*! exports provided: fetchUserPosts, createPost, deletePost */
+/*! exports provided: fetchUserPosts, fetchFeedPosts, createPost, deletePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserPosts", function() { return fetchUserPosts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFeedPosts", function() { return fetchFeedPosts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPost", function() { return createPost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePost", function() { return deletePost; });
 var fetchUserPosts = function fetchUserPosts(userId) {
   return $.ajax({
     method: "GET",
     url: "/api/posts/".concat(userId)
+  });
+};
+var fetchFeedPosts = function fetchFeedPosts() {
+  return $.ajax({
+    method: "GET",
+    url: '/api/posts'
   });
 };
 var createPost = function createPost(post) {

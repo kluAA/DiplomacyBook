@@ -32,6 +32,8 @@ class PostForm extends React.Component {
         let placeholder;
         if (currentUser === user) {
             placeholder = `What's on your mind ${currentUser.first_name}?`;
+        } else if (this.props.match.path === "/") {
+            placeholder = `What's on your mind?`;
         } else {
             placeholder = `Write something to ${user.first_name}...`
         }
