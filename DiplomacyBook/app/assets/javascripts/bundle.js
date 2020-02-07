@@ -2164,16 +2164,17 @@ function (_React$Component) {
         action: "cover",
         closeModal: this.closeCover
       })));
+      var coverImg = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "profile-cover-image",
+        src: user.coverUrl
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "bg-container"
       }, this.state.formModal && changeProfilePhoto, this.state.coverModal && changeCoverPhoto, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profile-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profile-cover"
-      }, currentUserId === user.id ? coverUpdate : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "profile-cover-image",
-        src: user.coverUrl
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, currentUserId === user.id ? coverUpdate : null, user.coverUrl ? coverImg : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "profile-fn"
       }, "".concat(user.first_name, " ").concat(user.last_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profile-photo-container"

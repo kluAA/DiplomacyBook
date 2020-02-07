@@ -86,6 +86,9 @@ class Profile extends React.Component {
                 </div>
             </div>
         )
+
+        const coverImg = <img className="profile-cover-image" src={user.coverUrl}></img>
+
         return (
             <div className="bg-container">
                 {this.state.formModal && changeProfilePhoto}
@@ -93,7 +96,7 @@ class Profile extends React.Component {
                 <div className="profile-container">
                     <div className="profile-cover">
                         {currentUserId === user.id? coverUpdate : null}
-                        <img className="profile-cover-image" src={user.coverUrl}></img>
+                        {user.coverUrl ? coverImg : null}
                         <span className="profile-fn">{`${user.first_name} ${user.last_name}`}</span>
                         <div className="profile-photo-container">
                             <img className="profile-photo" src={photoUrl}></img>
