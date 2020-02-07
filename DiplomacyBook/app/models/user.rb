@@ -45,6 +45,10 @@ class User < ApplicationRecord
     has_many :posters,
         through: :posts,
         source: :author
+
+    has_many :comments,
+        foreign_key: :author_id,
+        class_name: :Comment
     
     attr_reader :password
     after_initialize :ensure_session_token

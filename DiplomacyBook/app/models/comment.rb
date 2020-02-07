@@ -1,29 +1,24 @@
-class Post < ApplicationRecord
-    validates :body, :user_id, :author_id, presence: true
-
-    belongs_to :user,
-        foreign_key: :user_id,
-        class_name: :User
+class Comment < ApplicationRecord
+    validates :body, :author_id, :post_id, presence: true
 
     belongs_to :author,
         foreign_key: :author_id,
         class_name: :User
-
-    has_many :comments,
+    
+    belongs_to :post,
         foreign_key: :post_id,
-        class_name: :Comment,
-        dependent: :destroy
-
+        class_name: :Post
+    
 end
 
 # == Schema Information
 #
-# Table name: posts
+# Table name: comments
 #
 #  id         :integer(8)      not null, primary key
 #  body       :text            not null
-#  user_id    :integer(4)      not null
 #  author_id  :integer(4)      not null
+#  post_id    :integer(4)      not null
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #

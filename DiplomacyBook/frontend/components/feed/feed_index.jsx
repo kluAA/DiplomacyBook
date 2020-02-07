@@ -1,19 +1,34 @@
 import React from 'react';
-import NavUserContainer from '../nav/nav_user_container';
+import PostFormContainer from '../posts/post_form_container';
+import PostItemContainer from '../posts/post_item_container';
 
 class FeedIndex extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    render() {
-        return (
-            <div className="bg-container">
-                {/* <NavUserContainer /> */}
-                <div>
+    // componentDidMount() {
+    //     this.props.fetchUserPosts(this.props.match.params.id)
+    // }
 
-                </div>
-            </div>
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.match.params.id !== prevProps.match.params.id) {
+    //         this.props.fetchUserPosts(this.props.match.params.id);
+    //     }
+    // }
+
+    render() {
+        // const { posts } = this.props;
+        // if (!posts || posts === []) return null;
+        // let showPosts = posts.map(post => <li className="post" key={post.id}><PostItemContainer postId={post.id} /></li>)
+        return (
+            // <div className="post-index-container">
+            //     <PostFormContainer />
+            //     <ul className="posts-container">
+            //         {showPosts}
+            //     </ul>
+            // </div>
+        <div className="bg-container"></div>
         )
     }
 }

@@ -12,3 +12,10 @@
 json.post do
     json.partial! 'api/posts/post', post: @post
 end
+
+# json.comments do
+#     @post.comments do |comment|
+
+#     end
+
+# end

@@ -1202,9 +1202,73 @@ a, button, input[type='submit'] {
 }
 
 .timeline-friends {
-    height: 300px;
     border: 1px solid #dddfe2;
+    display: flex;
+    background: white;
+    flex-direction: column;
+    border-radius: 3px;
 }
+
+
+.timeline-friends-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    margin: 0 12px;
+    color: #1d2129;
+}
+
+.timeline-friends-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 7px;
+}
+
+.timeline-friends-label {
+    font-size: 16px;
+}
+
+.timeline-friends-label:hover {
+    text-decoration: underline;
+}
+
+.timeline-friends-count {
+    margin-left: 3px;
+    font-size: 14px;
+    margin-bottom: 1px;
+    color: #90949c;
+}
+.timeline-friends-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 7px;
+    
+}
+
+.timeline-friends-list li {
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+
+.timeline-friends-list a {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    font-size: 12px;
+    color: #385898;
+    text-align: center;
+}
+
+.timeline-friends-list a:hover {
+    text-decoration: underline;
+}
+
+.timeline-friends-list img {
+    height: 100px;
+    width: 100px;
+}
+
+//posts
 
 .post-index-container {
     width: 512px;
@@ -1351,6 +1415,10 @@ hr {
     font-weight: 500;
 }
 
+.post-username:hover {
+    text-decoration: underline;
+}
+
 .post-time {
     font-size: 12px;
     font-weight: 400;
@@ -1368,7 +1436,7 @@ hr {
     font-size: 13px;
 }
 
-.post-options a {
+.post-options a, .post-options label {
     padding: 6px 0;
     margin: 4px 0;
     font-weight: 600;
@@ -1378,11 +1446,75 @@ hr {
     border-radius: 2px;
 }
 
-.post-options a:hover {
+.post-options a:hover, .post-options label:hover {
     background: #f2f2f2;
 }
 
 .post-options .far {
     font-size: 16px;
     margin-right: 5px;
+}
+
+//comment
+
+.comment-form {
+    padding: 10px 15px;
+    border-top: 1px solid #dddfe2;
+    display: flex;
+    
+}
+
+.comment-profile {
+    max-width: 35px;
+    max-height: 35px;
+    border-radius: 50%;
+}
+
+.comment-body {
+    border: 1px solid #dddfe2;
+    
+    overflow: auto;
+    margin-left: 5px;
+    background: #f2f3f5;
+    width: 490px;
+    border-radius: 20px;
+    height:20px;
+    font-size: 14px;
+    padding: 5px 15px;
+}
+
+.comment-body:focus::-webkit-input-placeholder {
+    color: rgb(207, 204, 204);
+}
+
+.comment-container {
+    display: flex;
+    padding: 5px 15px;
+}
+
+.comment-container a:hover {
+    text-decoration: underline;
+}
+
+.comment-container:first-child {
+    border-top: 1px solid #dddfe2;
+}
+
+.comment-user {
+    color: #46649f;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.comment-box {
+    display: flex;
+    background: #f2f3f5;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+}
+.comment {
+    font-size: 13px;
+    margin: 0 5px;
+    
 }

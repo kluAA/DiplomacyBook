@@ -38,7 +38,7 @@ class PostForm extends React.Component {
         return (
             <form className="posts-form" onSubmit={this.handleSubmit}>
                 <label className="post-body">
-                    <i class="fas fa-pencil-alt"></i> Create Post
+                    <i className="fas fa-pencil-alt"></i> Create Post
                 </label>
                 <textarea onChange={this.handleChange} value={this.state.body} placeholder={placeholder}></textarea>
                 <hr></hr>

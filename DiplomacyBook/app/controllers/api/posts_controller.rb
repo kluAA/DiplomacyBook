@@ -10,13 +10,13 @@ class Api::PostsController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        @posts = user.posts.includes(:author) 
+        @posts = user.posts.includes(:author, comments: [:author]) 
         render :index
     end
 
 
     def destroy
-        @post = current_user.posts.find(params[:id])
+        @post = current_user.authored_posts.find(params[:id])
         @post.destroy
         render 'api/posts/show'
     end

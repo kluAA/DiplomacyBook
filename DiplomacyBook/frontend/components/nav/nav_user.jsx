@@ -14,6 +14,12 @@ class NavUser extends React.Component {
         this.closeExcept = this.closeExcept.bind(this);
     }
 
+    // componentDidMount() {
+    //     if (!this.props.currentUser) {
+    //         this.props.fetch
+    //     }
+    // }
+
     handleClick(e) {
         e.preventDefault()
         this.props.logout();
