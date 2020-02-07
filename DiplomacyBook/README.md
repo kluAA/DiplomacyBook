@@ -16,3 +16,6 @@ Diplomacybook is a social media web application designed to provide users a way 
 * AWS S3
 
 ## Features
+
+### User Auth with Error Handling
+![](https://github.com/kluAA/DiplomacyBook/blob/master/DiplomacyBook/app/assets/images/readme-userauth.png)
