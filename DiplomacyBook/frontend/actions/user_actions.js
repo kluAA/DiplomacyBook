@@ -10,3 +10,8 @@ export const fetchUser = (userId) => dispatch => {
     return UserAPIUtil.fetchUser(userId)
         .then(user => dispatch(receiveUser(user)));
 }
+
+export const updatePicture = (formData, userId) => dispatch => {
+    return UserAPIUtil.updatePicture(formData, userId)
+    .then(user => dispatch(receiveUser(user)));
+} 

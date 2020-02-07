@@ -7,6 +7,10 @@ else
     json.photoUrl image_url('default_profile.jpg')
 end
 
+if @user.cover.attached? 
+    json.coverUrl url_for(@user.cover)
+end
+
 # json.friends do
 #     @user.friend_ids.each do |friend_id|
 #         json.set! friend_id, true

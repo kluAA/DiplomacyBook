@@ -11,3 +11,13 @@ export const updateUser = (user) => {
         url: `api/users/${user.id}`
     })
 }
+
+export const updatePicture = (formData, userId) => {
+    return $.ajax({
+        url: `/api/users/${userId}`,
+        method: 'PATCH',
+        data: formData,
+        contentType: false,
+        processData: false
+    })
+}

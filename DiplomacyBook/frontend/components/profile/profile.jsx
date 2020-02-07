@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Switch } from 'react-router-dom';
-import ProfilePhotoForm from './profile_photo_form';
+import ProfilePhotoFormContainer from './profile_photo_form_container';
 import ProfileFriendButtonContainer from './profile_friend_button_container';
 import FriendsIndexContainer from './friends/friends_index_container'
 import { ProtectedRoute } from '../../utils/route_util';
@@ -9,9 +9,13 @@ import TimelineContainer from './timeline_container'
 class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { formModal: false }
-        this.updatePicture = this.updatePicture.bind(this);
+        this.state = { 
+            formModal: false,
+            coverModal: false
+        }
+        this.closeModal = this.closeModal.bind(this);
         this.addFriend = this.addFriend.bind(this);
+        this.closeCover = this.closeCover.bind(this);
     }
 
     componentDidMount() {
@@ -25,14 +29,18 @@ class Profile extends React.Component {
         }
     }
 
-    updatePicture(user) {
+    closeModal() {
         this.setState({ formModal: false })
-        this.props.receiveUser(user)
+    }
+
+    closeCover() {
+        this.setState({ coverModal: false })
     }
 
     addFriend(e) {
         e.preventDefault();
     }
+    
 
     render() {
         if (!this.props.user) return null
@@ -41,7 +49,7 @@ class Profile extends React.Component {
         const user = this.props.user;
         const currentUserId = this.props.currentUser.id;
         const action = user.photoUrl ? "Update" : "Add"
-        const photoUrl = user.photoUrl ? user.photoUrl : window.defaultProfileURL;
+        const photoUrl = user.photoUrl
         const photoUpdate = (
             <div onClick={e => this.setState({formModal: true})}className="profile-update-photo">
                 <i className="fas fa-camera"></i>
@@ -56,15 +64,36 @@ class Profile extends React.Component {
                         <span>{action} Photo</span>
                         <i className="fas fa-times" onClick={e => this.setState({formModal: false})}></i>
                     </div>
-                    <ProfilePhotoForm updatePicture={this.updatePicture} currentUser={this.props.currentUser} />
+                    <ProfilePhotoFormContainer action="photo" closeModal={this.closeModal} />
+                </div>
+            </div>
+        )
+
+        const coverUpdate = (
+            <div onClick={e => this.setState({ coverModal: true })} className="profile-update-cover">
+                <span>Update Cover Photo</span>
+            </div>   
+        )
+
+        const changeCoverPhoto = (
+            <div className="profile-modal">
+                <div className="profile-photo-form-container">
+                    <div className="profile-photo-form-header">
+                        <span>Update Cover</span>
+                        <i className="fas fa-times" onClick={e => this.setState({ coverModal: false })}></i>
+                    </div>
+                    <ProfilePhotoFormContainer action="cover" closeModal={this.closeCover} />
                 </div>
             </div>
         )
         return (
             <div className="bg-container">
                 {this.state.formModal && changeProfilePhoto}
+                {this.state.coverModal && changeCoverPhoto}
                 <div className="profile-container">
                     <div className="profile-cover">
+                        {currentUserId === user.id? coverUpdate : null}
+                        <img className="profile-cover-image" src={user.coverUrl}></img>
                         <span className="profile-fn">{`${user.first_name} ${user.last_name}`}</span>
                         <div className="profile-photo-container">
                             <img className="profile-photo" src={photoUrl}></img>

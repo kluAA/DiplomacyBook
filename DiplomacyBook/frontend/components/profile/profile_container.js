@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Profile from './profile';
-import { fetchUser, receiveUser } from '../../actions/user_actions';
+import { fetchUser, updatePicture } from '../../actions/user_actions';
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchUser: userId => dispatch(fetchUser(userId)),
-    receiveUser: user => dispatch(receiveUser(user)),
+    updatePicture: (formData, userId) => dispatch(updatePicture(formData, userId)),
 
 })
 
