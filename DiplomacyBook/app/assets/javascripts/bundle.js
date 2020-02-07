@@ -2507,7 +2507,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var cn = "profile-preview-".concat(this.state.action);
       var preview = this.state.photoUrl ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: cn,
         src: this.state.photoUrl
       }) : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {

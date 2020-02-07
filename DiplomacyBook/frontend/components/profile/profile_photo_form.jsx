@@ -37,7 +37,8 @@ class ProfilePhotoForm extends React.Component {
     }
 
     render() {
-        const preview = this.state.photoUrl ? <img src={this.state.photoUrl} /> : null;
+        const cn = `profile-preview-${this.state.action}`
+        const preview = this.state.photoUrl ? <img className={cn} src={this.state.photoUrl} /> : null;
         return (
             <form className="profile-photo-form" onSubmit={this.handleSubmit(this.props.action)}>
                 <input id="profile-photo-file" type="file"
