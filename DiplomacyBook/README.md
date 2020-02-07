@@ -61,3 +61,13 @@ After successful confirmation, the two users are now friends and will have their
     end
 
 Designing the backend for the friendship system required both a friend requests and friendships table. Accepting or declining a friend request triggers a DELETE request towards the friend requests entry. On accept, the controller action uses an ActiveRecord::Base transaction to create both the friendship entry and inverse relationship, and then destroys the entry for the friend request.
+
+## Possible Future Design Features
+
+Diplomacybook's design is very flexible where a variety of future features can be implemented. Some of these possible features include:
+
+* Messenger System (real time chat)
+* Search Feature (find new friends)
+* Events (use location api to host new events)
+* Likes (like posts and comments)
+* Abouts profile page (additional profile customization)
