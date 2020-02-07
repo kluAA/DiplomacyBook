@@ -1,24 +1,18 @@
-# README
+# DiplomacyBook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Diplomacybook is a social media web application designed to provide users a way to network and build cameraderie with people from around the world. It is a faithful, light-weight Facebook clone that implements many of it's core features with a fresh twist.
 
-Things you may want to cover:
+[Live Site](https://diplomacybook.herokuapp.com/)
 
-* Ruby version
+## Technologies Used
+* Ruby on Rails
+* PostgreSQL
+* HTML5
+* CSS
+* Javascript (ES6)
+* React
+* Redux
+* Heroku
+* AWS S3
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Features
