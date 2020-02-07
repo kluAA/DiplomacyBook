@@ -6,7 +6,6 @@ class Api::FriendshipsController < ApplicationController
     end
 
     def destroy
-    
         f1 = current_user.id 
         f2 = params[:id]
         @friendship_1 = Friendship.where(user_id: f1, friend_id: f2)[0]
