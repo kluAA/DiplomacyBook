@@ -18,8 +18,11 @@ class Api::UsersController < ApplicationController
 
     def update
         @user = current_user
+        if params[:user][:photo]
+            @user.photo.purge
+        end
+        # @user.photo.attach(:photo)
         if @user.update(user_params)
-        
             render 'api/users/show'
         else
             render json: @user.errors.full_messages, status: 401

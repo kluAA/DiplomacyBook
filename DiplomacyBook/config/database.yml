@@ -78,8 +78,17 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+# production:
+#   <<: *default
+#   database: PrototypeAuth_production
+#   username: PrototypeAuth
+#   password: <%= ENV['PROTOTYPEAUTH_DATABASE_PASSWORD'] %>
+
+
 production:
   <<: *default
-  database: PrototypeAuth_production
-  username: PrototypeAuth
-  password: <%= ENV['PROTOTYPEAUTH_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  host: db
+  username: postgres
+  # we don't need to specify a password
+  password:

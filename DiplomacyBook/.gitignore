@@ -28,3 +28,7 @@
 bundle.js
 bundle.js.map
 node_modules
+
+Dockerfile
+docker-compose.yml
+.dockerignore
