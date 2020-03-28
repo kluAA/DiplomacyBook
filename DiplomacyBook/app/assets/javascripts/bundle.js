@@ -469,7 +469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _session_login_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./session/login_container */ "./frontend/components/session/login_container.js");
 /* harmony import */ var _profile_profile_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile/profile_container */ "./frontend/components/profile/profile_container.js");
 /* harmony import */ var _utils_route_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/route_util */ "./frontend/utils/route_util.jsx");
-/* harmony import */ var _nav_nav_user_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nav/nav_user_container */ "./frontend/components/nav/nav_user_container.jsx");
+/* harmony import */ var _nav_NavBarContainer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nav/NavBarContainer */ "./frontend/components/nav/NavBarContainer.jsx");
 /* harmony import */ var _profile_friend_request_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./profile/friend_request_container */ "./frontend/components/profile/friend_request_container.js");
 
 
@@ -482,17 +482,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
-    path: "/",
-    component: _nav_nav_user_container__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/signup",
     component: _session_splash__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
-    exact: true,
-    path: "/",
-    component: _feed_feed_index_container__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/login",
@@ -504,6 +497,12 @@ var App = function App() {
     exact: true,
     path: "/friends/requests",
     component: _profile_friend_request_container__WEBPACK_IMPORTED_MODULE_8__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
+    path: "/",
+    component: _nav_NavBarContainer__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
+    path: "/",
+    component: _feed_feed_index_container__WEBPACK_IMPORTED_MODULE_3__["default"]
   }));
 };
 
@@ -669,6 +668,176 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/nav/NavBar.jsx":
+/*!********************************************!*\
+  !*** ./frontend/components/nav/NavBar.jsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _profile_friend_request_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../profile/friend_request_container */ "./frontend/components/profile/friend_request_container.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var NavBar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NavBar, _React$Component);
+
+  function NavBar(props) {
+    var _this;
+
+    _classCallCheck(this, NavBar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavBar).call(this, props));
+    _this.state = {
+      showMenu: false,
+      showFriends: false
+    };
+    _this.handleLogOut = _this.handleLogOut.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(NavBar, [{
+    key: "handleLogOut",
+    value: function handleLogOut() {
+      e.preventDefault();
+      this.props.logout();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var user = this.props.currentUser;
+      var photoUrl = user.photoUrl ? user.photoUrl : window.defaultProfileURL;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "navbar-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "navbar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fab fa-facebook-square"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-search"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Search"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "nav-search-btn"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-search"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-profile-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/profile/".concat(this.props.currentUser.id)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "nav-profile"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: photoUrl
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-profile-fn"
+      }, this.props.currentUser.first_name)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-separator"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "nav-home"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Home"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-separator"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "nav-find-friends"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Find Friends")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-separator"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "nav-create"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Create")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-separator"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-alerts"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.handleDropDown("dropFriends"),
+        className: this.state.dropFriends ? "fas fa-user-friends open" : "fas fa-user-friends"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fab fa-facebook-messenger"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-bell"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-separator"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.handleDropDown("dropDownOpen"),
+        className: this.state.dropDownOpen ? "fas fa-caret-down open" : "fas fa-caret-down"
+      }), this.state.dropDownOpen && menu, this.state.dropFriends && friendrequests));
+    }
+  }]);
+
+  return NavBar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (NavBar);
+
+/***/ }),
+
+/***/ "./frontend/components/nav/NavBarContainer.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/nav/NavBarContainer.jsx ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _NavBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NavBar */ "./frontend/components/nav/NavBar.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    sessionId: state.session.id,
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    logout: function logout() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["logout"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_NavBar__WEBPACK_IMPORTED_MODULE_2__["default"])));
+
+/***/ }),
+
 /***/ "./frontend/components/nav/nav_login.jsx":
 /*!***********************************************!*\
   !*** ./frontend/components/nav/nav_login.jsx ***!
@@ -824,245 +993,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_nav_login__WEBPACK_IMPORTED_MODULE_2__["default"])));
-
-/***/ }),
-
-/***/ "./frontend/components/nav/nav_user.jsx":
-/*!**********************************************!*\
-  !*** ./frontend/components/nav/nav_user.jsx ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _profile_friend_request_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../profile/friend_request_container */ "./frontend/components/profile/friend_request_container.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-var NavUser =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(NavUser, _React$Component);
-
-  function NavUser(props) {
-    var _this;
-
-    _classCallCheck(this, NavUser);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavUser).call(this, props));
-    _this.state = {
-      dropDownOpen: false,
-      dropFriends: false
-    };
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.handleDropDown = _this.handleDropDown.bind(_assertThisInitialized(_this));
-    _this.handleDropClose = _this.handleDropClose.bind(_assertThisInitialized(_this));
-    _this.closeExcept = _this.closeExcept.bind(_assertThisInitialized(_this));
-    return _this;
-  } // componentDidMount() {
-  //     if (!this.props.currentUser) {
-  //         this.props.fetch
-  //     }
-  // }
-
-
-  _createClass(NavUser, [{
-    key: "handleClick",
-    value: function handleClick(e) {
-      e.preventDefault();
-      this.props.logout();
-    }
-  }, {
-    key: "handleDropDown",
-    value: function handleDropDown(key) {
-      var _this2 = this;
-
-      return function (e) {
-        e.preventDefault(); //    this.setState({[key]: !this.state[key]})
-
-        _this2.setState(_this2.closeExcept(key));
-      };
-    }
-  }, {
-    key: "closeExcept",
-    value: function closeExcept(key) {
-      var _this3 = this;
-
-      var dropdowns = Object.keys(this.state);
-      var newState = {};
-      dropdowns.forEach(function (name) {
-        name !== key ? newState[name] = false : newState[name] = !_this3.state[name];
-      });
-      return newState;
-    }
-  }, {
-    key: "handleDropClose",
-    value: function handleDropClose(key) {
-      var _this4 = this;
-
-      return function (e) {
-        e.preventDefault();
-
-        if (e.target.className === "menu-modal") {
-          _this4.setState(_defineProperty({}, key, false));
-        }
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var friendrequests = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onClick: this.handleDropClose("dropFriends"),
-        className: "menu-modal"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_friend_request_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
-      var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onClick: this.handleDropClose("dropDownOpen"),
-        className: "menu-modal"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "menu"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-caret-up"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "First Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-        className: "menu-divider"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Second Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-        className: "menu-divider"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Another Item Here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-        className: "menu-divider"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onClick: this.handleClick
-      }, "Log Out"))); //when modal opened, add event listener to document for clicking to close modal
-      //modal to have eventlistener to stop propogation of click event
-      //when modal closes remove document 
-
-      var user = this.props.currentUser;
-      var photoUrl = user.photoUrl ? user.photoUrl : window.defaultProfileURL;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-user"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-user-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fab fa-facebook-square"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-search"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        placeholder: "Search"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "nav-search-btn"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-search"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-profile-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/profile/".concat(this.props.currentUser.id)
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "nav-profile"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: photoUrl
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "nav-profile-fn"
-      }, this.props.currentUser.first_name)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-separator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "nav-home"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Home"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-separator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "nav-find-friends"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Find Friends")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-separator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "nav-create"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Create")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-separator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-alerts"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        onClick: this.handleDropDown("dropFriends"),
-        className: this.state.dropFriends ? "fas fa-user-friends open" : "fas fa-user-friends"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fab fa-facebook-messenger"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-bell"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-separator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        onClick: this.handleDropDown("dropDownOpen"),
-        className: this.state.dropDownOpen ? "fas fa-caret-down open" : "fas fa-caret-down"
-      }), this.state.dropDownOpen && menu, this.state.dropFriends && friendrequests));
-    }
-  }]);
-
-  return NavUser;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (NavUser);
-
-/***/ }),
-
-/***/ "./frontend/components/nav/nav_user_container.jsx":
-/*!********************************************************!*\
-  !*** ./frontend/components/nav/nav_user_container.jsx ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _nav_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nav_user */ "./frontend/components/nav/nav_user.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
-
-
-
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    sessionId: state.session.id,
-    currentUser: state.entities.users[state.session.id]
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    logout: function logout() {
-      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["logout"])());
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_nav_user__WEBPACK_IMPORTED_MODULE_2__["default"])));
 
 /***/ }),
 

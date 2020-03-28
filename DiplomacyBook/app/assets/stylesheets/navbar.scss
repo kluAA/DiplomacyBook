@@ -1,0 +1,16 @@
+.navbar-container {
+    background: #4267b2;
+    height: 42px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid #29487d;
+}
+
+.navbar {
+    height: 100%;
+    width: 1012px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
