@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import FriendRequest from './friend_request';
+import NavBarFriendRequest from './NavBarFriendRequest';
 import { fetchFriendRequests, destroyFriendRequest } from '../../actions/friend_request_actions';
 import { withRouter } from 'react-router-dom';
 
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => ({
     destroyFriendRequest: (friendrequestId, action) => dispatch(destroyFriendRequest(friendrequestId, action))
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FriendRequest));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBarFriendRequest));

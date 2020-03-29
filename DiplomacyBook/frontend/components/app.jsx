@@ -6,7 +6,6 @@ import LoginFormContainer from './session/login_container';
 import ProfileContainer from './profile/profile_container';
 import { AuthRoute, ProtectedRoute } from '../utils/route_util';
 import NavBarContainer from './nav/NavBarContainer';
-import FriendRequestContainer from './profile/friend_request_container';
 
 const App = () => {
     return (
@@ -14,9 +13,8 @@ const App = () => {
             <AuthRoute exact path='/signup' component={Splash} />
             <AuthRoute exact path='/login' component={LoginFormContainer} />
             <ProtectedRoute path='/profile/:userId' component={ProfileContainer} />
-            <ProtectedRoute exact path='/friends/requests' component={FriendRequestContainer} />
             <ProtectedRoute path='/' component={NavBarContainer} />
-            <ProtectedRoute path='/' component={FeedIndexContainer} />
+            <ProtectedRoute exact path='/' component={FeedIndexContainer} />
         </div>
     )
 }

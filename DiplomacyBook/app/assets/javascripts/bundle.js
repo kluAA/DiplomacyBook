@@ -470,8 +470,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profile_profile_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile/profile_container */ "./frontend/components/profile/profile_container.js");
 /* harmony import */ var _utils_route_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/route_util */ "./frontend/utils/route_util.jsx");
 /* harmony import */ var _nav_NavBarContainer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./nav/NavBarContainer */ "./frontend/components/nav/NavBarContainer.jsx");
-/* harmony import */ var _profile_friend_request_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./profile/friend_request_container */ "./frontend/components/profile/friend_request_container.js");
-
 
 
 
@@ -494,13 +492,10 @@ var App = function App() {
     path: "/profile/:userId",
     component: _profile_profile_container__WEBPACK_IMPORTED_MODULE_5__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
-    exact: true,
-    path: "/friends/requests",
-    component: _profile_friend_request_container__WEBPACK_IMPORTED_MODULE_8__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
     path: "/",
     component: _nav_NavBarContainer__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_route_util__WEBPACK_IMPORTED_MODULE_6__["ProtectedRoute"], {
+    exact: true,
     path: "/",
     component: _feed_feed_index_container__WEBPACK_IMPORTED_MODULE_3__["default"]
   }));
@@ -680,7 +675,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _profile_friend_request_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../profile/friend_request_container */ "./frontend/components/profile/friend_request_container.js");
+/* harmony import */ var _NavBarFriendRequestContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NavBarFriendRequestContainer */ "./frontend/components/nav/NavBarFriendRequestContainer.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _NavBarMenu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NavBarMenu */ "./frontend/components/nav/NavBarMenu.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -703,6 +701,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var NavBar =
 /*#__PURE__*/
 function (_React$Component) {
@@ -718,16 +718,67 @@ function (_React$Component) {
       showMenu: false,
       showFriends: false
     };
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     _this.handleLogOut = _this.handleLogOut.bind(_assertThisInitialized(_this));
+    _this.handleDropDown = _this.handleDropDown.bind(_assertThisInitialized(_this));
+    _this.closeExcept = _this.closeExcept.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(NavBar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.addEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
     key: "handleLogOut",
-    value: function handleLogOut() {
+    value: function handleLogOut(e) {
       e.preventDefault();
       this.props.logout();
     }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      var domNode = react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.findDOMNode(this);
+
+      if (!domNode || !domNode.contains(e.target)) {
+        this.setState({
+          showMenu: false,
+          showFriends: false
+        });
+      }
+    }
+  }, {
+    key: "handleDropDown",
+    value: function handleDropDown(key) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault(); //    this.setState({[key]: !this.state[key]})
+
+        _this2.setState(_this2.closeExcept(key));
+      };
+    }
+  }, {
+    key: "closeExcept",
+    value: function closeExcept(key) {
+      var _this3 = this;
+
+      var dropdowns = Object.keys(this.state);
+      var newState = {};
+      dropdowns.forEach(function (name) {
+        name !== key ? newState[name] = false : newState[name] = !_this3.state[name];
+      });
+      return newState;
+    }
+  }, {
+    key: "toggleMenu",
+    value: function toggleMenu(key) {}
   }, {
     key: "render",
     value: function render() {
@@ -778,19 +829,15 @@ function (_React$Component) {
         className: "nav-separator"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "nav-alerts"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        onClick: this.handleDropDown("dropFriends"),
-        className: this.state.dropFriends ? "fas fa-user-friends open" : "fas fa-user-friends"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavBarFriendRequestContainer__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fab fa-facebook-messenger"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-bell"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "nav-separator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        onClick: this.handleDropDown("dropDownOpen"),
-        className: this.state.dropDownOpen ? "fas fa-caret-down open" : "fas fa-caret-down"
-      }), this.state.dropDownOpen && menu, this.state.dropFriends && friendrequests));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavBarMenu__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        handleLogOut: this.handleLogOut
+      }), this.state.showFriends && friendrequests));
     }
   }]);
 
@@ -835,6 +882,302 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_NavBar__WEBPACK_IMPORTED_MODULE_2__["default"])));
+
+/***/ }),
+
+/***/ "./frontend/components/nav/NavBarFriendRequest.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/nav/NavBarFriendRequest.jsx ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var NavBarFriendRequest =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NavBarFriendRequest, _React$Component);
+
+  function NavBarFriendRequest(props) {
+    var _this;
+
+    _classCallCheck(this, NavBarFriendRequest);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavBarFriendRequest).call(this, props));
+    _this.state = {
+      showFriends: false
+    };
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(NavBarFriendRequest, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchFriendRequests();
+      document.addEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      var domNode = react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.findDOMNode(this);
+
+      if (!domNode || !domNode.contains(e.target)) {
+        this.setState({
+          showFriends: false
+        });
+      }
+    }
+  }, {
+    key: "handleRequest",
+    value: function handleRequest(id, action) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this2.props.destroyFriendRequest(id, action);
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var friendrequests = this.props.friendrequests;
+      if (!friendrequests || friendrequests === []) return null;
+      var requests = friendrequests.map(function (friendrequest) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: friendrequest.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/profile/".concat(friendrequest.sender_id)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "friend-requests-pic",
+          src: friendrequest.sender.photoUrl
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "friend-requests-info"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/profile/".concat(friendrequest.sender_id)
+        }, friendrequest.sender.first_name, " ", friendrequest.sender.last_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "friend-requests-buttons"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "confirm",
+          onClick: _this3.handleRequest(friendrequest.id, "accept")
+        }, "Confirm"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "delete",
+          onClick: _this3.handleRequest(friendrequest.id, "decline")
+        }, "Delete"))));
+      });
+      var showFriendsMenu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "friend-requests-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "friend-requests-header"
+      }, "Friend Requests"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "friend-requests"
+      }, requests));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-listener"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: function onClick(e) {
+          return _this3.setState({
+            showFriends: !_this3.state.showFriends
+          });
+        },
+        className: this.state.showFriends ? "fas fa-user-friends open" : "fas fa-user-friends"
+      }), this.state.showFriends ? showFriendsMenu : null);
+    }
+  }]);
+
+  return NavBarFriendRequest;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (NavBarFriendRequest);
+
+/***/ }),
+
+/***/ "./frontend/components/nav/NavBarFriendRequestContainer.js":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/nav/NavBarFriendRequestContainer.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _NavBarFriendRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavBarFriendRequest */ "./frontend/components/nav/NavBarFriendRequest.jsx");
+/* harmony import */ var _actions_friend_request_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/friend_request_actions */ "./frontend/actions/friend_request_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    currentUser: state.entities.users[state.session.id],
+    friendrequests: Object.values(state.entities.friendrequests)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchFriendRequests: function fetchFriendRequests() {
+      return dispatch(Object(_actions_friend_request_actions__WEBPACK_IMPORTED_MODULE_2__["fetchFriendRequests"])());
+    },
+    destroyFriendRequest: function destroyFriendRequest(friendrequestId, action) {
+      return dispatch(Object(_actions_friend_request_actions__WEBPACK_IMPORTED_MODULE_2__["destroyFriendRequest"])(friendrequestId, action));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_NavBarFriendRequest__WEBPACK_IMPORTED_MODULE_1__["default"])));
+
+/***/ }),
+
+/***/ "./frontend/components/nav/NavBarMenu.jsx":
+/*!************************************************!*\
+  !*** ./frontend/components/nav/NavBarMenu.jsx ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var NavBarMenu =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NavBarMenu, _React$Component);
+
+  function NavBarMenu(props) {
+    var _this;
+
+    _classCallCheck(this, NavBarMenu);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavBarMenu).call(this, props));
+    _this.state = {
+      showMenu: false
+    };
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(NavBarMenu, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.addEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      var domNode = react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.findDOMNode(this);
+
+      if (!domNode || !domNode.contains(e.target)) {
+        this.setState({
+          showMenu: false
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "menu"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-caret-up"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "First Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "menu-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Second Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "menu-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Another Item Here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "menu-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: function onClick(e) {
+          return _this2.props.handleLogOut(e);
+        }
+      }, "Log Out"));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "nav-listener"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: function onClick(e) {
+          return _this2.setState({
+            showMenu: !_this2.state.showMenu
+          });
+        },
+        className: this.state.showMenu ? "fas fa-caret-down open" : "fas fa-caret-down"
+      }), this.state.showMenu && menu);
+    }
+  }]);
+
+  return NavBarMenu;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (NavBarMenu);
 
 /***/ }),
 
@@ -1696,152 +2039,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_post_item__WEBPACK_IMPORTED_MODULE_1__["default"]));
-
-/***/ }),
-
-/***/ "./frontend/components/profile/friend_request.jsx":
-/*!********************************************************!*\
-  !*** ./frontend/components/profile/friend_request.jsx ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-var FriendRequest =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(FriendRequest, _React$Component);
-
-  function FriendRequest(props) {
-    _classCallCheck(this, FriendRequest);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(FriendRequest).call(this, props));
-  }
-
-  _createClass(FriendRequest, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchFriendRequests();
-    }
-  }, {
-    key: "handleClick",
-    value: function handleClick(id, action) {
-      var _this = this;
-
-      return function (e) {
-        e.preventDefault();
-
-        _this.props.destroyFriendRequest(id, action);
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var friendrequests = this.props.friendrequests;
-      if (!friendrequests || friendrequests === []) return null;
-      var requests = friendrequests.map(function (friendrequest) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          key: friendrequest.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/profile/".concat(friendrequest.sender_id)
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          className: "friend-requests-pic",
-          src: friendrequest.sender.photoUrl
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "friend-requests-info"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/profile/".concat(friendrequest.sender_id)
-        }, friendrequest.sender.first_name, " ", friendrequest.sender.last_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "friend-requests-buttons"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "confirm",
-          onClick: _this2.handleClick(friendrequest.id, "accept")
-        }, "Confirm"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "delete",
-          onClick: _this2.handleClick(friendrequest.id, "decline")
-        }, "Delete"))));
-      });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "friend-requests-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "friend-requests-header"
-      }, "Friend Requests"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "friend-requests"
-      }, requests));
-    }
-  }]);
-
-  return FriendRequest;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (FriendRequest);
-
-/***/ }),
-
-/***/ "./frontend/components/profile/friend_request_container.js":
-/*!*****************************************************************!*\
-  !*** ./frontend/components/profile/friend_request_container.js ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _friend_request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./friend_request */ "./frontend/components/profile/friend_request.jsx");
-/* harmony import */ var _actions_friend_request_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/friend_request_actions */ "./frontend/actions/friend_request_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
-
-
-
-
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-  return {
-    currentUser: state.entities.users[state.session.id],
-    friendrequests: Object.values(state.entities.friendrequests)
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    fetchFriendRequests: function fetchFriendRequests() {
-      return dispatch(Object(_actions_friend_request_actions__WEBPACK_IMPORTED_MODULE_2__["fetchFriendRequests"])());
-    },
-    destroyFriendRequest: function destroyFriendRequest(friendrequestId, action) {
-      return dispatch(Object(_actions_friend_request_actions__WEBPACK_IMPORTED_MODULE_2__["destroyFriendRequest"])(friendrequestId, action));
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_friend_request__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
