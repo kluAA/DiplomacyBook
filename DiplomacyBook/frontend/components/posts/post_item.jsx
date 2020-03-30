@@ -10,11 +10,37 @@ class PostItem extends React.Component {
         super(props);
     }
 
+    parseTime(time) {
+        const relTime = Math.floor((new Date() - time) / 1000);
+        if (relTime < 1) {
+            return "Just now";
+        } 
+        else if (relTime < 60) {
+            return relTime === 1 ? `${relTime} second ago` : `${relTime} seconds ago`;
+        } 
+        else if (relTime < 3600) {
+            let minutes = Math.floor(relTime / 60);
+            return minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`;
+        }
+        else if (relTime < 3600 * 24) {
+            let hours = Math.floor(relTime / (3600 * 24));
+            return hours === 1 ? `${hours} hour ago` : `${hours} hours ago`;
+        } 
+        else if (relTime < 3600 * 24 * 7) {
+            let days = Math.floor(relTime / (3600 * 24 * 7));
+            return days === 1 ? `${days} day ago` : `${days} days ago`;
+        }
+        else {
+            return time.toDateString();
+        }
+        
+    }
+
     render() {
         const { postId, posts, currentUser, deletePost } = this.props;
         const post = posts[postId];
-        let time = new Date(post.created_at);
-        let parsedTime = time.toDateString();
+        const time = new Date(post.created_at);
+        const parsedTime = this.parseTime(time);
 
         return (
             <div>

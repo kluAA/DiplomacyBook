@@ -1968,6 +1968,28 @@ function (_React$Component) {
   }
 
   _createClass(PostItem, [{
+    key: "parseTime",
+    value: function parseTime(time) {
+      var relTime = Math.floor((new Date() - time) / 1000);
+
+      if (relTime < 1) {
+        return "Just now";
+      } else if (relTime < 60) {
+        return relTime === 1 ? "".concat(relTime, " second ago") : "".concat(relTime, " seconds ago");
+      } else if (relTime < 3600) {
+        var minutes = Math.floor(relTime / 60);
+        return minutes === 1 ? "".concat(minutes, " minute ago") : "".concat(minutes, " minutes ago");
+      } else if (relTime < 3600 * 24) {
+        var hours = Math.floor(relTime / (3600 * 24));
+        return hours === 1 ? "".concat(hours, " hour ago") : "".concat(hours, " hours ago");
+      } else if (relTime < 3600 * 24 * 7) {
+        var days = Math.floor(relTime / (3600 * 24 * 7));
+        return days === 1 ? "".concat(days, " day ago") : "".concat(days, " days ago");
+      } else {
+        return time.toDateString();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -1977,7 +1999,7 @@ function (_React$Component) {
           deletePost = _this$props.deletePost;
       var post = posts[postId];
       var time = new Date(post.created_at);
-      var parsedTime = time.toDateString();
+      var parsedTime = this.parseTime(time);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
