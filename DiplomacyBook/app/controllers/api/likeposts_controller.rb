@@ -1,7 +1,8 @@
 class Api::LikepostsController < ApplicationController
     
     def show
-        @likepost = Likepost.find_by(post_id: params[:likepost][:post_id])
+        @post = Post.includes(:liked_users).find(params[:id])
+        render :index
     end
 
     def create

@@ -237,19 +237,21 @@ var fetchFriendRequests = function fetchFriendRequests() {
 /*!******************************************!*\
   !*** ./frontend/actions/like_actions.js ***!
   \******************************************/
-/*! exports provided: LIKE_POST, UNLIKE_POST, likePost, unlikePost */
+/*! exports provided: LIKE_POST, UNLIKE_POST, RECEIVE_LIKES, likePost, unlikePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LIKE_POST", function() { return LIKE_POST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNLIKE_POST", function() { return UNLIKE_POST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKES", function() { return RECEIVE_LIKES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likePost", function() { return likePost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlikePost", function() { return unlikePost; });
 /* harmony import */ var _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/like_api_util */ "./frontend/utils/like_api_util.js");
 
 var LIKE_POST = "LIKE_POST";
 var UNLIKE_POST = "UNLIKE_POST";
+var RECEIVE_LIKES = "RECEIVE_LIKES";
 
 var receiveLikePost = function receiveLikePost(like) {
   return {
@@ -262,6 +264,13 @@ var removeLikePost = function removeLikePost(like) {
   return {
     type: UNLIKE_POST,
     like: like
+  };
+};
+
+var receiveLikes = function receiveLikes(likes) {
+  return {
+    type: RECEIVE_LIKES,
+    likes: likes
   };
 };
 
@@ -4014,6 +4023,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _friends_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./friends_reducer */ "./frontend/reducers/friends_reducer.js");
 /* harmony import */ var _posts_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./posts_reducer */ "./frontend/reducers/posts_reducer.js");
 /* harmony import */ var _comments_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comments_reducer */ "./frontend/reducers/comments_reducer.js");
+/* harmony import */ var _likes_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./likes_reducer */ "./frontend/reducers/likes_reducer.js");
+
 
 
 
@@ -4025,7 +4036,8 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
   friendrequests: _friend_requests_reducer_js__WEBPACK_IMPORTED_MODULE_2__["default"],
   friends: _friends_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   posts: _posts_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
+  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -4126,6 +4138,30 @@ var friendsReducer = function friendsReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (friendsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/likes_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/likes_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var likesReducer = function likesReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (likesReducer);
 
 /***/ }),
 

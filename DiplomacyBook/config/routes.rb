@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :friendrequests, only: [:create, :destroy, :index]
     resources :comments, only: [:create]
-    resources :likeposts, only: [:create, :destroy, :index]
+    resources :likeposts, only: [:create, :destroy, :show]
   end
 
   root to: 'static_pages#root'
