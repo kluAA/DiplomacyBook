@@ -1,0 +1,183 @@
+.navbar-container {
+    background: #4267b2;
+    height: 42px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid #29487d;
+}
+
+.navbar {
+    height: 100%;
+    width: 1012px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .fa-facebook-square {
+    font-size: 28px;
+    color: white;
+}
+
+.nav-search {
+    position: relative;
+}
+
+.nav-search input{
+    background: white;
+    height: 24px;
+    width: 393px;
+    border: 1px solid #3b5998;
+    border-radius: 3px;
+    padding-left: 5px;
+    padding-right: 48px;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.nav-search-btn {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-radius: 0 3px 3px 0;
+    color: #4b4f56;
+    background: #f5f6f7;
+    text-align: center;
+    border: 1px solid #3b5998;
+    border-left: none;
+    width: 46px;
+}
+
+.nav-search-btn:hover {
+    background: #eef0f3;
+}
+
+.fa-search {
+    font-size: 16px;
+    padding: 4px 0;
+    text-align:center;
+}
+
+.nav-profile img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.navbar section {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 28px;
+}
+
+.navbar section:hover {
+    background: #3B5DA1;
+}
+
+.navbar span {
+    color: white;
+    font-size: 12px;
+    font-weight: 550;
+}
+
+.nav-profile-container {
+    display: flex;
+    margin-left: 35px;
+}
+
+.nav-profile-fn {
+    margin-left: 5px;
+    padding-right: 10px;
+}
+
+.nav-separator {
+    height: 18px;
+    border-right: 1px solid #3B5DA1;
+}
+
+.nav-home, .nav-find-friends, .nav-create {
+    padding: 0 12px;
+}
+
+.nav-alerts i {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 20px;
+    color: rgb(25, 37, 71);
+}
+
+.nav-alerts i:hover {
+    color: black;
+}
+
+.nav-listener {
+    position: relative;
+}
+
+.fa-user-friends {
+    margin-left: 11px;
+}
+
+.fa-facebook-messenger {
+    margin: 0 15px;
+}
+
+.fa-bell {
+    margin-right: 11px;
+}
+
+.fa-caret-down {
+    margin-left: 5px;
+    color: rgb(25, 37, 71);
+    cursor: pointer;
+    position: relative;
+}
+
+.open {
+    color: white !important;
+}
+
+
+.menu {
+    position: absolute;
+    top: 30px;
+    right: -13px;
+    width: 200px;
+    background: white;
+    z-index: 11;
+    padding: 5px 0;
+    border: 1px solid rgba(0, 0, 0, 0.247);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+}
+
+.fa-caret-up {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: -12px;
+    right: 10px;
+}
+
+.menu li {
+    cursor: pointer;
+    padding: 0 34px;
+    color: #1D2129;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 22px;
+    -webkit-font-smoothing: antialiased;
+    z-index: 10;
+}
+
+.menu li:hover {
+    background: #4267b2;
+}
+
+.menu-divider {
+    border-bottom: 1px solid #E9EBEE;
+    margin: 5px 7px 6px;
+    padding-top: 1px;
+}
