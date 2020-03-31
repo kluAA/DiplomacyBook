@@ -49,6 +49,15 @@ class User < ApplicationRecord
     has_many :comments,
         foreign_key: :author_id,
         class_name: :Comment
+
+    #association for Likepost table
+    has_many :liked_posts,
+        foreign_key: :user_id,
+        class_name: :Likepost
+    
+    has_many :posts_liked,
+        through: :liked_posts,
+        source: :post
     
     attr_reader :password
     after_initialize :ensure_session_token
