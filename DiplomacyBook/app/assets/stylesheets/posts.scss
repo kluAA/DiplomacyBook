@@ -169,7 +169,7 @@
     font-size: 13px;
 }
 
-.post-options a, .post-options label {
+.like, .share, .post-options label {
     cursor: pointer;
     padding: 6px 0;
     margin: 4px 0;
@@ -180,7 +180,7 @@
     border-radius: 2px;
 }
 
-.post-options a:hover, .post-options label:hover {
+.like:hover, .share:hover, .post-options label:hover {
     background: #f2f2f2;
 }
 

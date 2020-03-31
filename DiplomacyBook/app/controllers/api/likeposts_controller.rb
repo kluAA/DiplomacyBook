@@ -1,12 +1,12 @@
 class Api::LikepostsController < ApplicationController
     
     def show
-        
+        @likepost = Likepost.find_by(post_id: params[:likepost][:post_id])
     end
 
     def create
         @likepost = Likepost.new(likepost_params)
-        @likepost.user_id = current_user.user_id
+        @likepost.user_id = current_user.id
         if @likepost.save
             render :show
         else

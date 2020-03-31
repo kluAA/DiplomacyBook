@@ -36,6 +36,11 @@ class PostItem extends React.Component {
         
     }
 
+    handleLike(e, postId) {
+        const likePost = { post_id: postId }
+        this.props.likePost(likePost);
+    }
+
     render() {
         const { postId, posts, currentUser, deletePost } = this.props;
         const post = posts[postId];
@@ -55,9 +60,11 @@ class PostItem extends React.Component {
                 <p className="post-body">{post.body}</p>
                 <hr id="linebreak"></hr>
                 <div className="post-options">
-                    <a className="like"><i className="far fa-thumbs-up"></i>Like</a>
+                    <div className="like" onClick={e => this.handleLike(e, postId)}>
+                        <i className="far fa-thumbs-up"></i>Like
+                    </div>
                     <label htmlFor={`comment-${postId}`} className="comment"><i className="far fa-comment-alt"></i>Comment</label>
-                    <a className="share"><i className="far fa-share-square"></i>Share</a>
+                    <div className="share"><i className="far fa-share-square"></i>Share</div>
                 </div>
                 <div className="comments-container">
                     {post.comment_ids.map(comment_id => <CommentContainer key={comment_id} comment_id={comment_id}/>)}
