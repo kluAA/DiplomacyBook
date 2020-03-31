@@ -23,11 +23,11 @@ class PostItem extends React.Component {
             return minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`;
         }
         else if (relTime < 3600 * 24) {
-            let hours = Math.floor(relTime / (3600 * 24));
+            let hours = Math.floor(relTime / (3600));
             return hours === 1 ? `${hours} hour ago` : `${hours} hours ago`;
         } 
         else if (relTime < 3600 * 24 * 7) {
-            let days = Math.floor(relTime / (3600 * 24 * 7));
+            let days = Math.floor(relTime / (3600 * 24));
             return days === 1 ? `${days} day ago` : `${days} days ago`;
         }
         else {

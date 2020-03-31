@@ -1980,10 +1980,10 @@ function (_React$Component) {
         var minutes = Math.floor(relTime / 60);
         return minutes === 1 ? "".concat(minutes, " minute ago") : "".concat(minutes, " minutes ago");
       } else if (relTime < 3600 * 24) {
-        var hours = Math.floor(relTime / (3600 * 24));
+        var hours = Math.floor(relTime / 3600);
         return hours === 1 ? "".concat(hours, " hour ago") : "".concat(hours, " hours ago");
       } else if (relTime < 3600 * 24 * 7) {
-        var days = Math.floor(relTime / (3600 * 24 * 7));
+        var days = Math.floor(relTime / (3600 * 24));
         return days === 1 ? "".concat(days, " day ago") : "".concat(days, " days ago");
       } else {
         return time.toDateString();
