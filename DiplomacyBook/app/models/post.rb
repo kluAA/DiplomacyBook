@@ -19,6 +19,10 @@ class Post < ApplicationRecord
         class_name: :Likepost,
         dependent: :destroy
 
+    has_many :liked_users,
+        through: :likes,
+        source: :user
+
 end
 
 # == Schema Information

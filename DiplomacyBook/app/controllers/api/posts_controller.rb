@@ -10,14 +10,14 @@ class Api::PostsController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        @posts = user.posts.includes(:author, comments: [:author]) 
+        @posts = user.posts.includes(:author, :liked_users, comments: [:author]) 
         render :index
     end
 
     def index
         ids = current_user.friends.pluck(:id) 
         ids << current_user.id
-        @posts = Post.includes(:author, comments: [:author]).where(author_id: ids)
+        @posts = Post.includes(:author, :liked_users, comments: [:author]).where(author_id: ids)
         render :index
     end
 

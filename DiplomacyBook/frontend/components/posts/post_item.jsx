@@ -41,11 +41,29 @@ class PostItem extends React.Component {
         this.props.likePost(likePost);
     }
 
+    handleUnlike(e, postId) {
+        this.props.unlikePost(postId)
+    }
+
     render() {
         const { postId, posts, currentUser, deletePost } = this.props;
         const post = posts[postId];
         const time = new Date(post.created_at);
         const parsedTime = this.parseTime(time);
+        const like = (
+            <div className="like" onClick={e => this.handleLike(e, postId)}>
+                <i className="far fa-thumbs-up"></i>Like
+            </div>
+        )
+
+        const liked = (
+            <div className="like" 
+                id="liked"
+                onClick={e => this.handleUnlike(e, postId)}
+            >
+                <i className="fas fa-thumbs-up"></i>Like
+            </div>
+        )
 
         return (
             <div>
@@ -60,9 +78,7 @@ class PostItem extends React.Component {
                 <p className="post-body">{post.body}</p>
                 <hr id="linebreak"></hr>
                 <div className="post-options">
-                    <div className="like" onClick={e => this.handleLike(e, postId)}>
-                        <i className="far fa-thumbs-up"></i>Like
-                    </div>
+                    {post.liked_users.includes(currentUser.id) ? liked : like}
                     <label htmlFor={`comment-${postId}`} className="comment"><i className="far fa-comment-alt"></i>Comment</label>
                     <div className="share"><i className="far fa-share-square"></i>Share</div>
                 </div>

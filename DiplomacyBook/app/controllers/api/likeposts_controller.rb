@@ -14,6 +14,15 @@ class Api::LikepostsController < ApplicationController
         end
     end
 
+    def destroy
+        @likepost = Likepost.find_by(
+            user_id: current_user.id, 
+            post_id: params[:id]
+        )
+        @likepost.destroy
+        render :show
+    end
+
     def likepost_params
         params.require(:likepost).permit(:post_id)
     end

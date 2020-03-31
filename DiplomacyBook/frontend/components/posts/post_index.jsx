@@ -9,6 +9,7 @@ class PostIndex extends React.Component {
 
     componentDidMount() {
         this.props.fetchUserPosts(this.props.match.params.id)
+        
     }
 
     componentDidUpdate(prevProps) {

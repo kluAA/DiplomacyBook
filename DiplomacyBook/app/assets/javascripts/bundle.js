@@ -237,7 +237,7 @@ var fetchFriendRequests = function fetchFriendRequests() {
 /*!******************************************!*\
   !*** ./frontend/actions/like_actions.js ***!
   \******************************************/
-/*! exports provided: LIKE_POST, UNLIKE_POST, likePost */
+/*! exports provided: LIKE_POST, UNLIKE_POST, likePost, unlikePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -245,6 +245,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LIKE_POST", function() { return LIKE_POST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNLIKE_POST", function() { return UNLIKE_POST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likePost", function() { return likePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlikePost", function() { return unlikePost; });
 /* harmony import */ var _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/like_api_util */ "./frontend/utils/like_api_util.js");
 
 var LIKE_POST = "LIKE_POST";
@@ -257,10 +258,10 @@ var receiveLikePost = function receiveLikePost(like) {
   };
 };
 
-var removeLikePost = function removeLikePost(likeId) {
+var removeLikePost = function removeLikePost(like) {
   return {
     type: UNLIKE_POST,
-    likeId: likeId
+    like: like
   };
 };
 
@@ -268,6 +269,13 @@ var likePost = function likePost(_likePost) {
   return function (dispatch) {
     return _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__["likePost"](_likePost).then(function (like) {
       return dispatch(receiveLikePost(like));
+    });
+  };
+};
+var unlikePost = function unlikePost(postId) {
+  return function (dispatch) {
+    return _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__["unlikePost"](postId).then(function (like) {
+      return dispatch(removeLikePost(like));
     });
   };
 };
@@ -2039,6 +2047,11 @@ function (_React$Component) {
       this.props.likePost(likePost);
     }
   }, {
+    key: "handleUnlike",
+    value: function handleUnlike(e, postId) {
+      this.props.unlikePost(postId);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -2051,6 +2064,23 @@ function (_React$Component) {
       var post = posts[postId];
       var time = new Date(post.created_at);
       var parsedTime = this.parseTime(time);
+      var like = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "like",
+        onClick: function onClick(e) {
+          return _this.handleLike(e, postId);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-thumbs-up"
+      }), "Like");
+      var liked = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "like",
+        id: "liked",
+        onClick: function onClick(e) {
+          return _this.handleUnlike(e, postId);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-thumbs-up"
+      }), "Like");
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -2077,14 +2107,7 @@ function (_React$Component) {
         id: "linebreak"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-options"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "like",
-        onClick: function onClick(e) {
-          return _this.handleLike(e, postId);
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "far fa-thumbs-up"
-      }), "Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, post.liked_users.includes(currentUser.id) ? liked : like, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comment-".concat(postId),
         className: "comment"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -2143,8 +2166,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     deletePost: function deletePost(postId) {
       return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_2__["deletePost"])(postId));
     },
-    likePost: function likePost(postId) {
-      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["likePost"])(postId));
+    likePost: function likePost(like) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["likePost"])(like));
+    },
+    unlikePost: function unlikePost(postId) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["unlikePost"])(postId));
     }
   };
 };
@@ -4146,9 +4172,11 @@ var modalReducer = function modalReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/post_actions */ "./frontend/actions/post_actions.js");
 /* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/comment_actions */ "./frontend/actions/comment_actions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -4158,7 +4186,7 @@ var postsReducer = function postsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-  var nextState;
+  var nextState, likeId, like, idx;
 
   switch (action.type) {
     case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_POSTS"]:
@@ -4169,13 +4197,28 @@ var postsReducer = function postsReducer() {
       return Object.assign({}, state, _defineProperty({}, action.payload.post.id, action.payload.post));
 
     case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_POST"]:
-      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
       delete nextState[action.postId];
       return nextState;
 
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_COMMENT"]:
-      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
       nextState[action.comment.post_id].comment_ids.push(action.comment.id);
+      return nextState;
+
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__["LIKE_POST"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
+      likeId = Object.keys(action.like)[0];
+      like = action.like[likeId];
+      nextState[like.post_id].liked_users.push(like.user_id);
+      return nextState;
+
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__["UNLIKE_POST"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
+      likeId = Object.keys(action.like)[0];
+      like = action.like[likeId];
+      idx = nextState[like.post_id].liked_users.indexOf(like.user_id);
+      nextState[like.post_id].liked_users.splice(idx);
       return nextState;
 
     default:
@@ -4468,12 +4511,13 @@ var destroyFriendRequest = function destroyFriendRequest(friendrequestId, action
 /*!*****************************************!*\
   !*** ./frontend/utils/like_api_util.js ***!
   \*****************************************/
-/*! exports provided: likePost */
+/*! exports provided: likePost, unlikePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likePost", function() { return likePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlikePost", function() { return unlikePost; });
 var likePost = function likePost(likepost) {
   return $.ajax({
     method: "POST",
@@ -4481,6 +4525,12 @@ var likePost = function likePost(likepost) {
     data: {
       likepost: likepost
     }
+  });
+};
+var unlikePost = function unlikePost(postId) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/likeposts/".concat(postId)
   });
 };
 

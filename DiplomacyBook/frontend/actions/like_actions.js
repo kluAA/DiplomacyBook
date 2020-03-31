@@ -8,12 +8,17 @@ const receiveLikePost = like => ({
     like
 });
 
-const removeLikePost = likeId => ({
+const removeLikePost = like => ({
     type: UNLIKE_POST,
-    likeId
+    like
 });
 
 export const likePost = likePost => dispatch => {
     return LikeAPIUtil.likePost(likePost)
         .then(like => dispatch(receiveLikePost(like)));
+}
+
+export const unlikePost = postId => dispatch => {
+    return LikeAPIUtil.unlikePost(postId) 
+        .then(like => dispatch(removeLikePost(like)));
 }

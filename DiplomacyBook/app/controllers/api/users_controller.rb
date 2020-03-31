@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.includes(:friends, :requesters, :requesteds).find(params[:id])
+        @user = User.includes(:friends, :requesters, :requesteds, :posts_liked).find(params[:id])
         render :show
       
     end
