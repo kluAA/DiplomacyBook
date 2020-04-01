@@ -1,0 +1,52 @@
+.like-container {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.like-icon {
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+}
+
+#like-message {
+    cursor: pointer;
+    font-size: 13px;
+    color: #606770;
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+#like-message:hover {
+    text-decoration: underline;
+}
+
+.like-bubble {
+    position: absolute;
+    background: black;
+    border-radius: 2px;
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+    bottom: 20px;
+    left: 25px;
+}
+
+.like-names {
+    text-transform: capitalize;
+}
+
+#like-triangle {
+    height: 0;
+    width: 0;
+    border-top: 5px solid black;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    position: absolute;
+    bottom: -5px;
+    left: 10px;
+}

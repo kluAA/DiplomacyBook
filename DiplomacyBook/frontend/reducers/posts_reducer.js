@@ -31,7 +31,7 @@ const postsReducer = (state={}, action) => {
             likeId = Object.keys(action.like)[0];
             like = action.like[likeId];
             idx = nextState[like.post_id].liked_users.indexOf(like.user_id)
-            nextState[like.post_id].liked_users.splice(idx);
+            nextState[like.post_id].liked_users.splice(idx, 1);
             return nextState;
         default:
             return state;

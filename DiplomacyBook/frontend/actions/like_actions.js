@@ -28,3 +28,8 @@ export const unlikePost = postId => dispatch => {
     return LikeAPIUtil.unlikePost(postId) 
         .then(like => dispatch(removeLikePost(like)));
 }
+
+export const fetchLikes = postId => dispatch => {
+    return LikeAPIUtil.fetchLikes(postId)
+        .then(likes => dispatch(receiveLikes(likes)));
+}

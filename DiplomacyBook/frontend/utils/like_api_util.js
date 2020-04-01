@@ -12,3 +12,10 @@ export const unlikePost = postId => {
         url: `/api/likeposts/${postId}`
     })
 }
+
+export const fetchLikes = postId => {
+    return $.ajax({
+        method: "GET",
+        url: `/api/likeposts/${postId}`
+    })
+}
