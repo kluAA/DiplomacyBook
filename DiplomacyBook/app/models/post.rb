@@ -14,6 +14,15 @@ class Post < ApplicationRecord
         class_name: :Comment,
         dependent: :destroy
 
+    has_many :likes,
+        foreign_key: :post_id,
+        class_name: :Likepost,
+        dependent: :destroy
+
+    has_many :liked_users,
+        through: :likes,
+        source: :user
+
 end
 
 # == Schema Information

@@ -233,6 +233,72 @@ var fetchFriendRequests = function fetchFriendRequests() {
 
 /***/ }),
 
+/***/ "./frontend/actions/like_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/like_actions.js ***!
+  \******************************************/
+/*! exports provided: LIKE_POST, UNLIKE_POST, RECEIVE_LIKES, likePost, unlikePost, fetchLikes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LIKE_POST", function() { return LIKE_POST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNLIKE_POST", function() { return UNLIKE_POST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_LIKES", function() { return RECEIVE_LIKES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likePost", function() { return likePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlikePost", function() { return unlikePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
+/* harmony import */ var _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/like_api_util */ "./frontend/utils/like_api_util.js");
+
+var LIKE_POST = "LIKE_POST";
+var UNLIKE_POST = "UNLIKE_POST";
+var RECEIVE_LIKES = "RECEIVE_LIKES";
+
+var receiveLikePost = function receiveLikePost(like) {
+  return {
+    type: LIKE_POST,
+    like: like
+  };
+};
+
+var removeLikePost = function removeLikePost(like) {
+  return {
+    type: UNLIKE_POST,
+    like: like
+  };
+};
+
+var receiveLikes = function receiveLikes(likes) {
+  return {
+    type: RECEIVE_LIKES,
+    likes: likes
+  };
+};
+
+var likePost = function likePost(_likePost) {
+  return function (dispatch) {
+    return _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__["likePost"](_likePost).then(function (like) {
+      return dispatch(receiveLikePost(like));
+    });
+  };
+};
+var unlikePost = function unlikePost(postId) {
+  return function (dispatch) {
+    return _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__["unlikePost"](postId).then(function (like) {
+      return dispatch(removeLikePost(like));
+    });
+  };
+};
+var fetchLikes = function fetchLikes(postId) {
+  return function (dispatch) {
+    return _utils_like_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchLikes"](postId).then(function (likes) {
+      return dispatch(receiveLikes(likes));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -1285,6 +1351,126 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/posts/PostLikes.jsx":
+/*!*************************************************!*\
+  !*** ./frontend/components/posts/PostLikes.jsx ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var PostLikes =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PostLikes, _React$Component);
+
+  function PostLikes(props) {
+    _classCallCheck(this, PostLikes);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(PostLikes).call(this, props));
+  }
+
+  _createClass(PostLikes, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchLikes(this.props.postId);
+    }
+  }, {
+    key: "renderNames",
+    value: function renderNames() {
+      var userLikes = Object.values(this.props.userLikes);
+
+      if (userLikes.length < 8) {
+        return userLikes.map(function (user) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "like-names",
+            key: user.id
+          }, user.first_name, " ", user.last_name);
+        });
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, userLikes.slice(0, 7).map(function (user) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "like-names",
+            key: user.id
+          }, user.first_name, " ", user.last_name);
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "and ", userLikes.length - 7, " more..."));
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "like-bubble"
+      }, !this.props.userLikes ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Loading...") : this.renderNames(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "like-triangle"
+      }));
+    }
+  }]);
+
+  return PostLikes;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (PostLikes);
+
+/***/ }),
+
+/***/ "./frontend/components/posts/PostLikesContainer.js":
+/*!*********************************************************!*\
+  !*** ./frontend/components/posts/PostLikesContainer.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _PostLikes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PostLikes */ "./frontend/components/posts/PostLikes.jsx");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    userLikes: state.entities.likes.likes
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchLikes: function fetchLikes(postId) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_2__["fetchLikes"])(postId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_PostLikes__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/posts/PostOptions.jsx":
 /*!***************************************************!*\
   !*** ./frontend/components/posts/PostOptions.jsx ***!
@@ -1847,7 +2033,7 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (this.props.match.params.id !== prevProps.match.params.id) {
+      if (prevProps.match.params.id !== this.props.match.params.id) {
         this.props.fetchUserPosts(this.props.match.params.id);
       }
     }
@@ -1932,6 +2118,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _comments_comment_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./comments/comment_form_container */ "./frontend/components/posts/comments/comment_form_container.js");
 /* harmony import */ var _comments_comment_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./comments/comment_container */ "./frontend/components/posts/comments/comment_container.js");
 /* harmony import */ var _PostOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostOptions */ "./frontend/components/posts/PostOptions.jsx");
+/* harmony import */ var _PostLikesContainer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PostLikesContainer */ "./frontend/components/posts/PostLikesContainer.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1956,15 +2143,22 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var PostItem =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(PostItem, _React$Component);
 
   function PostItem(props) {
+    var _this;
+
     _classCallCheck(this, PostItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(PostItem).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PostItem).call(this, props));
+    _this.state = {
+      likeDetails: false
+    };
+    return _this;
   }
 
   _createClass(PostItem, [{
@@ -1990,8 +2184,42 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "handleLike",
+    value: function handleLike(e, postId) {
+      var likePost = {
+        post_id: postId
+      };
+      this.props.likePost(likePost);
+    }
+  }, {
+    key: "handleUnlike",
+    value: function handleUnlike(e, postId) {
+      this.props.unlikePost(postId);
+    }
+  }, {
+    key: "likeMessage",
+    value: function likeMessage(isLiked, post) {
+      var liked_users = post.liked_users;
+      var numLikes = liked_users.length;
+
+      if (isLiked && numLikes === 1) {
+        return "You liked this.";
+      } else if (isLiked && numLikes > 1) {
+        return numLikes === 2 ? "You and ".concat(numLikes - 1, " other") : "You and ".concat(numLikes - 1, " others");
+      } else if (numLikes) {
+        return "".concat(liked_users.length);
+      }
+    }
+  }, {
+    key: "handleMouseEnter",
+    value: function handleMouseEnter(e) {
+      this.setState({});
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _this$props = this.props,
           postId = _this$props.postId,
           posts = _this$props.posts,
@@ -2000,6 +2228,45 @@ function (_React$Component) {
       var post = posts[postId];
       var time = new Date(post.created_at);
       var parsedTime = this.parseTime(time);
+      var isLiked = post.liked_users.includes(currentUser.id);
+      var postHasLikes = post.liked_users.length > 0;
+      var like = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "like",
+        onClick: function onClick(e) {
+          return _this2.handleLike(e, postId);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-thumbs-up"
+      }), "Like");
+      var liked = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "like",
+        id: "liked",
+        onClick: function onClick(e) {
+          return _this2.handleUnlike(e, postId);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-thumbs-up"
+      }), "Like");
+      var likeInfo = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "like-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "like-icon",
+        src: window.fbLikesIconURL
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        id: "like-message",
+        onMouseEnter: function onMouseEnter(e) {
+          return _this2.setState({
+            likeDetails: true
+          });
+        },
+        onMouseLeave: function onMouseLeave(e) {
+          return _this2.setState({
+            likeDetails: false
+          });
+        }
+      }, this.likeMessage(isLiked, post)), this.state.likeDetails ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PostLikesContainer__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        postId: postId
+      }) : null);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -2022,20 +2289,16 @@ function (_React$Component) {
         postId: postId
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "post-body"
-      }, post.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+      }, post.body), postHasLikes ? likeInfo : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         id: "linebreak"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-options"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "like"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "far fa-thumbs-up"
-      }), "Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, isLiked ? liked : like, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comment-".concat(postId),
         className: "comment"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-comment-alt"
-      }), "Comment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }), "Comment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "share"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-share-square"
@@ -2071,6 +2334,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _post_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./post_item */ "./frontend/components/posts/post_item.jsx");
 /* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/post_actions */ "./frontend/actions/post_actions.js");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/like_actions */ "./frontend/actions/like_actions.js");
+
 
 
 
@@ -2086,6 +2351,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     deletePost: function deletePost(postId) {
       return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_2__["deletePost"])(postId));
+    },
+    likePost: function likePost(like) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["likePost"])(like));
+    },
+    unlikePost: function unlikePost(postId) {
+      return dispatch(Object(_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__["unlikePost"])(postId));
     }
   };
 };
@@ -3353,7 +3624,7 @@ function (_React$Component) {
       email: "",
       password: "",
       month: MONTHS[_this.date.getMonth()],
-      day: _this.date.getUTCDate(),
+      day: _this.date.getDate(),
       year: _this.date.getFullYear() - 25,
       gender: "",
       touched_first_name: false,
@@ -3453,7 +3724,7 @@ function (_React$Component) {
       var numDays = Array.from(Array(31)).map(function (day, i) {
         return ++i;
       });
-      var currentDay = this.date.getUTCDate();
+      var currentDay = this.date.getDate();
       var days = numDays.map(function (day, i) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: i,
@@ -3929,6 +4200,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _friends_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./friends_reducer */ "./frontend/reducers/friends_reducer.js");
 /* harmony import */ var _posts_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./posts_reducer */ "./frontend/reducers/posts_reducer.js");
 /* harmony import */ var _comments_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comments_reducer */ "./frontend/reducers/comments_reducer.js");
+/* harmony import */ var _likes_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./likes_reducer */ "./frontend/reducers/likes_reducer.js");
+
 
 
 
@@ -3940,7 +4213,8 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
   friendrequests: _friend_requests_reducer_js__WEBPACK_IMPORTED_MODULE_2__["default"],
   friends: _friends_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   posts: _posts_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
+  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -4044,6 +4318,36 @@ var friendsReducer = function friendsReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/likes_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/likes_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/like_actions */ "./frontend/actions/like_actions.js");
+
+
+var likesReducer = function likesReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_LIKES"]:
+      return action;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (likesReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/modal_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/modal_reducer.js ***!
@@ -4087,9 +4391,11 @@ var modalReducer = function modalReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/post_actions */ "./frontend/actions/post_actions.js");
 /* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/comment_actions */ "./frontend/actions/comment_actions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/like_actions */ "./frontend/actions/like_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -4099,7 +4405,7 @@ var postsReducer = function postsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-  var nextState;
+  var nextState, likeId, like, idx;
 
   switch (action.type) {
     case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_POSTS"]:
@@ -4110,13 +4416,28 @@ var postsReducer = function postsReducer() {
       return Object.assign({}, state, _defineProperty({}, action.payload.post.id, action.payload.post));
 
     case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_POST"]:
-      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
       delete nextState[action.postId];
       return nextState;
 
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_COMMENT"]:
-      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
       nextState[action.comment.post_id].comment_ids.push(action.comment.id);
+      return nextState;
+
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__["LIKE_POST"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
+      likeId = Object.keys(action.like)[0];
+      like = action.like[likeId];
+      nextState[like.post_id].liked_users.push(like.user_id);
+      return nextState;
+
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__["UNLIKE_POST"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
+      likeId = Object.keys(action.like)[0];
+      like = action.like[likeId];
+      idx = nextState[like.post_id].liked_users.indexOf(like.user_id);
+      nextState[like.post_id].liked_users.splice(idx, 1);
       return nextState;
 
     default:
@@ -4400,6 +4721,42 @@ var destroyFriendRequest = function destroyFriendRequest(friendrequestId, action
         action: action
       }
     }
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/utils/like_api_util.js":
+/*!*****************************************!*\
+  !*** ./frontend/utils/like_api_util.js ***!
+  \*****************************************/
+/*! exports provided: likePost, unlikePost, fetchLikes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likePost", function() { return likePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlikePost", function() { return unlikePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchLikes", function() { return fetchLikes; });
+var likePost = function likePost(likepost) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/likeposts",
+    data: {
+      likepost: likepost
+    }
+  });
+};
+var unlikePost = function unlikePost(postId) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/likeposts/".concat(postId)
+  });
+};
+var fetchLikes = function fetchLikes(postId) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/likeposts/".concat(postId)
   });
 };
 

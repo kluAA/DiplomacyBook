@@ -165,26 +165,33 @@
 .post-options {
     color: #6e6c6f;
     display: flex;
+    align-items: center;
     justify-content: space-evenly;
     font-size: 13px;
 }
 
-.post-options a, .post-options label {
+.like, .share, .post-options label {
     cursor: pointer;
     padding: 6px 0;
     margin: 4px 0;
     font-weight: 600;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 30%;
     text-align: center;
     border-radius: 2px;
 }
 
-.post-options a:hover, .post-options label:hover {
+#liked {
+    color: #1f78f4;
+}
+
+.like:hover, .share:hover, .post-options label:hover {
     background: #f2f2f2;
 }
 
-.post-options .far {
+.post-options .far, .post-options .fas {
     font-size: 16px;
     margin-right: 5px;
 }

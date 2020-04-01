@@ -32,3 +32,4 @@ end
 json.friends @user.friend_ids
 json.requesters @user.requester_ids
 json.requesteds @user.requested_ids
+json.likedposts @user.posts_liked_ids

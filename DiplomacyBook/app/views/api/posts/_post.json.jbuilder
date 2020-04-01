@@ -11,4 +11,5 @@
             json.photoUrl image_url('default_profile.jpg')
         end            
     end
+    json.liked_users post.liked_user_ids
 

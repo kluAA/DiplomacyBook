@@ -17,7 +17,7 @@ class SignupForm extends React.Component {
             email: "",
             password: "",
             month: MONTHS[this.date.getMonth()],
-            day: this.date.getUTCDate(),
+            day: this.date.getDate(),
             year: this.date.getFullYear()-25,
             gender: "", 
             touched_first_name: false,
@@ -98,7 +98,7 @@ class SignupForm extends React.Component {
 
     dateDay() {
         const numDays = Array.from(Array(31)).map((day,i) => ++i);
-        const currentDay = this.date.getUTCDate();
+        const currentDay = this.date.getDate();
         const days = numDays.map((day, i) => 
             <option key={i} value={day}>{day}</option>)
         return (
