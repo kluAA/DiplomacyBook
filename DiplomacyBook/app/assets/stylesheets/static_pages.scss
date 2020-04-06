@@ -741,6 +741,8 @@ a, button, input[type='submit'] {
     min-width: 100%;
     background: #E9EBEE;
     z-index: -1;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -1558,6 +1560,93 @@ a, button, input[type='submit'] {
 .feed-container {
     display: flex;
     justify-content: center;
+    width: 1012px;
+    padding-right: 60px;
+    margin-top: 15px;
+}
+
+.feed-index-container {
+    width: 512px;
+    position: relative;
+}
+
+.feed-left-container {
+    // position: absolute;
+    // left: -195px;
+    width: 180px;
+    margin-right: 10px;
+}
+
+.feed-left {
+    color: #1d2129;
+    font-size: 13px;
+    position: fixed;
+    width: 180px;
+    
+}
+
+// #fl-user {
+//     margin-bottom: 10px;
+// }
+
+.feed-left li, .fl-header {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    border: 1px solid transparent;
+}
+
+.fl-header {
+    font-size: 14px;
+    font-weight: bold;
+    color: #616770;
+    cursor: default;
+    margin-top: 10px;
+}
+
+.feed-left li:hover {
+    background: #f5f6f7;
+    border: 1px solid #dddfe2;
+}
+
+
+#fl-icon {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.fl-favicons {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-container {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.icon-container i {
+    font-size: 21px;
+}
+
+.icon-container .fa-linkedin {
+    color: #0078b5;
+}
+
+.icon-container .fa-folder {
+    color: #f8c96a;
+    font-size: 19px;
+}
+
+
+.feed-right-container {
+    width: 230px;
+    height: 400px;
+    background: white;
+    margin-left: 10px;
 }
 
 

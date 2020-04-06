@@ -621,6 +621,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _feed_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./feed_form_container */ "./frontend/components/feed/feed_form_container.js");
 /* harmony import */ var _posts_post_item_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../posts/post_item_container */ "./frontend/components/posts/post_item_container.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -638,6 +639,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -662,7 +664,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var posts = this.props.posts;
+      var _this$props = this.props,
+          posts = _this$props.posts,
+          currentUser = _this$props.currentUser;
       if (!posts || posts === []) return null;
       var showPosts = posts.map(function (post) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -677,10 +681,72 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "feed-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "post-index-container"
+        className: "feed-left-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "feed-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        to: "/profile/".concat(currentUser.id)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        id: "fl-user"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        id: "fl-icon",
+        src: currentUser.photoUrl
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, currentUser.first_name, " ", currentUser.last_name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "fl-header"
+      }, "Contact"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://github.com/kluaa"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fab fa-github-square"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Github"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.linkedin.com/in/kevin-lu-96b294191/"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fab fa-linkedin"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "LinkedIn"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://angel.co/u/kevin-lu-45"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fab fa-angellist"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "AngelList"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://kevinlu.netlify.com"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-folder"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Portfolio"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "fl-header"
+      }, "Explore"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://quarrel-pro.herokuapp.com"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "fl-favicons",
+        src: window.quarrelIcon
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Quarrel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://sleepify-dev.herokuapp.com"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "fl-favicons",
+        src: window.sleepifyIcon
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Sleepify"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://kluaa.github.io/kosujs/"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "fl-favicons",
+        src: kosuIcon
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "kosuJS"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "feed-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_feed_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "posts-container"
-      }, showPosts))));
+      }, showPosts)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "feed-right-container"
+      })));
     }
   }]);
 
