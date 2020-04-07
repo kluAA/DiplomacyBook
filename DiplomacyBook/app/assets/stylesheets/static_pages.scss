@@ -1597,7 +1597,7 @@ a, button, input[type='submit'] {
 }
 
 .fl-header {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     color: #616770;
     cursor: default;
@@ -1643,10 +1643,40 @@ a, button, input[type='submit'] {
 
 
 .feed-right-container {
-    width: 230px;
-    height: 400px;
-    background: white;
+    width: 240px;
     margin-left: 10px;
+}
+
+.fr-ad {
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+    background: white;
+    padding: 12px;
+}
+
+.fr-header {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #616770;
+    cursor: default;
+    margin-bottom: 8px;
+}
+
+.fr-image {
+    max-width: 216px;
+    max-height: 100%;
+}
+
+.fr-ad-title {
+    color: #3b5998;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.fr-ad-description {
+    color: #616770;
+    font-size: 13px;
 }
 
 

@@ -96,7 +96,17 @@ class FeedIndex extends React.Component {
                     </div>
 
                     <div className="feed-right-container">
-
+                        <div className="fr-ad">
+                            <span className="fr-header">Sponsored</span>
+                            <a href="https://www.linkedin.com/in/kevin-lu-96b294191/">
+                                <img className="fr-image" src={window.programmer} />
+                                <span className="fr-ad-title">Top Developers in Your Area</span>
+                                <p className="fr-ad-description">
+                                    Need a top developer for a backend or frontend position?
+                                    Look no further. Connect with a Kevin Lu today!
+                                </p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

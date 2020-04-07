@@ -746,7 +746,20 @@ function (_React$Component) {
         className: "posts-container"
       }, showPosts)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "feed-right-container"
-      })));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fr-ad"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "fr-header"
+      }, "Sponsored"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.linkedin.com/in/kevin-lu-96b294191/"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "fr-image",
+        src: window.programmer
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "fr-ad-title"
+      }, "Top Developers in Your Area"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "fr-ad-description"
+      }, "Need a top developer for a backend or frontend position? Look no further. Connect with a Kevin Lu today!"))))));
     }
   }]);
 
