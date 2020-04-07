@@ -1648,6 +1648,8 @@ a, button, input[type='submit'] {
 }
 
 .fr-ad {
+    position: fixed;
+    width: 214px;
     border: 1px solid #dddfe2;
     border-radius: 3px;
     background: white;
@@ -1664,7 +1666,7 @@ a, button, input[type='submit'] {
 }
 
 .fr-image {
-    max-width: 216px;
+    max-width: 214px;
     max-height: 100%;
 }
 
