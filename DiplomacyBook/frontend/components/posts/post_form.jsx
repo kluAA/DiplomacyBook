@@ -8,6 +8,13 @@ class PostForm extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.multiline = React.createRef();
+    }
+
+    componentDidMount() {
+        if (this.multiline) {
+            this.multiline.style.height = 'auto';
+        }
     }
 
     handleSubmit(e) {
@@ -19,12 +26,17 @@ class PostForm extends React.Component {
         }
 
         this.props.createPost(post)
+        this.multiline.style.height = "auto";
         this.setState({body: ""});
     }
 
     handleChange(e) {
+        this.multiline.style.height = 'auto';
+        console.log(this.multiline.scrollHeight);
+        this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
         this.setState({body: e.target.value})
     }
+
 
     render() {
         const { currentUser, user } = this.props;
@@ -42,7 +54,15 @@ class PostForm extends React.Component {
                 <label className="post-body">
                     <i className="fas fa-pencil-alt"></i> Create Post
                 </label>
-                <textarea onChange={this.handleChange} value={this.state.body} placeholder={placeholder}></textarea>
+                <textarea 
+                    onChange={this.handleChange} 
+                    value={this.state.body} 
+                    placeholder={placeholder}
+                    ref={ref => this.multiline = ref}
+                >
+
+                </textarea>
+    
                 <hr></hr>
                 <button>Post</button>
 

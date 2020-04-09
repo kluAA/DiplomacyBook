@@ -1958,10 +1958,18 @@ function (_React$Component) {
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.multiline = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     return _this;
   }
 
   _createClass(PostForm, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.multiline) {
+        this.multiline.style.height = 'auto';
+      }
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
@@ -1971,6 +1979,7 @@ function (_React$Component) {
         author_id: this.props.currentUser.id
       };
       this.props.createPost(post);
+      this.multiline.style.height = "auto";
       this.setState({
         body: ""
       });
@@ -1978,6 +1987,9 @@ function (_React$Component) {
   }, {
     key: "handleChange",
     value: function handleChange(e) {
+      this.multiline.style.height = 'auto';
+      console.log(this.multiline.scrollHeight);
+      this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
       this.setState({
         body: e.target.value
       });
@@ -1985,6 +1997,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
           user = _this$props.user;
@@ -2009,7 +2023,10 @@ function (_React$Component) {
       }), " Create Post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         onChange: this.handleChange,
         value: this.state.body,
-        placeholder: placeholder
+        placeholder: placeholder,
+        ref: function ref(_ref) {
+          return _this2.multiline = _ref;
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Post"));
     }
   }]);

@@ -28,7 +28,7 @@
 .posts-form textarea {
     resize: none;
     padding: 10px 15px;
-    height: 90px;
+    min-height: 90px;
     font-size: 20px;
 }
 
@@ -70,6 +70,7 @@
 .post-body {
     padding: 0 15px 10px 15px;
     font-size: 15px;
+    white-space: pre;
 }
 
 .post hr {
