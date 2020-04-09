@@ -19,8 +19,9 @@ class PostForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        let parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
         const post = {
-            body: this.state.body,
+            body: parsedBody,
             user_id: this.props.user.id,
             author_id: this.props.currentUser.id
         }
