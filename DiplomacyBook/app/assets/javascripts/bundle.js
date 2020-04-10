@@ -1819,10 +1819,18 @@ function (_React$Component) {
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.multiline = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     return _this;
   }
 
   _createClass(CommentForm, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.multiline) {
+        this.multiline.style.height = 'auto';
+      }
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       if (e.key === "Enter") {
@@ -1841,6 +1849,8 @@ function (_React$Component) {
     key: "handleChange",
     value: function handleChange(e) {
       e.preventDefault();
+      this.multiline.style.height = 'auto';
+      this.multiline.style.height = this.multiline.scrollHeight - 14 + 'px';
       this.setState({
         body: e.target.value
       });
@@ -1848,6 +1858,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
           postId = _this$props.postId;
@@ -1856,14 +1868,20 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "comment-profile",
         src: currentUser.photoUrl
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "comment-body-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        rows: 1,
         id: "comment-".concat(postId),
         onKeyDown: this.handleSubmit,
         onChange: this.handleChange,
         className: "comment-body",
         placeholder: "Write a comment...",
-        value: this.state.body
-      }));
+        value: this.state.body,
+        ref: function ref(_ref) {
+          return _this2.multiline = _ref;
+        }
+      })));
     }
   }]);
 
@@ -1989,7 +2007,6 @@ function (_React$Component) {
     key: "handleChange",
     value: function handleChange(e) {
       this.multiline.style.height = 'auto';
-      console.log(this.multiline.scrollHeight);
       this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
       this.setState({
         body: e.target.value

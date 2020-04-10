@@ -1497,27 +1497,32 @@ a, button, input[type='submit'] {
 .comment-form {
     padding: 10px 15px;
     border-top: 1px solid #dddfe2;
-    display: flex;
-    
+    display: flex; 
 }
 
 .comment-profile {
     width: 35px;
     height: 35px;
     border-radius: 50%;
+    margin-right: 7px;
+}
+
+.comment-body-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #dddfe2;
+    background: #f2f3f5;
+    border-radius: 16px;
 }
 
 .comment-body {
-    border: 1px solid #dddfe2;
-    
-    overflow: auto;
-    margin-left: 5px;
-    background: #f2f3f5;
-    width: 100%;
-    border-radius: 20px;
+    resize: none;
+    width: calc(100% - 35px);
     height:20px;
     font-size: 14px;
-    padding: 5px 15px;
+    padding: 7px 15px;
+
 }
 
 .comment-body:focus::-webkit-input-placeholder {

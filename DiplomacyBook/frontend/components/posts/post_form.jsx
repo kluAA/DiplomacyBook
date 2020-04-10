@@ -33,7 +33,6 @@ class PostForm extends React.Component {
 
     handleChange(e) {
         this.multiline.style.height = 'auto';
-        console.log(this.multiline.scrollHeight);
         this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
         this.setState({body: e.target.value})
     }
