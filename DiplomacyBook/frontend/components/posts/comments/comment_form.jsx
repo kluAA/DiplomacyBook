@@ -18,19 +18,23 @@ class CommentForm extends React.Component {
     handleSubmit(e) {
         if (e.key === "Enter") {
             e.preventDefault();
+            let parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
             const post = {
-                body: this.state.body,
+                body: parsedBody,
                 post_id: this.props.postId,
             }
             this.props.createComment(post)
             this.setState({ body: "" });
+            this.multiline.style.height = 'auto';
         }
     }
 
     handleChange(e) {
         e.preventDefault();
         this.multiline.style.height = 'auto';
-        this.multiline.style.height = this.multiline.scrollHeight - 14 + 'px';
+        if (!(this.multiline.scrollHeight === 31)) {
+            this.multiline.style.height = this.multiline.scrollHeight + 10 + 'px';
+        }
         this.setState({ body: e.target.value });
     }
 
@@ -52,6 +56,9 @@ class CommentForm extends React.Component {
                         ref={ref => this.multiline = ref}
                         >
                     </textarea>
+                    <div className="emojitime">
+                        <i className="far fa-smile-wink"></i>
+                    </div>
                 </div>
             </form>
         )

@@ -1514,6 +1514,7 @@ a, button, input[type='submit'] {
     border: 1px solid #dddfe2;
     background: #f2f3f5;
     border-radius: 16px;
+    position: relative;
 }
 
 .comment-body {
@@ -1522,16 +1523,23 @@ a, button, input[type='submit'] {
     height:20px;
     font-size: 14px;
     padding: 7px 15px;
+}
 
+.emojitime {
+    cursor: pointer;
+    position: absolute;
+    right: 11px;
+    bottom: 7px;
 }
 
 .comment-body:focus::-webkit-input-placeholder {
     color: rgb(207, 204, 204);
 }
 
+
 .comment-container {
     display: flex;
-    padding: 5px 15px;
+    padding: 5px 12px;
 }
 
 .comment-container a:hover {
@@ -1540,25 +1548,32 @@ a, button, input[type='submit'] {
 
 .comment-container:first-child {
     border-top: 1px solid #dddfe2;
+    padding-top: 10px;
 }
 
-.comment-user {
+.comment-container:last-child {
+    padding-bottom: 10px;
+}
+
+.comment-user a {
     color: #46649f;
     font-size: 13px;
     font-weight: 500;
+  
 }
 
 .comment-box {
     display: flex;
     background: #f2f3f5;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 10px;
+    padding: 7px 10px;
+    border-radius: 18px;
+    flex-wrap: wrap;
 }
 .comment {
     font-size: 13px;
-    margin: 0 5px;
-    
+    margin-left: 5px;
+    word-break: break-all;
+    white-space: pre-wrap;
 }
 
 //feed

@@ -1727,13 +1727,13 @@ function (_React$Component) {
         src: author.photoUrl
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "comment-box"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "comment-user"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(author.id)
-      }, author.first_name, " ", author.last_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, author.first_name, " ", author.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "comment"
-      }, comment.body)));
+      }, comment.body))));
     }
   }]);
 
@@ -1835,14 +1835,16 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       if (e.key === "Enter") {
         e.preventDefault();
+        var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
         var post = {
-          body: this.state.body,
+          body: parsedBody,
           post_id: this.props.postId
         };
         this.props.createComment(post);
         this.setState({
           body: ""
         });
+        this.multiline.style.height = 'auto';
       }
     }
   }, {
@@ -1850,7 +1852,11 @@ function (_React$Component) {
     value: function handleChange(e) {
       e.preventDefault();
       this.multiline.style.height = 'auto';
-      this.multiline.style.height = this.multiline.scrollHeight - 14 + 'px';
+
+      if (!(this.multiline.scrollHeight === 31)) {
+        this.multiline.style.height = this.multiline.scrollHeight + 10 + 'px';
+      }
+
       this.setState({
         body: e.target.value
       });
@@ -1881,7 +1887,11 @@ function (_React$Component) {
         ref: function ref(_ref) {
           return _this2.multiline = _ref;
         }
-      })));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "emojitime"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-smile-wink"
+      }))));
     }
   }]);
 

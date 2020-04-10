@@ -15,11 +15,12 @@ class Comment extends React.Component {
                     <img className="comment-profile" src={author.photoUrl}></img>
                 </Link>
                 <div className="comment-box">
-                    <p className="comment-user">
+                    <span className="comment-user">
                         <Link to={`/profile/${author.id}`}>
                             {author.first_name} {author.last_name}
-                        </Link></p>
-                    <p className="comment">{comment.body}</p>
+                        </Link>
+                        <span className="comment">{comment.body}</span>
+                    </span>
                 </div>
             </div>
         )
