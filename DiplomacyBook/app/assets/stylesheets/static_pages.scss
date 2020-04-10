@@ -1495,7 +1495,7 @@ a, button, input[type='submit'] {
 //comment
 
 .comment-form {
-    padding: 10px 15px;
+    padding: 10px 12px;
     border-top: 1px solid #dddfe2;
     display: flex; 
 }
@@ -1520,16 +1520,12 @@ a, button, input[type='submit'] {
 .comment-body {
     resize: none;
     width: calc(100% - 35px);
-    height:20px;
+    height:30px;
     font-size: 14px;
     padding: 7px 15px;
-}
-
-.emojitime {
-    cursor: pointer;
-    position: absolute;
-    right: 11px;
-    bottom: 7px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
 }
 
 .comment-body:focus::-webkit-input-placeholder {
@@ -1574,6 +1570,109 @@ a, button, input[type='submit'] {
     margin-left: 5px;
     word-break: break-all;
     white-space: pre-wrap;
+}
+
+//emojis 
+
+.emojitime {
+  
+    position: absolute;
+    right: 11px;
+    bottom: 7px;
+    color: rgb(139, 137, 137);
+}
+
+.fa-smile-wink {
+    cursor: pointer;
+}
+
+.fa-smile-wink:hover {
+    color: rgb(112, 110, 110);
+}
+
+#emoji-container {
+    position: relative;
+}
+
+.emoji-menu {
+    width: 300px;
+
+    background: white;
+    position: absolute;
+    z-index: 10;
+    border: 1px solid #E9EBEE;
+    border-radius: 3px;
+    bottom: 30px;
+    right: -10px;
+    cursor: default;
+}
+
+.emojis-list::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+.emojis-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.emojis-list::-webkit-scrollbar-thumb {
+  background-color: rgba(169, 169, 169, 0.466);
+  outline: 1px solid slategrey;
+}
+
+.emojis-list {
+    height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 25px;
+    justify-content: center;
+}
+
+.emojis-title {
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.emojis-title:first-child {
+    margin-top: 5px;
+}
+
+.emojis-list li {
+    // display: flex;
+    // align-items: flex-end;
+    // justify-content: center;
+    padding: 2px 5px;
+    // margin: 3px 0;
+    cursor: pointer;
+    vertical-align: text-bottom;
+}
+
+.emojis-list li:hover {
+    background: #f6f6f6;
+    border-radius: 3px;
+}
+
+.emojis-nav {
+    border-top: 1px solid #e9ebee;
+    display: flex;
+    justify-content: center;
+}
+
+.emojis-nav li {
+    width: 25px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 3px;
+}
+
+.emojis-nav i {
+    cursor: pointer;
 }
 
 //feed

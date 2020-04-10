@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentEmoji from "./CommentEmoji";
 
 class CommentForm extends React.Component {
     constructor(props) {
@@ -7,6 +8,7 @@ class CommentForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.multiline = React.createRef();
+        this.addEmoji = this.addEmoji.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +40,13 @@ class CommentForm extends React.Component {
         this.setState({ body: e.target.value });
     }
 
+    addEmoji(emoji) {
+        this.setState({ body: this.state.body + emoji })
+        if (this.multiline.scrollHeight === 31) {
+            this.multiline.style.height = this.multiline.scrollHeight + 16 + 'px';
+        }
+    }
+
     render() {
         const { currentUser, postId } = this.props;
         return (
@@ -57,7 +66,7 @@ class CommentForm extends React.Component {
                         >
                     </textarea>
                     <div className="emojitime">
-                        <i className="far fa-smile-wink"></i>
+                        <CommentEmoji addEmoji={this.addEmoji}/>
                     </div>
                 </div>
             </form>
