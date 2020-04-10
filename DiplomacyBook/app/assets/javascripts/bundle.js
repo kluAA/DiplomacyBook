@@ -1849,7 +1849,11 @@ function (_React$Component) {
         onClick: function onClick(e) {
           return _this2.scroll(_this2.foods);
         }
-      }))));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "outer-triangle"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "inner-triangle"
+      })));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "emoji-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {

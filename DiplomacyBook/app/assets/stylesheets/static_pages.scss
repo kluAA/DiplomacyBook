@@ -1602,7 +1602,7 @@ a, button, input[type='submit'] {
     z-index: 10;
     border: 1px solid #E9EBEE;
     border-radius: 3px;
-    bottom: 30px;
+    bottom: 40px;
     right: -10px;
     cursor: default;
 }
@@ -1673,6 +1673,23 @@ a, button, input[type='submit'] {
 
 .emojis-nav i {
     cursor: pointer;
+}
+
+.outer-triangle {
+    position: absolute;
+    border-top: 10px solid #e9ebee;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent; 
+    right: 9px;
+}
+
+.inner-triangle {
+    position: absolute;
+    border-top: 9px solid white;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent; 
+    bottom: 1px;
+    left: -9px;
 }
 
 //feed

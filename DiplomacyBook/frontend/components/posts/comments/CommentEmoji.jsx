@@ -78,6 +78,9 @@ class CommentEmoji extends React.Component {
                         <i className="fas fa-hamburger" onClick={e => this.scroll(this.foods)}></i>
                     </li>
                 </ul>
+                <div className="outer-triangle">
+                    <div className="inner-triangle"></div>
+                </div>
             </div>
         )
 
