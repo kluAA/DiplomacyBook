@@ -402,6 +402,46 @@ var fetchFeedPosts = function fetchFeedPosts() {
 
 /***/ }),
 
+/***/ "./frontend/actions/search_actions.js":
+/*!********************************************!*\
+  !*** ./frontend/actions/search_actions.js ***!
+  \********************************************/
+/*! exports provided: RECEIVE_SEARCH_USERS, CLEAR_SEARCH_USERS, clearUsers, fetchSearchUsers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SEARCH_USERS", function() { return RECEIVE_SEARCH_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_SEARCH_USERS", function() { return CLEAR_SEARCH_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearUsers", function() { return clearUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSearchUsers", function() { return fetchSearchUsers; });
+/* harmony import */ var _utils_search_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/search_api_util */ "./frontend/utils/search_api_util.js");
+var RECEIVE_SEARCH_USERS = "RECEIVE_SEARCH_USERS";
+var CLEAR_SEARCH_USERS = "CLEAR_SEARCH_USERS";
+
+
+var receiveSearchUsers = function receiveSearchUsers(users) {
+  return {
+    type: RECEIVE_SEARCH_USERS,
+    users: users
+  };
+};
+
+var clearUsers = function clearUsers() {
+  return {
+    type: CLEAR_SEARCH_USERS
+  };
+};
+var fetchSearchUsers = function fetchSearchUsers(query) {
+  return function (dispatch) {
+    return _utils_search_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSearchUsers"](query).then(function (users) {
+      return dispatch(receiveSearchUsers(users));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -822,6 +862,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _NavBarFriendRequestContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NavBarFriendRequestContainer */ "./frontend/components/nav/NavBarFriendRequestContainer.js");
 /* harmony import */ var _NavBarMenu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NavBarMenu */ "./frontend/components/nav/NavBarMenu.jsx");
+/* harmony import */ var _NavSearchContainer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./NavSearchContainer */ "./frontend/components/nav/NavSearchContainer.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -839,6 +880,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -883,16 +925,7 @@ function (_React$Component) {
         to: "/"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.dbookIcon
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "nav-search"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        placeholder: "Search"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "nav-search-btn"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-search"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavSearchContainer__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "nav-profile-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(user.id)
@@ -1269,6 +1302,187 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (NavBarMenu);
+
+/***/ }),
+
+/***/ "./frontend/components/nav/NavSearch.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/nav/NavSearch.jsx ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var NavSearch =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NavSearch, _React$Component);
+
+  function NavSearch(props) {
+    var _this;
+
+    _classCallCheck(this, NavSearch);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavSearch).call(this, props));
+    _this.state = {
+      query: "",
+      showResults: false
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.fetchUsers = _this.fetchUsers.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(NavSearch, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      var _this2 = this;
+
+      this.setState({
+        query: e.target.value
+      }, function () {
+        return _this2.fetchUsers();
+      });
+    }
+  }, {
+    key: "fetchUsers",
+    value: function fetchUsers() {
+      if (this.state.query) {
+        this.props.fetchSearchUsers({
+          query: this.state.query
+        });
+      } else {
+        this.props.clearUsers();
+      }
+    }
+  }, {
+    key: "handleRedirect",
+    value: function handleRedirect(user) {
+      this.props.history.push("/profile/".concat(user.id));
+      this.setState({
+        query: ""
+      });
+    }
+  }, {
+    key: "showResults",
+    value: function showResults() {
+      var _this3 = this;
+
+      var users = this.props.users; //if there are users and query is not empty
+
+      if (users.length && this.state.query) {
+        console.log(users);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "search-results"
+        }, users.map(function (user) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            onMouseDown: function onMouseDown(e) {
+              return _this3.handleRedirect(user);
+            },
+            key: user.id
+          }, user.first_name, " ", user.last_name);
+        }));
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      var _this$state = this.state,
+          query = _this$state.query,
+          showResults = _this$state.showResults;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "nav-search"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Search",
+        onChange: this.handleChange,
+        onFocus: function onFocus(e) {
+          return _this4.setState({
+            showResults: true
+          });
+        },
+        onBlur: function onBlur(e) {
+          return _this4.setState({
+            showResults: false
+          });
+        },
+        value: query
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "nav-search-btn"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-search"
+      })), showResults && this.showResults());
+    }
+  }]);
+
+  return NavSearch;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(NavSearch));
+
+/***/ }),
+
+/***/ "./frontend/components/nav/NavSearchContainer.js":
+/*!*******************************************************!*\
+  !*** ./frontend/components/nav/NavSearchContainer.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_search_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/search_actions */ "./frontend/actions/search_actions.js");
+/* harmony import */ var _NavSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NavSearch */ "./frontend/components/nav/NavSearch.jsx");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    users: Object.values(state.entities.search)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchSearchUsers: function fetchSearchUsers(query) {
+      return dispatch(Object(_actions_search_actions__WEBPACK_IMPORTED_MODULE_1__["fetchSearchUsers"])(query));
+    },
+    clearUsers: function clearUsers() {
+      return dispatch(Object(_actions_search_actions__WEBPACK_IMPORTED_MODULE_1__["clearUsers"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_NavSearch__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -4544,6 +4758,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _posts_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./posts_reducer */ "./frontend/reducers/posts_reducer.js");
 /* harmony import */ var _comments_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comments_reducer */ "./frontend/reducers/comments_reducer.js");
 /* harmony import */ var _likes_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./likes_reducer */ "./frontend/reducers/likes_reducer.js");
+/* harmony import */ var _search_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./search_reducer */ "./frontend/reducers/search_reducer.js");
+
 
 
 
@@ -4557,7 +4773,8 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
   friends: _friends_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   posts: _posts_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
   comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
-  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
+  likes: _likes_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
+  search: _search_reducer__WEBPACK_IMPORTED_MODULE_7__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -4818,6 +5035,39 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
   ui: _modal_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/search_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/search_reducer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_search_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/search_actions */ "./frontend/actions/search_actions.js");
+
+
+var searchReducer = function searchReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_search_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SEARCH_USERS"]:
+      return action.users;
+
+    case _actions_search_actions__WEBPACK_IMPORTED_MODULE_0__["CLEAR_SEARCH_USERS"]:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (searchReducer);
 
 /***/ }),
 
@@ -5207,6 +5457,27 @@ var Protected = function Protected(_ref2) {
 
 var AuthRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(Auth));
 var ProtectedRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(Protected));
+
+/***/ }),
+
+/***/ "./frontend/utils/search_api_util.js":
+/*!*******************************************!*\
+  !*** ./frontend/utils/search_api_util.js ***!
+  \*******************************************/
+/*! exports provided: fetchSearchUsers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSearchUsers", function() { return fetchSearchUsers; });
+var fetchSearchUsers = function fetchSearchUsers(query) {
+  return $.ajax({
+    url: '/api/users/search',
+    data: {
+      user: query
+    }
+  });
+};
 
 /***/ }),
 
