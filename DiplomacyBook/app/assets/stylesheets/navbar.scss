@@ -32,10 +32,10 @@
 .nav-search input{
     background: white;
     height: 24px;
-    width: 393px;
+    width: 390px;
     border: 1px solid #3b5998;
     border-radius: 3px;
-    padding-left: 5px;
+    padding-left: 8px;
     padding-right: 48px;
     font-size: 13px;
     margin-left: 5px;
@@ -59,6 +59,12 @@
     background: #eef0f3;
 }
 
+#nav-search-active {
+    background: #4080ff;
+    color: white;
+    transition: background-color 300ms linear;
+}
+
 .fa-search {
     font-size: 16px;
     padding: 4px 0;
@@ -76,18 +82,27 @@
     left: 6px;
 }
 
-.search-results li {
+.search-results li, #no-results {
     cursor: pointer;
     width: 430px;
     padding: 5px 7px;
     font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
 }
 
 .search-results li:hover {
     background: #ebf0f7;
 }
 
-
+#no-results {
+    cursor: default;
+    font-size: 12px;
+    padding-top: 3px;
+    font-style: italic;
+}
 
 .nav-profile img {
     width: 24px;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class NavSearch extends React.Component {
     constructor(props) {
@@ -34,7 +34,6 @@ class NavSearch extends React.Component {
         const users = this.props.users;
         //if there are users and query is not empty
         if (users.length && this.state.query) {
-            console.log(users)
             return (
                 <ul className="search-results">
                     {users.map(user => {
@@ -46,11 +45,21 @@ class NavSearch extends React.Component {
                     })}
                 </ul>
             )
+        } else if(this.state.query) {
+            return (
+                <ul className="search-results">
+                    <li>
+                        {this.state.query}
+                    </li>
+                    <div id={"no-results"}>
+                        No results found
+                    </div>
+                </ul>
+            )
         }
     }
 
     render() {
-
         const { query, showResults } = this.state;
 
         return (
@@ -63,7 +72,9 @@ class NavSearch extends React.Component {
                     onBlur={e => this.setState({showResults: false})}
                     value={query}
                 />
-                <button className="nav-search-btn"><i className="fas fa-search"></i></button>
+                <button className="nav-search-btn" id={showResults && "nav-search-active"}>
+                    <i className="fas fa-search"></i>
+                </button>
                 {showResults && this.showResults()}
             </div>
         )

@@ -1396,7 +1396,6 @@ function (_React$Component) {
       var users = this.props.users; //if there are users and query is not empty
 
       if (users.length && this.state.query) {
-        console.log(users);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           className: "search-results"
         }, users.map(function (user) {
@@ -1407,6 +1406,12 @@ function (_React$Component) {
             key: user.id
           }, user.first_name, " ", user.last_name);
         }));
+      } else if (this.state.query) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "search-results"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.state.query), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          id: "no-results"
+        }, "No results found"));
       }
     }
   }, {
@@ -1435,7 +1440,8 @@ function (_React$Component) {
         },
         value: query
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "nav-search-btn"
+        className: "nav-search-btn",
+        id: showResults && "nav-search-active"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-search"
       })), showResults && this.showResults());
