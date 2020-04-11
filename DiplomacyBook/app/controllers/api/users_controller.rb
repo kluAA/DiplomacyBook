@@ -16,6 +16,12 @@ class Api::UsersController < ApplicationController
       
     end
 
+    def search
+        query = params[:user][:query]
+        @users = User.where("LOWER(first_name) LIKE (?) OR LOWER(last_name) LIKE (?)", "%#{query.downcase}%", "%#{query.downcase}%")
+        render :index
+    end
+
     def update
         @user = current_user
         if params[:user][:photo]
