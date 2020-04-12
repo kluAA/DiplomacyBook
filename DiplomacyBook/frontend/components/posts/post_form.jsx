@@ -75,7 +75,7 @@ class PostForm extends React.Component {
             <form className="posts-form" onSubmit={this.handleSubmit}>
                 <label className="post-body">
                     <i className="fas fa-pencil-alt"></i> Create Post
-                    <input type="file" onChange={this.handleFile} />
+                    <input type="file" accept=".jpg,.gif,.png" onChange={this.handleFile} />
                 </label>
                 <textarea 
                     onChange={this.handleChange} 

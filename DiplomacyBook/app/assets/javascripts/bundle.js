@@ -2517,6 +2517,7 @@ function (_React$Component) {
         className: "fas fa-pencil-alt"
       }), " Create Post", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
+        accept: ".jpg,.gif,.png",
         onChange: this.handleFile
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         onChange: this.handleChange,
@@ -3595,6 +3596,7 @@ function (_React$Component) {
         onSubmit: this.handleSubmit(this.props.action)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "profile-photo-file",
+        accept: ".jpg,.gif,.png",
         type: "file",
         onChange: this.handleFile
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
