@@ -2389,6 +2389,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _comments_CommentEmoji__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comments/CommentEmoji */ "./frontend/components/posts/comments/CommentEmoji.jsx");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2409,6 +2412,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var PostForm =
 /*#__PURE__*/
 function (_React$Component) {
@@ -2423,11 +2428,14 @@ function (_React$Component) {
     _this.state = {
       body: "",
       photoFile: null,
-      photoUrl: null
+      photoUrl: null,
+      focused: false
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_this));
+    _this.handleUnfocus = _this.handleUnfocus.bind(_assertThisInitialized(_this));
+    _this.addEmoji = _this.addEmoji.bind(_assertThisInitialized(_this));
     _this.multiline = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     return _this;
   }
@@ -2437,6 +2445,24 @@ function (_React$Component) {
     value: function componentDidMount() {
       if (this.multiline) {
         this.multiline.style.height = 'auto';
+      }
+
+      document.addEventListener('mousedown', this.handleUnfocus, false);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleUnfocus, false);
+    }
+  }, {
+    key: "handleUnfocus",
+    value: function handleUnfocus(e) {
+      var domNode = react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.findDOMNode(this);
+
+      if (!domNode || !domNode.contains(e.target)) {
+        this.setState({
+          focused: false
+        });
       }
     }
   }, {
@@ -2462,12 +2488,7 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n'); // const post = {
-      // body: parsedBody,
-      // user_id: this.props.user.id,
-      // author_id: this.props.currentUser.id
-      // }
-
+      var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
       var formData = new FormData();
       if (this.state.photoFile) formData.append("post[photo]", this.state.photoFile);
       formData.append("post[body]", parsedBody);
@@ -2487,6 +2508,13 @@ function (_React$Component) {
       this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
       this.setState({
         body: e.target.value
+      });
+    }
+  }, {
+    key: "addEmoji",
+    value: function addEmoji(emoji) {
+      this.setState({
+        body: this.state.body + emoji
       });
     }
   }, {
@@ -2525,8 +2553,17 @@ function (_React$Component) {
         placeholder: placeholder,
         ref: function ref(_ref) {
           return _this3.multiline = _ref;
+        },
+        onFocus: function onFocus(e) {
+          return _this3.setState({
+            focused: true
+          });
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Post"));
+      }), this.state.focused && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "emojitime-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_CommentEmoji__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        addEmoji: this.addEmoji
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Post"));
     }
   }]);
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import CommentEmoji from "./comments/CommentEmoji";
+import ReactDOM from 'react-dom';
 
 class PostForm extends React.Component {
     constructor(props) {
@@ -6,17 +8,35 @@ class PostForm extends React.Component {
         this.state = {
             body: "",
             photoFile: null,
-            photoUrl: null
+            photoUrl: null,
+            focused: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleFile = this.handleFile.bind(this);
+        this.handleUnfocus = this.handleUnfocus.bind(this);
+        this.addEmoji = this.addEmoji.bind(this);
         this.multiline = React.createRef();
     }
 
     componentDidMount() {
         if (this.multiline) {
             this.multiline.style.height = 'auto';
+        }
+        document.addEventListener('mousedown', this.handleUnfocus, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleUnfocus, false);
+    }
+
+    handleUnfocus(e) {
+        const domNode = ReactDOM.findDOMNode(this);
+
+        if (!domNode || !domNode.contains(e.target)) {
+            this.setState({
+                focused: false
+            });
         }
     }
 
@@ -35,11 +55,7 @@ class PostForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         let parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
-        // const post = {
-            // body: parsedBody,
-            // user_id: this.props.user.id,
-            // author_id: this.props.currentUser.id
-        // }
+   
         const formData = new FormData();
         if (this.state.photoFile) formData.append("post[photo]", this.state.photoFile);
         formData.append("post[body]", parsedBody);
@@ -57,6 +73,10 @@ class PostForm extends React.Component {
         this.multiline.style.height = 'auto';
         this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
         this.setState({body: e.target.value})
+    }
+
+    addEmoji(emoji) {
+        this.setState({ body: this.state.body + emoji })
     }
 
 
@@ -82,13 +102,15 @@ class PostForm extends React.Component {
                     value={this.state.body} 
                     placeholder={placeholder}
                     ref={ref => this.multiline = ref}
+                    onFocus={e => this.setState({focused: true})}
                 >
-
+            
                 </textarea>
-    
+                {this.state.focused && <div className="emojitime-2">
+                    <CommentEmoji addEmoji={this.addEmoji} />
+                </div>}
                 <hr></hr>
                 <button>Post</button>
-
             </form>
         )
     }

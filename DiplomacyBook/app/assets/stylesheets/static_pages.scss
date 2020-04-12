@@ -36,6 +36,7 @@ a, button, input[type='submit'] {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 500;
 }
 
 .nav-login-container {
@@ -1575,10 +1576,16 @@ a, button, input[type='submit'] {
 //emojis 
 
 .emojitime {
-  
     position: absolute;
     right: 11px;
     bottom: 7px;
+    color: rgb(139, 137, 137);
+}
+
+.emojitime-2 {
+    position: absolute;
+    right: 15px;
+    bottom: 40px;
     color: rgb(139, 137, 137);
 }
 
