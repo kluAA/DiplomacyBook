@@ -72,7 +72,7 @@ class NavSearch extends React.Component {
                     onBlur={e => this.setState({showResults: false})}
                     value={query}
                 />
-                <button className="nav-search-btn" id={showResults && "nav-search-active"}>
+                <button className="nav-search-btn" id={showResults ? "nav-search-active" : null}>
                     <i className="fas fa-search"></i>
                 </button>
                 {showResults && this.showResults()}

@@ -17,21 +17,109 @@
     
 }
 
-.posts-form label {
+.posts-form-body {
+    cursor: default;
     border-bottom: 1px solid #dddfe2;
     background: whitesmoke;
     padding: 10px;
     color: darkslategray;
     font-size: 12px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.post-add-photo {
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-left: 1px solid #ccd0d5;
+    border-right: 1px solid #ccd0d5;
+}
+
+.post-add-photo label {
+    cursor: pointer;
+}
+
+.post-add-photo span {
+    color: #385898;
+}
+
+.post-add-photo .fa-camera {
+    margin-right: 3px;
+}
+
+#post-file {
+    width: 0;
+    height: 0;
+    position: absolute;
+    z-index: -999;
+    opacity: 100%;
+}
+
+.posts-form .fa-pencil-alt {
+    margin-right: 3px;
+}
+
+.textarea-container {
+    position: relative;
 }
 
 .posts-form textarea {
     resize: none;
+    overflow: hidden;
     padding: 10px 15px;
     min-height: 90px;
     font-size: 20px;
+    width: calc(100% - 30px);
 }
+
+.posts-photo-preview {
+    margin-left: 15px;
+    width: 100px;
+    position: relative;
+}
+
+.posts-photo-preview img {
+    height: 100px;
+    width: 100px;
+}
+
+.preview-overlay {
+    position: absolute;
+    background: black;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.25s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+.posts-photo-preview .fa-times {
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    color: rgba(255, 255, 255, 0.747);
+}
+
+.posts-photo-preview .fa-times:hover{
+    color: rgba(255, 255, 255, 0.932);
+}
+
+
 
 .posts-form button {
     // background: #9CB4D8;

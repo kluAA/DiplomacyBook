@@ -9,7 +9,8 @@ class PostForm extends React.Component {
             body: "",
             photoFile: null,
             photoUrl: null,
-            focused: false
+            focused: false,
+            hovered: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -17,6 +18,7 @@ class PostForm extends React.Component {
         this.handleUnfocus = this.handleUnfocus.bind(this);
         this.addEmoji = this.addEmoji.bind(this);
         this.multiline = React.createRef();
+        this.fileInput = React.createRef();
     }
 
     componentDidMount() {
@@ -66,7 +68,7 @@ class PostForm extends React.Component {
         this.props.createPost(formData)
         //sets height of form back to original
         this.multiline.style.height = "auto";
-        this.setState({body: ""});
+        this.setState({body: "", photoFile: null, photoUrl: null, focused: false});
     }
 
     handleChange(e) {
@@ -93,22 +95,47 @@ class PostForm extends React.Component {
         }
         return (
             <form className="posts-form" onSubmit={this.handleSubmit}>
-                <label className="post-body">
-                    <i className="fas fa-pencil-alt"></i> Create Post
-                    <input type="file" accept=".jpg,.gif,.png" onChange={this.handleFile} />
-                </label>
-                <textarea 
-                    onChange={this.handleChange} 
-                    value={this.state.body} 
-                    placeholder={placeholder}
-                    ref={ref => this.multiline = ref}
-                    onFocus={e => this.setState({focused: true})}
-                >
-            
-                </textarea>
+                <div className="posts-form-body">
+                    <i className="fas fa-pencil-alt"></i> 
+                    <span>Create Post</span>
+                    <div className="post-add-photo">
+                        <label htmlFor="post-file">
+                            <i className="fas fa-camera"></i>
+                            <span>Add Photo</span>
+                        </label>  
+                    </div>
+                    <input type="file" ref={ref => this.fileInput = ref} id="post-file" accept=".jpg,.gif,.png" onChange={this.handleFile} />
+                </div>
+                <div className="textarea-container">
+                    <textarea 
+                        onChange={this.handleChange} 
+                        value={this.state.body} 
+                        placeholder={placeholder}
+                        ref={ref => this.multiline = ref}
+                        onFocus={e => this.setState({focused: true})}
+                    >
+                    </textarea>
                 {this.state.focused && <div className="emojitime-2">
                     <CommentEmoji addEmoji={this.addEmoji} />
                 </div>}
+                </div>
+                { this.state.photoUrl &&
+                    <div className="posts-photo-preview"
+                        onMouseEnter={e => this.setState({hovered: true})}
+                        onMouseLeave={e => this.setState({hovered: false})}
+                    >
+                        <img src={this.state.photoUrl} />
+                        { this.state.hovered && 
+                            <div className="preview-overlay">
+                            </div>
+                        }
+                        { this.state.hovered && 
+                            <i className="fas fa-times"
+                                onClick={e => this.setState({photoFile: null, photoUrl: null}, () => this.fileInput.value = null)}
+                            ></i> 
+                        }
+                    </div>
+                }
                 <hr></hr>
                 <button>Post</button>
             </form>

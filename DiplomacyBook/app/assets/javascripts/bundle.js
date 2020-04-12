@@ -1441,7 +1441,7 @@ function (_React$Component) {
         value: query
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "nav-search-btn",
-        id: showResults && "nav-search-active"
+        id: showResults ? "nav-search-active" : null
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-search"
       })), showResults && this.showResults());
@@ -2429,7 +2429,8 @@ function (_React$Component) {
       body: "",
       photoFile: null,
       photoUrl: null,
-      focused: false
+      focused: false,
+      hovered: false
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -2437,6 +2438,7 @@ function (_React$Component) {
     _this.handleUnfocus = _this.handleUnfocus.bind(_assertThisInitialized(_this));
     _this.addEmoji = _this.addEmoji.bind(_assertThisInitialized(_this));
     _this.multiline = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+    _this.fileInput = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     return _this;
   }
 
@@ -2498,7 +2500,10 @@ function (_React$Component) {
 
       this.multiline.style.height = "auto";
       this.setState({
-        body: ""
+        body: "",
+        photoFile: null,
+        photoUrl: null,
+        focused: false
       });
     }
   }, {
@@ -2539,20 +2544,32 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "posts-form",
         onSubmit: this.handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "post-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "posts-form-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-pencil-alt"
-      }), " Create Post", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Create Post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "post-add-photo"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "post-file"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-camera"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add Photo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
+        ref: function ref(_ref) {
+          return _this3.fileInput = _ref;
+        },
+        id: "post-file",
         accept: ".jpg,.gif,.png",
         onChange: this.handleFile
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "textarea-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         onChange: this.handleChange,
         value: this.state.body,
         placeholder: placeholder,
-        ref: function ref(_ref) {
-          return _this3.multiline = _ref;
+        ref: function ref(_ref2) {
+          return _this3.multiline = _ref2;
         },
         onFocus: function onFocus(e) {
           return _this3.setState({
@@ -2563,6 +2580,32 @@ function (_React$Component) {
         className: "emojitime-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_CommentEmoji__WEBPACK_IMPORTED_MODULE_1__["default"], {
         addEmoji: this.addEmoji
+      }))), this.state.photoUrl && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "posts-photo-preview",
+        onMouseEnter: function onMouseEnter(e) {
+          return _this3.setState({
+            hovered: true
+          });
+        },
+        onMouseLeave: function onMouseLeave(e) {
+          return _this3.setState({
+            hovered: false
+          });
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.state.photoUrl
+      }), this.state.hovered && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "preview-overlay"
+      }), this.state.hovered && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-times",
+        onClick: function onClick(e) {
+          return _this3.setState({
+            photoFile: null,
+            photoUrl: null
+          }, function () {
+            return _this3.fileInput.value = null;
+          });
+        }
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Post"));
     }
   }]);

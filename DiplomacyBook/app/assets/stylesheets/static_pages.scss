@@ -843,14 +843,14 @@ a, button, input[type='submit'] {
     background: black;
 }
 
-.fa-camera {
+.profile-update-photo .fa-camera {
     color: #c0c0c0;
     font-size: 20px;
     margin-top: 20px;
     transition: 0.3s;
 }
 
-.profile-update-photo:hover > .fa-camera {
+.profile-update-photo:hover .fa-camera {
     transform: scale(.75);
 }
 
@@ -993,11 +993,11 @@ a, button, input[type='submit'] {
     font-weight: 600;
 }
 
-.fa-times {
+.profile-modal .fa-times {
     color: #cfcece;
 }
 
-.fa-times:hover {
+.profile-modal .fa-times:hover {
     cursor: pointer;
     color: #9FA4AF;
 }
@@ -1585,7 +1585,7 @@ a, button, input[type='submit'] {
 .emojitime-2 {
     position: absolute;
     right: 15px;
-    bottom: 40px;
+    bottom: 0px;
     color: rgb(139, 137, 137);
 }
 
