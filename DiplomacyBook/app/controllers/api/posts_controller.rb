@@ -10,14 +10,15 @@ class Api::PostsController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        @posts = user.posts.includes(:author, :liked_users, comments: [:author]) 
+        @posts = user.posts.includes(:author, :liked_users, comments: [:author]).with_attached_photo 
         render :index
     end
 
     def index
         ids = current_user.friends.pluck(:id) 
         ids << current_user.id
-        @posts = Post.includes(:author, :liked_users, comments: [:author]).where(author_id: ids)
+        # @posts = Post.includes(author: { photo_attachment: :blob }).includes(:liked_users, comments: [author: { photo_attachment: :blob}]).where(author_id: ids)
+        @posts = Post.includes(:author, :liked_users, comments: [:author]).with_attached_photo.where(author_id: ids)
         render :index
     end
 
@@ -28,6 +29,6 @@ class Api::PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:body, :user_id, :author_id)
+        params.require(:post).permit(:body, :user_id, :author_id, :photo)
     end
 end

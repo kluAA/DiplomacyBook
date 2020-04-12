@@ -18,7 +18,7 @@ class Api::UsersController < ApplicationController
 
     def search
         query = params[:user][:query]
-        @users = User.where("LOWER(first_name) LIKE (?) OR LOWER(last_name) LIKE (?)", "%#{query.downcase}%", "%#{query.downcase}%")
+        @users = User.where("LOWER(first_name) ILIKE (?) OR LOWER(last_name) ILIKE (?)", "%#{query}%", "%#{query}%")
         render :index
     end
 

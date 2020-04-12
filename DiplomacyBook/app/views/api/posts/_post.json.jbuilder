@@ -1,6 +1,10 @@
 
     author = post.author
     json.extract! post, :id, :body, :user_id, :author_id, :created_at
+    if post.photo.attached?
+        json.photoUrl url_for(post.photo)
+    end
+
     json.comment_ids post.comment_ids
     json.author do
         json.first_name author.first_name

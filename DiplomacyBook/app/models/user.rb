@@ -6,6 +6,8 @@ class User < ApplicationRecord
     validates :email, format: {with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "Please enter a valid email." }
     validates :password, length: {minimum: 6, message: "Password is too short, minimum is 6 characters."}, allow_nil: true
     has_one_attached :photo
+    # has_one :photo, -> { where(name: "photo") }, class_name: "ActiveStorage::Attachment", as: :record, inverse_of: :record, dependent: :destroy
+    # has_one :photo_blob, through: :photo, class_name: "ActiveStorage::Blob", source: :blob
     has_one_attached :cover
    
     has_many :friend_requests,

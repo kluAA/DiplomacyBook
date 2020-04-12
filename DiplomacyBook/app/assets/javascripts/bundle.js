@@ -2421,10 +2421,13 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PostForm).call(this, props));
     _this.state = {
-      body: ""
+      body: "",
+      photoFile: null,
+      photoUrl: null
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_this));
     _this.multiline = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     return _this;
   }
@@ -2437,16 +2440,41 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "handleFile",
+    value: function handleFile(e) {
+      var _this2 = this;
+
+      var file = e.currentTarget.files[0];
+      var fileReader = new FileReader();
+
+      fileReader.onloadend = function () {
+        _this2.setState({
+          photoFile: file,
+          photoUrl: fileReader.result
+        });
+      };
+
+      if (file) {
+        fileReader.readAsDataURL(file);
+      }
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
-      var post = {
-        body: parsedBody,
-        user_id: this.props.user.id,
-        author_id: this.props.currentUser.id
-      };
-      this.props.createPost(post);
+      var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n'); // const post = {
+      // body: parsedBody,
+      // user_id: this.props.user.id,
+      // author_id: this.props.currentUser.id
+      // }
+
+      var formData = new FormData();
+      if (this.state.photoFile) formData.append("post[photo]", this.state.photoFile);
+      formData.append("post[body]", parsedBody);
+      formData.append("post[user_id]", this.props.user.id);
+      formData.append("post[author_id]", this.props.currentUser.id);
+      this.props.createPost(formData); //sets height of form back to original
+
       this.multiline.style.height = "auto";
       this.setState({
         body: ""
@@ -2464,7 +2492,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
@@ -2487,12 +2515,15 @@ function (_React$Component) {
         className: "post-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-pencil-alt"
-      }), " Create Post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      }), " Create Post", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        onChange: this.handleFile
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         onChange: this.handleChange,
         value: this.state.body,
         placeholder: placeholder,
         ref: function ref(_ref) {
-          return _this2.multiline = _ref;
+          return _this3.multiline = _ref;
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Post"));
     }
@@ -5386,13 +5417,13 @@ var fetchFeedPosts = function fetchFeedPosts() {
     url: '/api/posts'
   });
 };
-var createPost = function createPost(post) {
+var createPost = function createPost(formData) {
   return $.ajax({
     method: "POST",
     url: "/api/posts",
-    data: {
-      post: post
-    }
+    data: formData,
+    contentType: false,
+    processData: false
   });
 };
 var deletePost = function deletePost(postId) {
