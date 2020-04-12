@@ -113,8 +113,13 @@ class PostItem extends React.Component {
                     { currentUser.id == post.author_id && <PostOptions deletePost={deletePost} postId={postId} />}
                 </div>
                 <p className="post-body">{post.body}</p>
+                {post.photoUrl && 
+                    <div className="post-photo">
+                        <img src={post.photoUrl} />
+                    </div>
+                }
                 { postHasLikes ? likeInfo : null }
-                <hr id="linebreak"></hr>
+                {!post.photoUrl && <hr id="linebreak"></hr>}
                 <div className="post-options">
                     {isLiked ? liked : like}
                     <label htmlFor={`comment-${postId}`} className="comment"><i className="far fa-comment-alt"></i>Comment</label>

@@ -2883,7 +2883,11 @@ function (_React$Component) {
         postId: postId
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "post-body"
-      }, post.body), postHasLikes ? likeInfo : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+      }, post.body), post.photoUrl && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "post-photo"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: post.photoUrl
+      })), postHasLikes ? likeInfo : null, !post.photoUrl && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         id: "linebreak"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-options"

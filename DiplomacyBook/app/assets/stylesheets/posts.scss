@@ -73,6 +73,17 @@
     white-space: pre-wrap;
 }
 
+.post-photo {
+}
+
+.post-photo img {
+    border-top: 1px solid #dddfe2;
+    border-bottom: 1px solid #dddfe2;
+    width: calc(100%);
+    max-height: 100%;
+
+}
+
 .post hr {
     border-bottom: 1px solid #dddfe2;
     width: 95%;
