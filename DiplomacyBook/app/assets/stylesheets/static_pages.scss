@@ -1239,7 +1239,7 @@ a, button, input[type='submit'] {
     width: 321px;
 }
 
-.timeline-friends {
+.timeline-box {
     border: 1px solid #dddfe2;
     display: flex;
     background: white;
@@ -1249,7 +1249,7 @@ a, button, input[type='submit'] {
 }
 
 
-.timeline-friends-header {
+.timeline-box-header {
     display: flex;
     align-items: center;
     padding: 12px 0;
@@ -1257,39 +1257,39 @@ a, button, input[type='submit'] {
     color: #1d2129;
 }
 
-.timeline-friends-icon {
+.timeline-header-icon {
     height: 24px;
     width: 24px;
     margin-right: 7px;
 }
 
-.timeline-friends-label {
+.timeline-box-label {
     font-size: 16px;
 }
 
-.timeline-friends-label:hover {
+.timeline-box-label:hover {
     text-decoration: underline;
 }
 
-.timeline-friends-count {
+.timeline-box-count {
     margin-left: 3px;
     font-size: 14px;
     margin-bottom: 1px;
     color: #90949c;
 }
-.timeline-friends-list {
+.timeline-box-list {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 7px;
     
 }
 
-.timeline-friends-list li {
+.timeline-box-list li {
     margin-left: 5px;
     margin-bottom: 3px;
 }
 
-.timeline-friends-list a {
+.timeline-box-list a {
     display: flex;
     flex-direction: column;
     width: 100px;
@@ -1298,11 +1298,11 @@ a, button, input[type='submit'] {
     text-align: center;
 }
 
-.timeline-friends-list a:hover {
+.timeline-box-list a:hover {
     text-decoration: underline;
 }
 
-.timeline-friends-list img {
+.timeline-box-list img {
     height: 100px;
     width: 100px;
 }

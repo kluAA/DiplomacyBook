@@ -28,15 +28,15 @@ class TimelinePhotos extends React.Component {
         }) 
 
         return (
-            <div className="timeline-friends">
-                <div className="timeline-friends-header">
-                    <img src={window.fbFriendsIconURL} className='timeline-friends-icon' />
+            <div className="timeline-box">
+                <div className="timeline-box-header">
+                    <img src={window.fbPhotosIconURL} className='timeline-header-icon' />
                     <Link to={`/profile/${this.props.match.params.id}/photos`}>
-                        <span className='timeline-friends-label'>Photos</span>
+                        <span className='timeline-box-label'>Photos</span>
                     </Link>
-                    {/* <span className="timeline-friends-count">{`(${friendsCount})`}</span> */}
+                    {/* <span className="timeline-box-count">{`(${friendsCount})`}</span> */}
                 </div>
-                <ul className='timeline-friends-list'>
+                <ul className='timeline-box-list'>
                     {mapPhotos}
                 </ul>
             </div>

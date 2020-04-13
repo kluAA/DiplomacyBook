@@ -3325,18 +3325,18 @@ function (_React$Component) {
         }));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "timeline-friends"
+        className: "timeline-box"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "timeline-friends-header"
+        className: "timeline-box-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.fbFriendsIconURL,
-        className: "timeline-friends-icon"
+        src: window.fbPhotosIconURL,
+        className: "timeline-header-icon"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(this.props.match.params.id, "/photos")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "timeline-friends-label"
+        className: "timeline-box-label"
       }, "Photos"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "timeline-friends-list"
+        className: "timeline-box-list"
       }, mapPhotos));
     }
   }]);
@@ -4116,20 +4116,20 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, friend.first_name, " ", friend.last_name)));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "timeline-friends"
+        className: "timeline-box"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "timeline-friends-header"
+        className: "timeline-box-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.fbFriendsIconURL,
-        className: "timeline-friends-icon"
+        className: "timeline-header-icon"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(this.props.match.params.id, "/friends")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "timeline-friends-label"
+        className: "timeline-box-label"
       }, "Friends")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "timeline-friends-count"
+        className: "timeline-box-count"
       }, "(".concat(friendsCount, ")"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "timeline-friends-list"
+        className: "timeline-box-list"
       }, mapFriends));
     }
   }]);
