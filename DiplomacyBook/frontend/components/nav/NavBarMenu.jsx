@@ -33,12 +33,24 @@ class NavBarMenu extends React.Component {
     render() {
         const menu = (
             <ul className="menu">
-                <i className="fas fa-caret-up"></i>
-                <li>First Item</li>
+                {/* <i className="fas fa-caret-up"></i> */}
+                <div id="menu-triangle-up">
+                    <div id="menu-triangle-inner"></div>
+                </div>
+                <a href="http://kevinlu.netlify.com">
+                    <li>Portfolio</li>
+                </a>
                 <hr className="menu-divider"></hr>
-                <li>Second Item</li>
-                <hr className="menu-divider"></hr>
-                <li>Another Item Here</li>
+                <a href="https://github.com/kluAA/DiplomacyBook/tree/master/DiplomacyBook">
+                  <li>Github</li>   
+                </a>
+                <a href="https://www.linkedin.com/in/kevin-lu-96b294191/">
+                    <li>LinkedIn</li>
+                </a>
+                <a href="https://angel.co/u/kevin-lu-45">
+                    <li>AngelList</li>
+                </a>
+  
                 <hr className="menu-divider"></hr>
                 <li onClick={e => this.props.handleLogOut(e)}>Log Out</li>
             </ul>

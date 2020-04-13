@@ -1334,13 +1334,21 @@ function (_React$Component) {
 
       var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "menu"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-caret-up"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "First Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "menu-triangle-up"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "menu-triangle-inner"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://kevinlu.netlify.com"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Portfolio")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "menu-divider"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Second Item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-        className: "menu-divider"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Another Item Here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://github.com/kluAA/DiplomacyBook/tree/master/DiplomacyBook"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Github")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.linkedin.com/in/kevin-lu-96b294191/"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "LinkedIn")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://angel.co/u/kevin-lu-45"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "AngelList")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "menu-divider"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: function onClick(e) {
