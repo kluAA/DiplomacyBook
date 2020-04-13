@@ -6,8 +6,10 @@ Rails.application.routes.draw do
       resources :friendships, only:[:index]
       collection do
         get 'search'
+        get 'photos'
       end
     end
+    
     resources :posts, only: [:create, :show, :destroy, :update, :index]
     resources :friendships, only:[:destroy]
     resource :session, only: [:create, :destroy]

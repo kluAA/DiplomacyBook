@@ -22,6 +22,10 @@ class Api::UsersController < ApplicationController
         render :index
     end
 
+    def photos 
+        
+    end
+
     def update
         @user = current_user
         if params[:user][:photo]

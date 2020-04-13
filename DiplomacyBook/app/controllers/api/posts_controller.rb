@@ -18,7 +18,6 @@ class Api::PostsController < ApplicationController
         else
             @posts = user.posts.includes(:author, :liked_users, comments: [:author])
             .with_attached_photo
-            .limit(6)
             .order(created_at: :desc)
         end
         render :index
