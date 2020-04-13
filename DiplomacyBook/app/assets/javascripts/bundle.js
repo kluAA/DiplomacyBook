@@ -371,9 +371,9 @@ var removePost = function removePost(postId) {
   };
 };
 
-var fetchUserPosts = function fetchUserPosts(userId) {
+var fetchUserPosts = function fetchUserPosts(userId, all) {
   return function (dispatch) {
-    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUserPosts"](userId).then(function (posts) {
+    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUserPosts"](userId, all).then(function (posts) {
       return dispatch(receivePosts(posts));
     });
   };
@@ -392,9 +392,9 @@ var deletePost = function deletePost(postId) {
     });
   };
 };
-var fetchFeedPosts = function fetchFeedPosts() {
+var fetchFeedPosts = function fetchFeedPosts(all) {
   return function (dispatch) {
-    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFeedPosts"]().then(function (posts) {
+    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFeedPosts"](all).then(function (posts) {
       return dispatch(receivePosts(posts));
     });
   };
@@ -672,9 +672,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -691,24 +691,44 @@ function (_React$Component) {
   _inherits(FeedIndex, _React$Component);
 
   function FeedIndex(props) {
+    var _this;
+
     _classCallCheck(this, FeedIndex);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FeedIndex).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(FeedIndex).call(this, props));
+    _this.state = {
+      showAll: false
+    };
+    _this.showAll = _this.showAll.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(FeedIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchFeedPosts();
+      if (!this.state.showAll) {
+        this.props.fetchFeedPosts("false");
+      }
+    }
+  }, {
+    key: "showAll",
+    value: function showAll(e) {
+      this.props.fetchFeedPosts("true");
+      this.setState({
+        showAll: true
+      });
     }
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _this$props = this.props,
           posts = _this$props.posts,
           currentUser = _this$props.currentUser;
       if (!posts || posts === []) return null;
-      var showPosts = posts.map(function (post) {
+      var mapPosts = posts.length > 5 && !this.state.showAll ? posts.slice(0, 5) : posts;
+      var showPosts = mapPosts.map(function (post) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "post",
           key: post.id
@@ -784,7 +804,17 @@ function (_React$Component) {
         className: "feed-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_feed_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "posts-container"
-      }, showPosts)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, showPosts), !this.state.showAll && posts.length > 5 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.showAll,
+        id: "show-all"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Show All")), this.state.showAll && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: function onClick(e) {
+          return _this2.setState({
+            showAll: false
+          });
+        },
+        id: "show-all"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Hide All But 5"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "feed-right-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fr-ad"
@@ -838,8 +868,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchFeedPosts: function fetchFeedPosts() {
-      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFeedPosts"])());
+    fetchFeedPosts: function fetchFeedPosts(all) {
+      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_3__["fetchFeedPosts"])(all));
     }
   };
 };
@@ -2677,9 +2707,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -2695,15 +2725,24 @@ function (_React$Component) {
   _inherits(PostIndex, _React$Component);
 
   function PostIndex(props) {
+    var _this;
+
     _classCallCheck(this, PostIndex);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(PostIndex).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PostIndex).call(this, props));
+    _this.state = {
+      showAll: false
+    };
+    _this.showAll = _this.showAll.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(PostIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchUserPosts(this.props.match.params.id);
+      if (!this.state.showAll) {
+        this.props.fetchUserPosts(this.props.match.params.id, "false");
+      }
     }
   }, {
     key: "componentDidUpdate",
@@ -2713,11 +2752,22 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "showAll",
+    value: function showAll(e) {
+      this.props.fetchUserPosts(this.props.match.params.id, "true");
+      this.setState({
+        showAll: true
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var posts = this.props.posts;
       if (!posts || posts === []) return null;
-      var showPosts = posts.map(function (post) {
+      var mapPosts = posts.length > 5 && !this.state.showAll ? posts.slice(0, 5) : posts;
+      var showPosts = mapPosts.map(function (post) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "post",
           key: post.id
@@ -2729,7 +2779,17 @@ function (_React$Component) {
         className: "post-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_post_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "posts-container"
-      }, showPosts));
+      }, showPosts), !this.state.showAll && posts.length > 5 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.showAll,
+        id: "show-all"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Show All")), this.state.showAll && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: function onClick(e) {
+          return _this2.setState({
+            showAll: false
+          });
+        },
+        id: "show-all"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Hide All But 5")));
     }
   }]);
 
@@ -2768,8 +2828,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchUserPosts: function fetchUserPosts(userId) {
-      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUserPosts"])(userId));
+    fetchUserPosts: function fetchUserPosts(userId, all) {
+      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUserPosts"])(userId, all));
     }
   };
 };
@@ -5491,16 +5551,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFeedPosts", function() { return fetchFeedPosts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPost", function() { return createPost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePost", function() { return deletePost; });
-var fetchUserPosts = function fetchUserPosts(userId) {
+var fetchUserPosts = function fetchUserPosts(userId, all) {
   return $.ajax({
     method: "GET",
-    url: "/api/posts/".concat(userId)
+    url: "/api/posts/".concat(userId),
+    data: {
+      post: {
+        all: all
+      }
+    }
   });
 };
-var fetchFeedPosts = function fetchFeedPosts() {
+var fetchFeedPosts = function fetchFeedPosts(all) {
   return $.ajax({
     method: "GET",
-    url: '/api/posts'
+    url: '/api/posts',
+    data: {
+      post: {
+        all: all
+      }
+    }
   });
 };
 var createPost = function createPost(formData) {

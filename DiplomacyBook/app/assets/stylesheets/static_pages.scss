@@ -1825,6 +1825,24 @@ a, button, input[type='submit'] {
     font-size: 13px;
 }
 
+#show-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#show-all span {
+    cursor: pointer;
+    font-size: 15px;
+    color: #3d62a7;
+    font-weight: bold;
+}
+
+#show-all span:hover {
+    color: #4772c2;
+}
 
 //misc
 .modal {

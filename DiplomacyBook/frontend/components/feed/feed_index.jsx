@@ -6,17 +6,29 @@ import { Link } from 'react-router-dom';
 class FeedIndex extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showAll: false
+        }
+        this.showAll = this.showAll.bind(this);
     }
 
     componentDidMount() {
-        this.props.fetchFeedPosts();
+        if (!this.state.showAll) {
+            this.props.fetchFeedPosts("false");
+        } 
+    }
+
+    showAll(e) {
+        this.props.fetchFeedPosts("true");
+        this.setState({showAll: true});
     }
 
 
     render() {
         const { posts, currentUser } = this.props;
         if (!posts || posts === []) return null;
-        let showPosts = posts.map(post => <li className="post" key={post.id}><PostItemContainer postId={post.id} /></li>)
+        let mapPosts = (posts.length > 5 && !this.state.showAll) ? posts.slice(0, 5) : posts
+        let showPosts = mapPosts.map(post => <li className="post" key={post.id}><PostItemContainer postId={post.id} /></li>)
         return (
             <div className="bg-container">
                 <div className="feed-container">
@@ -93,7 +105,17 @@ class FeedIndex extends React.Component {
                         <ul className="posts-container">
                             {showPosts}
                         </ul>
-                    </div>
+                        { !this.state.showAll && posts.length > 5 && 
+                            <div onClick={this.showAll} id="show-all">
+                                <span>Show All</span>
+                            </div>
+                        }
+                        { this.state.showAll &&
+                            <div onClick={e => this.setState({showAll: false})} id="show-all">
+                                <span>Hide All But 5</span>
+                            </div>
+                        }
+                    </div> 
 
                     <div className="feed-right-container">
                         <div className="fr-ad">

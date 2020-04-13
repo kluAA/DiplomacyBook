@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchFeedPosts: () => dispatch(fetchFeedPosts())
+    fetchFeedPosts: (all) => dispatch(fetchFeedPosts(all))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FeedIndex));

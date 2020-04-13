@@ -1,15 +1,18 @@
-export const fetchUserPosts = (userId) => {
+export const fetchUserPosts = (userId, all) => {
     return $.ajax({
         method: "GET",
-        url: `/api/posts/${userId}`
+        url: `/api/posts/${userId}`,
+        data: { post: { all: all }}
     })
 }
 
-export const fetchFeedPosts = () => {
+export const fetchFeedPosts = (all) => {
     return $.ajax({
         method: "GET",
-        url: '/api/posts'
+        url: '/api/posts',
+        data: { post: { all: all } }
     })
+
 }
 
 export const createPost = formData => {

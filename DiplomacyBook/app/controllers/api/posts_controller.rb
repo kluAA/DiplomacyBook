@@ -10,7 +10,17 @@ class Api::PostsController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        @posts = user.posts.includes(:author, :liked_users, comments: [:author]).with_attached_photo 
+        unless params[:post][:all] == "true"
+            @posts = user.posts.includes(:author, :liked_users, comments: [:author])
+            .with_attached_photo
+            .limit(6)
+            .order(created_at: :desc).limit(6)
+        else
+            @posts = user.posts.includes(:author, :liked_users, comments: [:author])
+            .with_attached_photo
+            .limit(6)
+            .order(created_at: :desc)
+        end
         render :index
     end
 
@@ -18,7 +28,16 @@ class Api::PostsController < ApplicationController
         ids = current_user.friends.pluck(:id) 
         ids << current_user.id
         # @posts = Post.includes(author: { photo_attachment: :blob }).includes(:liked_users, comments: [author: { photo_attachment: :blob}]).where(author_id: ids)
-        @posts = Post.includes(:author, :liked_users, comments: [:author]).with_attached_photo.where(author_id: ids)
+        unless params[:post][:all] == "true"
+        @posts = Post.includes(:author, :liked_users, comments: [:author])
+            .with_attached_photo.where(author_id: ids)
+            .limit(6)
+            .order(created_at: :desc)
+        else
+            @posts = Post.includes(:author, :liked_users, comments: [:author])
+            .with_attached_photo.where(author_id: ids)
+            .order(created_at: :desc)
+        end
         render :index
     end
 
