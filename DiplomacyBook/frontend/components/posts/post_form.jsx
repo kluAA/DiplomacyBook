@@ -116,7 +116,7 @@ class PostForm extends React.Component {
                     >
                     </textarea>
                 {this.state.focused && <div className="emojitime-2">
-                    <CommentEmoji addEmoji={this.addEmoji} />
+                    <CommentEmoji addEmoji={this.addEmoji} feed={this.props.feed} />
                 </div>}
                 </div>
                 { this.state.photoUrl &&

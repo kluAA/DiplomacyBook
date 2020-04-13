@@ -664,7 +664,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     currentUser: state.entities.users[state.session.id],
-    user: state.entities.users[state.session.id]
+    user: state.entities.users[state.session.id],
+    feed: true
   };
 };
 
@@ -2058,7 +2059,7 @@ function (_React$Component) {
 
       var addEmoji = this.props.addEmoji;
       var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "emoji-menu"
+        className: this.props.feed ? "emoji-menu-feed" : "emoji-menu"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "emojis-list",
         id: "emojis-list"
@@ -2140,9 +2141,9 @@ function (_React$Component) {
           return _this2.scroll(_this2.foods);
         }
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "outer-triangle"
+        className: this.props.feed ? "outer-triangle-2" : "outer-triangle"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "inner-triangle"
+        className: this.props.feed ? "inner-triangle-2" : "inner-triangle"
       })));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "emoji-container"
@@ -2649,7 +2650,8 @@ function (_React$Component) {
       }), this.state.focused && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "emojitime-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_CommentEmoji__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        addEmoji: this.addEmoji
+        addEmoji: this.addEmoji,
+        feed: this.props.feed
       }))), this.state.photoUrl && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "posts-photo-preview",
         onMouseEnter: function onMouseEnter(e) {

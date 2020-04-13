@@ -1604,7 +1604,6 @@ a, button, input[type='submit'] {
 
 .emoji-menu {
     width: 300px;
-
     background: white;
     position: absolute;
     z-index: 10;
@@ -1612,6 +1611,18 @@ a, button, input[type='submit'] {
     border-radius: 3px;
     bottom: 40px;
     right: -10px;
+    cursor: default;
+}
+
+.emoji-menu-feed {
+    width: 300px;
+    background: white;
+    position: absolute;
+    z-index: 10;
+    border: 1px solid #E9EBEE;
+    border-radius: 3px;
+    top: 27px;
+    right: -30px;
     cursor: default;
 }
 
@@ -1697,6 +1708,24 @@ a, button, input[type='submit'] {
     border-left: 9px solid transparent;
     border-right: 9px solid transparent; 
     bottom: 1px;
+    left: -9px;
+}
+
+.outer-triangle-2 {
+    position: absolute;
+    border-bottom: 10px solid #e9ebee;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent; 
+    right: 27px;
+    top: -10px;;
+}
+
+.inner-triangle-2 {
+    position: absolute;
+    border-bottom: 9px solid white;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent; 
+    top: 1px;
     left: -9px;
 }
 

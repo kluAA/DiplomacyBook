@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
-    user: state.entities.users[state.session.id]
+    user: state.entities.users[state.session.id],
+    feed: true
 })
 
 const mapDispatchToProps = dispatch => ({

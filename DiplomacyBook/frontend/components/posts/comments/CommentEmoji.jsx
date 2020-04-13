@@ -48,7 +48,7 @@ class CommentEmoji extends React.Component {
     render() {
         const { addEmoji } = this.props;
         const menu = (
-            <div className="emoji-menu">
+            <div className={this.props.feed ? "emoji-menu-feed" : "emoji-menu"}>
                 <div className="emojis-list" id="emojis-list">
                     <div className="emojis-title" ref={this.smiley}>Smileys</div>
                     {smileys.map((smiley, i) => <li onClick={e => addEmoji(smiley)} key={"s-"+i}>{smiley}</li>)}
@@ -78,8 +78,8 @@ class CommentEmoji extends React.Component {
                         <i className="fas fa-hamburger" onClick={e => this.scroll(this.foods)}></i>
                     </li>
                 </ul>
-                <div className="outer-triangle">
-                    <div className="inner-triangle"></div>
+                <div className={this.props.feed ? "outer-triangle-2" : "outer-triangle"}>
+                    <div className={this.props.feed ? "inner-triangle-2" : "inner-triangle"}></div>
                 </div>
             </div>
         )
