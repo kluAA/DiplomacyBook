@@ -6,6 +6,7 @@ import postsReducer from './posts_reducer';
 import commentsReducer from './comments_reducer';
 import likesReducer from './likes_reducer';
 import searchReducer from "./search_reducer";
+import photosReducer from "./photos_reducer";
 
 const entitiesReducer = combineReducers({
     users: usersReducer,
@@ -14,7 +15,8 @@ const entitiesReducer = combineReducers({
     posts: postsReducer,
     comments: commentsReducer,
     likes: likesReducer,
-    search: searchReducer
+    search: searchReducer,
+    photos: photosReducer
 });
 
 export default entitiesReducer;

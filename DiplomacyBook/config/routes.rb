@@ -6,7 +6,6 @@ Rails.application.routes.draw do
       resources :friendships, only:[:index]
       collection do
         get 'search'
-        get 'photos'
       end
     end
     
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
     resources :friendrequests, only: [:create, :destroy, :index]
     resources :comments, only: [:create]
     resources :likeposts, only: [:create, :destroy, :show]
+    resources :photos, only: [:index, :show]
   end
 
   root to: 'static_pages#root'
