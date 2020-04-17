@@ -40,6 +40,17 @@ class Api::PostsController < ApplicationController
         render :index
     end
 
+    def update
+        @post = current_user.authored_posts.includes(:author, :liked_users, comments: [:author])
+            .with_attached_photo
+            .find(params[:id])
+        if @post.update(post_params) 
+            render :show, status: 401
+        else
+            render json: @post.errors.full_messages
+        end
+    end
+
     def destroy
         @post = current_user.authored_posts.find(params[:id])
         @post.destroy
