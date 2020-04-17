@@ -31,3 +31,11 @@ export const deletePost = postId => {
         url: `/api/posts/${postId}`
     })
 }
+
+export const updatePost = post => {
+    return $.ajax({
+        method: "PATCH",
+        url: `/api/posts/${post.id}`,
+        data: { post }
+    })
+}

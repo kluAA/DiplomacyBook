@@ -364,7 +364,7 @@ var fetchPhotos = function fetchPhotos(userId) {
 /*!******************************************!*\
   !*** ./frontend/actions/post_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST, fetchUserPosts, createPost, deletePost, fetchFeedPosts */
+/*! exports provided: RECEIVE_POSTS, RECEIVE_POST, REMOVE_POST, fetchUserPosts, createPost, deletePost, fetchFeedPosts, updatePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -376,6 +376,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPost", function() { return createPost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePost", function() { return deletePost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFeedPosts", function() { return fetchFeedPosts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePost", function() { return updatePost; });
 /* harmony import */ var _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/post_api_util */ "./frontend/utils/post_api_util.js");
 
 var RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -428,6 +429,13 @@ var fetchFeedPosts = function fetchFeedPosts(all) {
   return function (dispatch) {
     return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchFeedPosts"](all).then(function (posts) {
       return dispatch(receivePosts(posts));
+    });
+  };
+};
+var updatePost = function updatePost(post) {
+  return function (dispatch) {
+    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["updatePost"](post).then(function (post) {
+      return dispatch(receivePost(post));
     });
   };
 };
@@ -5774,7 +5782,7 @@ var fetchPhotos = function fetchPhotos(userId) {
 /*!*****************************************!*\
   !*** ./frontend/utils/post_api_util.js ***!
   \*****************************************/
-/*! exports provided: fetchUserPosts, fetchFeedPosts, createPost, deletePost */
+/*! exports provided: fetchUserPosts, fetchFeedPosts, createPost, deletePost, updatePost */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5783,6 +5791,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchFeedPosts", function() { return fetchFeedPosts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPost", function() { return createPost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePost", function() { return deletePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePost", function() { return updatePost; });
 var fetchUserPosts = function fetchUserPosts(userId, all) {
   return $.ajax({
     method: "GET",
@@ -5818,6 +5827,15 @@ var deletePost = function deletePost(postId) {
   return $.ajax({
     method: "DELETE",
     url: "/api/posts/".concat(postId)
+  });
+};
+var updatePost = function updatePost(post) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/posts/".concat(post.id),
+    data: {
+      post: post
+    }
   });
 };
 
