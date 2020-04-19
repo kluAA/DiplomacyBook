@@ -7,7 +7,7 @@ class PostForm extends React.Component {
         super(props);
         this.state = {
             body: props.post ? props.post.body : "",
-            photoFile: props.post ? props.post.photoUrl : null,
+            photoFile: null,
             photoUrl: props.post ? props.post.photoUrl : null,
             focused: false,
             hovered: false
@@ -56,16 +56,32 @@ class PostForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        if (!this.state.body) return null;
         let parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
    
         const formData = new FormData();
-        if (this.state.photoFile) formData.append("post[photo]", this.state.photoFile);
+        if (this.state.photoFile) { 
+            formData.append("post[photo]", this.state.photoFile);
+        } else if (!this.state.photoUrl && this.props.edit) {
+            formData.append("post[photo]", "purge")
+        }
         formData.append("post[body]", parsedBody);
-        formData.append("post[user_id]", this.props.user.id);
-        formData.append("post[author_id]", this.props.currentUser.id);
+       
 
-
-        this.props.createPost(formData)
+        if (this.props.edit) {
+            formData.append("post[user_id]", this.props.post.user_id);
+            formData.append("post[author_id]", this.props.post.author_id);
+            this.props.updatePost(formData, this.props.post.id)
+                .then(() => {
+                    this.props.closeModal();
+                    document.body.style.overflowY = "scroll";
+                });
+                    
+        } else {
+            formData.append("post[user_id]", this.props.user.id);
+            formData.append("post[author_id]", this.props.currentUser.id);
+            this.props.createPost(formData)
+        }
         //sets height of form back to original
         this.multiline.style.height = "auto";
         this.setState({body: "", photoFile: null, photoUrl: null, focused: false});
@@ -92,7 +108,8 @@ class PostForm extends React.Component {
 
 
     render() {
-        const { currentUser, user } = this.props;
+        const { currentUser, user, edit } = this.props;
+        const { photoFile } = this.state;
         if (!currentUser) return null;
         let placeholder;
         if (currentUser === user) {
@@ -103,14 +120,14 @@ class PostForm extends React.Component {
             placeholder = `Write something to ${user.first_name}...`
         }
         return (
-            <form className="posts-form" onSubmit={this.handleSubmit}>
+            <form className="posts-form">
                 <div className="posts-form-body">
                     <i className="fas fa-pencil-alt"></i> 
-                    <span>Create Post</span>
+                    <span>{edit ? "Edit" : "Create"} Post</span>
                     <div className="post-add-photo">
                         <label htmlFor="post-file">
                             <i className="fas fa-camera"></i>
-                            <span>Add Photo</span>
+                            <span>{photoFile ? "Edit" : "Add"} Photo</span>
                         </label>  
                     </div>
                     <input type="file" ref={ref => this.fileInput = ref} id="post-file" accept=".jpg,.gif,.png" onChange={this.handleFile} />
@@ -146,7 +163,16 @@ class PostForm extends React.Component {
                     </div>
                 }
                 <hr></hr>
-                <button>Post</button>
+                {!edit && <button className="posts-btn"
+                    onClick={this.handleSubmit}
+                    id={this.state.body ? null : "disabled"}
+                    >
+                        Post</button>}
+                {edit &&
+                    <div className="posts-edit-footer">
+                        <button className="posts-edit-btn" onClick={this.handleSubmit}>Save</button>
+                    </div>
+                }
             </form>
         )
     }

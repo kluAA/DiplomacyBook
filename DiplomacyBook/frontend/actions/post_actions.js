@@ -39,7 +39,7 @@ export const fetchFeedPosts = (all) => dispatch => {
         .then(posts => dispatch(receivePosts(posts)));
 };
 
-export const updatePost = post => dispatch => {
-    return PostAPIUtil.updatePost(post)
+export const updatePost = (post, postId) => dispatch => {
+    return PostAPIUtil.updatePost(post, postId)
         .then(post => dispatch(receivePost(post)));
 };

@@ -36,12 +36,12 @@ class Modal extends React.Component {
         }
     
         return (
-            <div className="modal" onClick={e => {
-                closeModal(e);
-                this.unfixBackground();
-            }}>
+            <div className="modal">
                 <div className="modal-child" onClick={e => e.stopPropagation()}>
-                    <div className="modal-close">
+                    <div className="modal-close" onClick={e => {
+                        closeModal(e);
+                        this.unfixBackground();
+                    }}>
                         <i className="fas fa-times"></i>
                     </div>
                     {component}

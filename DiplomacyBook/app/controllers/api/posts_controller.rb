@@ -44,10 +44,19 @@ class Api::PostsController < ApplicationController
         @post = current_user.authored_posts.includes(:author, :liked_users, comments: [:author])
             .with_attached_photo
             .find(params[:id])
-        if @post.update(post_params) 
-            render :show, status: 401
+        @post.body = params[:post][:body]
+    
+        if params[:post][:photo] == "purge"
+            @post.photo.purge
+        elsif params[:post][:photo].nil? 
+            
+        else params[:post][:photo].class != String
+            @post.photo.attach(params[:post][:photo])
+        end
+        if @post.save
+            render :show
         else
-            render json: @post.errors.full_messages
+            render json: @post.errors.full_messages, status: 401
         end
     end
 

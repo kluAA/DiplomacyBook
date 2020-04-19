@@ -435,9 +435,9 @@ var fetchFeedPosts = function fetchFeedPosts(all) {
     });
   };
 };
-var updatePost = function updatePost(post) {
+var updatePost = function updatePost(post, postId) {
   return function (dispatch) {
-    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["updatePost"](post).then(function (post) {
+    return _utils_post_api_util__WEBPACK_IMPORTED_MODULE_0__["updatePost"](post, postId).then(function (post) {
       return dispatch(receivePost(post));
     });
   };
@@ -1012,19 +1012,19 @@ function (_React$Component) {
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal",
-        onClick: function onClick(e) {
-          closeModal(e);
-
-          _this.unfixBackground();
-        }
+        className: "modal"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-child",
         onClick: function onClick(e) {
           return e.stopPropagation();
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-close"
+        className: "modal-close",
+        onClick: function onClick(e) {
+          closeModal(e);
+
+          _this.unfixBackground();
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-times"
       })), component));
@@ -2643,7 +2643,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PostForm).call(this, props));
     _this.state = {
       body: props.post ? props.post.body : "",
-      photoFile: props.post ? props.post.photoUrl : null,
+      photoFile: null,
       photoUrl: props.post ? props.post.photoUrl : null,
       focused: false,
       hovered: false
@@ -2705,14 +2705,35 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this3 = this;
+
       e.preventDefault();
+      if (!this.state.body) return null;
       var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
       var formData = new FormData();
-      if (this.state.photoFile) formData.append("post[photo]", this.state.photoFile);
+
+      if (this.state.photoFile) {
+        formData.append("post[photo]", this.state.photoFile);
+      } else if (!this.state.photoUrl && this.props.edit) {
+        formData.append("post[photo]", "purge");
+      }
+
       formData.append("post[body]", parsedBody);
-      formData.append("post[user_id]", this.props.user.id);
-      formData.append("post[author_id]", this.props.currentUser.id);
-      this.props.createPost(formData); //sets height of form back to original
+
+      if (this.props.edit) {
+        formData.append("post[user_id]", this.props.post.user_id);
+        formData.append("post[author_id]", this.props.post.author_id);
+        this.props.updatePost(formData, this.props.post.id).then(function () {
+          _this3.props.closeModal();
+
+          document.body.style.overflowY = "scroll";
+        });
+      } else {
+        formData.append("post[user_id]", this.props.user.id);
+        formData.append("post[author_id]", this.props.currentUser.id);
+        this.props.createPost(formData);
+      } //sets height of form back to original
+
 
       this.multiline.style.height = "auto";
       this.setState({
@@ -2751,11 +2772,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
-          user = _this$props.user;
+          user = _this$props.user,
+          edit = _this$props.edit;
+      var photoFile = this.state.photoFile;
       if (!currentUser) return null;
       var placeholder;
 
@@ -2768,22 +2791,21 @@ function (_React$Component) {
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "posts-form",
-        onSubmit: this.handleSubmit
+        className: "posts-form"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "posts-form-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-pencil-alt"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Create Post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, edit ? "Edit" : "Create", " Post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-add-photo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "post-file"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-camera"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add Photo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, photoFile ? "Edit" : "Add", " Photo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
         ref: function ref(_ref) {
-          return _this3.fileInput = _ref;
+          return _this4.fileInput = _ref;
         },
         id: "post-file",
         accept: ".jpg,.gif,.png",
@@ -2795,10 +2817,10 @@ function (_React$Component) {
         value: this.state.body,
         placeholder: placeholder,
         ref: function ref(_ref2) {
-          return _this3.multiline = _ref2;
+          return _this4.multiline = _ref2;
         },
         onFocus: function onFocus(e) {
-          return _this3.setState({
+          return _this4.setState({
             focused: true
           });
         }
@@ -2810,12 +2832,12 @@ function (_React$Component) {
       }))), this.state.photoUrl && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "posts-photo-preview",
         onMouseEnter: function onMouseEnter(e) {
-          return _this3.setState({
+          return _this4.setState({
             hovered: true
           });
         },
         onMouseLeave: function onMouseLeave(e) {
-          return _this3.setState({
+          return _this4.setState({
             hovered: false
           });
         }
@@ -2826,14 +2848,23 @@ function (_React$Component) {
       }), this.state.hovered && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-times",
         onClick: function onClick(e) {
-          return _this3.setState({
+          return _this4.setState({
             photoFile: null,
             photoUrl: null
           }, function () {
-            return _this3.fileInput.value = null;
+            return _this4.fileInput.value = null;
           });
         }
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Post"));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), !edit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "posts-btn",
+        onClick: this.handleSubmit,
+        id: this.state.body ? null : "disabled"
+      }, "Post"), edit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "posts-edit-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "posts-edit-btn",
+        onClick: this.handleSubmit
+      }, "Save")));
     }
   }]);
 
@@ -2856,7 +2887,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _post_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./post_form */ "./frontend/components/posts/post_form.jsx");
 /* harmony import */ var _actions_post_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/post_actions */ "./frontend/actions/post_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -2873,11 +2906,17 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createPost: function createPost(post) {
       return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_2__["createPost"])(post));
+    },
+    updatePost: function updatePost(post, postId) {
+      return dispatch(Object(_actions_post_actions__WEBPACK_IMPORTED_MODULE_2__["updatePost"])(post, postId));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["closeModal"])());
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_post_form__WEBPACK_IMPORTED_MODULE_1__["default"])));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_post_form__WEBPACK_IMPORTED_MODULE_1__["default"])));
 
 /***/ }),
 
@@ -5984,13 +6023,13 @@ var deletePost = function deletePost(postId) {
     url: "/api/posts/".concat(postId)
   });
 };
-var updatePost = function updatePost(post) {
+var updatePost = function updatePost(formData, postId) {
   return $.ajax({
     method: "PATCH",
-    url: "/api/posts/".concat(post.id),
-    data: {
-      post: post
-    }
+    url: "/api/posts/".concat(postId),
+    data: formData,
+    contentType: false,
+    processData: false
   });
 };
 
