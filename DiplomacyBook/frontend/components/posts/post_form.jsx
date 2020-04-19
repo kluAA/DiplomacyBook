@@ -25,6 +25,10 @@ class PostForm extends React.Component {
         if (this.multiline) {
             this.multiline.style.height = 'auto';
         }
+
+        if (this.multiline && this.props.edit) {
+            this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
+        }
         document.addEventListener('mousedown', this.handleUnfocus, false);
     }
 
@@ -167,10 +171,15 @@ class PostForm extends React.Component {
                     onClick={this.handleSubmit}
                     id={this.state.body ? null : "disabled"}
                     >
-                        Post</button>}
+                    Post</button>}
                 {edit &&
                     <div className="posts-edit-footer">
-                        <button className="posts-edit-btn" onClick={this.handleSubmit}>Save</button>
+                        <button 
+                            className="posts-edit-btn" 
+                            onClick={this.handleSubmit}
+                            id={this.state.body ? null : "save-disabled"}
+                            >
+                            Save</button>
                     </div>
                 }
             </form>

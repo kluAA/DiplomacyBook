@@ -2665,6 +2665,10 @@ function (_React$Component) {
         this.multiline.style.height = 'auto';
       }
 
+      if (this.multiline && this.props.edit) {
+        this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
+      }
+
       document.addEventListener('mousedown', this.handleUnfocus, false);
     }
   }, {
@@ -2863,7 +2867,8 @@ function (_React$Component) {
         className: "posts-edit-footer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "posts-edit-btn",
-        onClick: this.handleSubmit
+        onClick: this.handleSubmit,
+        id: this.state.body ? null : "save-disabled"
       }, "Save")));
     }
   }]);
