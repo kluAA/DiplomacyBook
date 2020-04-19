@@ -119,7 +119,7 @@ class PostItem extends React.Component {
                     </div>
                 }
                 { postHasLikes ? likeInfo : null }
-                {!post.photoUrl && <hr id="linebreak"></hr>}
+                {(!post.photoUrl || postHasLikes) && <hr id="linebreak"></hr>}
                 <div className="post-options">
                     {isLiked ? liked : like}
                     <label htmlFor={`comment-${postId}`} className="comment"><i className="far fa-comment-alt"></i>Comment</label>
