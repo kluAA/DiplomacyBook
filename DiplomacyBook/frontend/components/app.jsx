@@ -6,10 +6,13 @@ import LoginFormContainer from './session/login_container';
 import ProfileContainer from './profile/profile_container';
 import { AuthRoute, ProtectedRoute } from '../utils/route_util';
 import NavBarContainer from './nav/NavBarContainer';
+import Modal from "./modal/modal";
+
 
 const App = () => {
     return (
         <div>
+            <Modal />
             <AuthRoute exact path='/signup' component={Splash} />
             <AuthRoute exact path='/login' component={LoginFormContainer} />
             <ProtectedRoute path='/profile/:userId' component={ProfileContainer} />

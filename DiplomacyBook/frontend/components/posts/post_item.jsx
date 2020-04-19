@@ -110,7 +110,7 @@ class PostItem extends React.Component {
                         <span className="post-username"><Link to={`/profile/${post.author_id}`}>{post.author.first_name} {post.author.last_name}</Link></span>
                         <span className="post-time">{parsedTime}<i className="fas fa-user-tie"></i></span>
                     </div>
-                    { currentUser.id == post.author_id && <PostOptions deletePost={deletePost} postId={postId} />}
+                    { currentUser.id == post.author_id && <PostOptions deletePost={deletePost} post={post} openModal={this.props.openModal} />}
                 </div>
                 <p className="post-body">{post.body}</p>
                 {post.photoUrl && 

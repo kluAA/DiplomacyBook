@@ -6,9 +6,9 @@ class PostForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            body: "",
-            photoFile: null,
-            photoUrl: null,
+            body: props.post ? props.post.body : "",
+            photoFile: props.post ? props.post.photoUrl : null,
+            photoUrl: props.post ? props.post.photoUrl : null,
             focused: false,
             hovered: false
         }
@@ -72,9 +72,18 @@ class PostForm extends React.Component {
     }
 
     handleChange(e) {
+        let scrollTop;
+        let modal;
+        if (this.props.edit) {
+            //logic for preventing modal scroll position from resetting when overflow
+            modal = document.getElementsByClassName("modal")[0];
+            scrollTop = modal.scrollTop;
+        }
+        
         this.multiline.style.height = 'auto';
         this.multiline.style.height = this.multiline.scrollHeight - 20 + 'px';
         this.setState({body: e.target.value})
+        if (this.props.edit) modal.scrollTo(0, scrollTop);
     }
 
     addEmoji(emoji) {

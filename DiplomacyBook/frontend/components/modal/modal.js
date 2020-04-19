@@ -1,29 +1,58 @@
 import React from 'react';
-import { OPEN_MODAL, CLOSE_MODAL } from '../../actions/modal_actions';
+import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
+import PostFormContainer from '../posts/post_form_container';
 
-function Modal({ modal, closeModal }) {
-    if (!modal) return null;
-
-    let component;
-    switch (modal) {
-        case "editPost":
-            component = "tobeedited"
-            break;
-        default: return null;
+class Modal extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
-    return (
-        <div className="modal" onClick={closeModal}>
-            <div className="modal-child" onClick={e => e.stopPropagation()}>
-                {component}
+    fixBackground() {
+       document.body.style.overflowY = "hidden";
+    }
+
+    unfixBackground() {
+        document.body.style.overflowY = "scroll";
+    }
+
+    render() {
+        const { modal, closeModal } = this.props;
+
+        if (!modal) {
+            
+            return null;
+        }
+    
+        let component;
+        switch (modal.type) {
+            case "editPost":
+                console.log(modal)
+                this.fixBackground();
+                component = <PostFormContainer edit="true" post={modal.post}/>;
+                break;
+            default: 
+                return null;
+        }
+    
+        return (
+            <div className="modal" onClick={e => {
+                closeModal(e);
+                this.unfixBackground();
+            }}>
+                <div className="modal-child" onClick={e => e.stopPropagation()}>
+                    <div className="modal-close">
+                        <i className="fas fa-times"></i>
+                    </div>
+                    {component}
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 const mapStateToProps = state => ({
-    modal: state.ui.modal
+    modal: state.modal
 });
 
 const mapDispatchToProps = dispatch => ({

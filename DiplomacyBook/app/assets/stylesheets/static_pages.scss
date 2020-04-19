@@ -748,7 +748,6 @@ a, button, input[type='submit'] {
 }
 
 
-
 //profile
 
 .profile-container {
@@ -1888,5 +1887,28 @@ a, button, input[type='submit'] {
     z-index: 100;
     display: flex;
     justify-content: center;
-    align-items: center;
+    overflow-y: scroll;
+
+    
+}
+
+.modal-close {
+    cursor: pointer;
+    color: #cfcece;
+    position: absolute;
+    z-index: 9;
+    top: 11px;
+    right: 14px;
+    font-size: 15px;
+}
+
+.modal-close:hover {
+    color: #9FA4AF;
+}
+
+.modal-child {
+    margin-top: 200px;
+    margin-right: 118px;
+    position: relative;
+   
 }
