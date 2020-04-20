@@ -34,9 +34,15 @@ class PostOptions extends React.Component {
         
         const postActions = (
             <ul className="post-actions">
-                <li onClick={e => this.props.openModal("editPost", post)}>Edit</li>
+                <li onClick={e => { 
+                    this.props.openModal("editPost", post);
+                    this.setState({ showPostOptions: false })
+                }}>
+                    Edit
+                </li>
                 <div className="post-actions-divider"></div>
-                <li onClick={e => deletePost(post.id) }>Delete</li>
+                <li onClick={e => deletePost(post.id) }
+                >Delete</li>
                 <div className="post-actions-divider"></div>
                 <li onClick={e => this.setState({ showPostOptions: false })}>Cancel</li>
             </ul>

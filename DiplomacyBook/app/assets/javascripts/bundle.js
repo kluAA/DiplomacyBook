@@ -2068,7 +2068,11 @@ function (_React$Component) {
         className: "post-actions"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: function onClick(e) {
-          return _this2.props.openModal("editPost", post);
+          _this2.props.openModal("editPost", post);
+
+          _this2.setState({
+            showPostOptions: false
+          });
         }
       }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "post-actions-divider"
