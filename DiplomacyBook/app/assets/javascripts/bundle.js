@@ -90,16 +90,19 @@
 /*!*********************************************!*\
   !*** ./frontend/actions/comment_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_COMMENT, createComment */
+/*! exports provided: RECEIVE_COMMENT, REMOVE_COMMENT, createComment, deleteComment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENT", function() { return RECEIVE_COMMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_COMMENT", function() { return REMOVE_COMMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteComment", function() { return deleteComment; });
 /* harmony import */ var _utils_comment_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/comment_api_util */ "./frontend/utils/comment_api_util.js");
 
 var RECEIVE_COMMENT = 'RECEIVE_COMMENT';
+var REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 var receiveComment = function receiveComment(comment) {
   return {
@@ -108,10 +111,24 @@ var receiveComment = function receiveComment(comment) {
   };
 };
 
+var removeComment = function removeComment(comment) {
+  return {
+    type: REMOVE_COMMENT,
+    comment: comment
+  };
+};
+
 var createComment = function createComment(comment) {
   return function (dispatch) {
     return _utils_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["createComment"](comment).then(function (comment) {
       return dispatch(receiveComment(comment));
+    });
+  };
+};
+var deleteComment = function deleteComment(commentId) {
+  return function (dispatch) {
+    return _utils_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteComment"](commentId).then(function (comment) {
+      return dispatch(removeComment(comment));
     });
   };
 };
@@ -5305,6 +5322,10 @@ var commentsReducer = function commentsReducer() {
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENT"]:
       return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, _defineProperty({}, action.comment.id, action.comment));
 
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_COMMENT"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
+      console.log(nextState);
+
     default:
       return state;
   }
@@ -5848,12 +5869,13 @@ var configureStore = function configureStore() {
 /*!********************************************!*\
   !*** ./frontend/utils/comment_api_util.js ***!
   \********************************************/
-/*! exports provided: createComment */
+/*! exports provided: createComment, deleteComment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteComment", function() { return deleteComment; });
 var createComment = function createComment(comment) {
   return $.ajax({
     method: "POST",
@@ -5861,6 +5883,12 @@ var createComment = function createComment(comment) {
     data: {
       comment: comment
     }
+  });
+};
+var deleteComment = function deleteComment(commentId) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/comments/".concat(commentId)
   });
 };
 

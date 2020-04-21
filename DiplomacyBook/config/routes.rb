@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :friendships, only:[:destroy]
     resource :session, only: [:create, :destroy]
     resources :friendrequests, only: [:create, :destroy, :index]
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :update, :destroy]
     resources :likeposts, only: [:create, :destroy, :show]
     resources :photos, only: [:index, :show]
   end
