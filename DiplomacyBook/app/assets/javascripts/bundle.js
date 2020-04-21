@@ -1307,7 +1307,7 @@ function (_React$Component) {
 
       var friendrequests = this.props.friendrequests;
       if (!friendrequests || friendrequests === []) return null;
-      var requests = friendrequests.map(function (friendrequest) {
+      var requests = friendrequests.length > 0 ? friendrequests.map(function (friendrequest) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: friendrequest.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
@@ -1328,7 +1328,9 @@ function (_React$Component) {
           className: "delete",
           onClick: _this3.handleRequest(friendrequest.id, "decline")
         }, "Delete"))));
-      });
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        id: "friend-requests-none"
+      }, "No new requests :(");
       var showFriendsMenu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "friend-requests-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

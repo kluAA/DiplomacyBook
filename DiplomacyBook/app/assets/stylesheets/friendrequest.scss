@@ -35,6 +35,17 @@
     border-bottom: 1px solid #dddfe2;
 }
 
+#friend-requests-none {
+    background: #f5f6f7;
+    height: 30px;
+    color: #90949c;
+    font-size: 12px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .friend-requests-info {
     display: flex;
     width: 100%;

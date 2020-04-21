@@ -39,7 +39,7 @@ class NavBarFriendRequest extends React.Component {
     render() {
         const { friendrequests } = this.props;
         if (!friendrequests || friendrequests === []) return null;
-       const requests = friendrequests.map( friendrequest => 
+       const requests = friendrequests.length > 0 ? friendrequests.map( friendrequest => 
             <li key={friendrequest.id}>
                 <Link to={`/profile/${friendrequest.sender_id}`}><img className="friend-requests-pic" src={friendrequest.sender.photoUrl}></img></Link>
                 <div className="friend-requests-info">
@@ -51,7 +51,11 @@ class NavBarFriendRequest extends React.Component {
                         <button className="delete" onClick={this.handleRequest(friendrequest.id, "decline")}>Delete</button>
                     </div>
                 </div>
-            </li>)
+            </li>) : 
+            <li id="friend-requests-none">
+                No new requests :(
+            </li>
+        
 
         const showFriendsMenu = (
             <div className="friend-requests-container">
