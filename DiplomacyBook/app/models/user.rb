@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     validates :first_name, presence: { message: "What's your name?" }
+    validates :first_name, :last_name, length: { maximum: 18, message: "Max 16 characters."}
     validates :last_name, presence: {message: "Don't be shy."}
     validates :birthday, :gender, :password_digest, :session_token, presence: true
     validates :email, :password_digest, :session_token, uniqueness: true
@@ -22,7 +23,8 @@ class User < ApplicationRecord
     
     has_many :friendships,
         foreign_key: :user_id,
-        class_name: :Friendship
+        class_name: :Friendship,
+        dependent: :destroy
     
     has_many :friends,
         through: :friendships,
@@ -38,11 +40,13 @@ class User < ApplicationRecord
 
     has_many :posts,
         foreign_key: :user_id,
-        class_name: :Post
+        class_name: :Post,
+        dependent: :destroy
 
     has_many :authored_posts,
         foreign_key: :author_id,
-        class_name: :Post
+        class_name: :Post,
+        dependent: :destroy
 
     has_many :posters,
         through: :posts,
@@ -50,12 +54,14 @@ class User < ApplicationRecord
 
     has_many :comments,
         foreign_key: :author_id,
-        class_name: :Comment
+        class_name: :Comment,
+        dependent: :destroy
 
     #association for Likepost table
     has_many :liked_posts,
         foreign_key: :user_id,
-        class_name: :Likepost
+        class_name: :Likepost,
+        dependent: :destroy
     
     has_many :posts_liked,
         through: :liked_posts,
