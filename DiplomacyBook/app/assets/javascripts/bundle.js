@@ -1334,6 +1334,10 @@ function (_React$Component) {
       var showFriendsMenu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "friend-requests-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "fr-outer-triangle"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "fr-inner-triangle"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "friend-requests-header"
       }, "Friend Requests"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "friend-requests"

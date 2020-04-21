@@ -28,13 +28,8 @@ class NavBar extends React.Component {
             <div className="navbar-container">
                 <div className="navbar">
                     <Link to='/'>
-                        {/* <i className="fab fa-facebook-square"></i> */}
                         <img src={window.dbookIcon} />
                     </Link>
-                    {/* <div className="nav-search">
-                        <input type="text" placeholder="Search"></input>
-                        <button className="nav-search-btn"><i className="fas fa-search"></i></button>
-                    </div> */}
                     <NavSearchContainer />
                     <div className="nav-profile-container">
                         <Link to={`/profile/${user.id}`}><section className="nav-profile">

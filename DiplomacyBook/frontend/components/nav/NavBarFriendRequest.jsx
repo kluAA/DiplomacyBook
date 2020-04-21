@@ -59,6 +59,9 @@ class NavBarFriendRequest extends React.Component {
 
         const showFriendsMenu = (
             <div className="friend-requests-container">
+                <div id="fr-outer-triangle">
+                    <div id="fr-inner-triangle"></div>
+                </div>
                 <div className="friend-requests-header">Friend Requests</div>
                 <ul className="friend-requests">
                     {requests}
