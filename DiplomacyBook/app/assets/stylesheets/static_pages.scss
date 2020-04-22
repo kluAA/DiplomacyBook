@@ -1593,9 +1593,20 @@ a, button, input[type='submit'] {
     right: -22px;
     top: calc(50% - 6px);
     font-size: 12px;
+    display: none;
+    cursor: pointer;
 }
+
 .comment-options .fa-ellipsis-h {
     color: #bcbfc3;
+}
+
+.comment-container:hover .comment-options {
+    display: block;
+}
+
+.comment-options:hover .fa-ellipsis-h {
+    color: rgba(0, 0, 0, 0.85);
 }
 
 //emojis 

@@ -22,7 +22,9 @@ class Comment extends React.Component {
                         </Link>
                         <span className="comment">{comment.body}</span>
                     </span>
-                    <CommentOptionsContainer commentId={comment.id}/>
+                    { this.props.currentUser.id === author.id && 
+                        <CommentOptionsContainer commentId={comment.id}/>
+                    }
                 </div>
             </div>
         )

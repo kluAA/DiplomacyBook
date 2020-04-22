@@ -2497,7 +2497,7 @@ function (_React$Component) {
         to: "/profile/".concat(author.id)
       }, author.first_name, " ", author.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "comment"
-      }, comment.body)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentOptionsContainer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, comment.body)), this.props.currentUser.id === author.id && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentOptionsContainer__WEBPACK_IMPORTED_MODULE_2__["default"], {
         commentId: comment.id
       })));
     }
