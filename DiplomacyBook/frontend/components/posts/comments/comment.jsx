@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CommentOptionsContainer from "./CommentOptionsContainer";
 
 class Comment extends React.Component {
     constructor(props) {

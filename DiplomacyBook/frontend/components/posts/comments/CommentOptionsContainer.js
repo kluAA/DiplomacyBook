@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
-import Comment from './comment';
+import CommentOptions from './CommentOptions';
 import { deleteComment } from '../../../actions/comment_actions';
 
-const mapStateToProps = (state, ownProps) => ({
-    comment: state.entities.comments[ownProps.comment_id],
+const mapStateToProps = state => ({
     currentUser: state.entities.users[state.session.id],
-
+    
 })
 
 const mapDispatchToProps = (dispatch) => ({
     deleteComment: commentId => dispatch(deleteComment(commentId))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comment)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentOptions)

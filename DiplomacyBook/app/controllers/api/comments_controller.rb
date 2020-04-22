@@ -10,7 +10,7 @@ class Api::CommentsController < ApplicationController
         end
     end
 
-    def delete
+    def destroy
         @comment = current_user.comments.find(params[:id])
         @comment.destroy
         render :show

@@ -1569,12 +1569,23 @@ a, button, input[type='submit'] {
     padding: 7px 10px;
     border-radius: 18px;
     flex-wrap: wrap;
+    max-width: 430px;
+    box-sizing: border-box;
 }
 .comment {
     font-size: 13px;
     margin-left: 5px;
-    word-wrap: break-word;
     white-space: pre-wrap;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    
 }
 
 //emojis 
