@@ -22,6 +22,7 @@ class Comment extends React.Component {
                         </Link>
                         <span className="comment">{comment.body}</span>
                     </span>
+                    <CommentOptionsContainer commentId={comment.id}/>
                 </div>
             </div>
         )

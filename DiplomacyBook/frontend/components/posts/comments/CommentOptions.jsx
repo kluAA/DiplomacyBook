@@ -8,7 +8,7 @@ class CommentOptions extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="comment-options">
                 <i className="fas fa-ellipsis-h"></i>
             </div>
         )

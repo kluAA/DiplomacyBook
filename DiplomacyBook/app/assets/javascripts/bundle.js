@@ -2382,7 +2382,9 @@ function (_React$Component) {
   _createClass(CommentOptions, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "comment-options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-ellipsis-h"
       }));
     }
@@ -2495,7 +2497,9 @@ function (_React$Component) {
         to: "/profile/".concat(author.id)
       }, author.first_name, " ", author.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "comment"
-      }, comment.body))));
+      }, comment.body)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentOptionsContainer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        commentId: comment.id
+      })));
     }
   }]);
 

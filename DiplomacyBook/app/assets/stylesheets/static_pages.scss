@@ -1569,14 +1569,15 @@ a, button, input[type='submit'] {
     padding: 7px 10px;
     border-radius: 18px;
     flex-wrap: wrap;
-    max-width: 430px;
+    max-width: 425px;
     box-sizing: border-box;
+    position: relative;
 }
+
 .comment {
     font-size: 13px;
     margin-left: 5px;
     white-space: pre-wrap;
-
     overflow-wrap: break-word;
     word-wrap: break-word;
     -ms-word-break: break-all;
@@ -1584,8 +1585,17 @@ a, button, input[type='submit'] {
     -ms-hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
-    hyphens: auto;
-    
+    hyphens: auto; 
+}
+
+.comment-options {
+    position: absolute;
+    right: -22px;
+    top: calc(50% - 6px);
+    font-size: 12px;
+}
+.comment-options .fa-ellipsis-h {
+    color: #bcbfc3;
 }
 
 //emojis 
