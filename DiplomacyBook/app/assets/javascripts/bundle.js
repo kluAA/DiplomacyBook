@@ -2386,7 +2386,7 @@ function (_React$Component) {
       showMenu: false
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.container = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+    _this.handleDelete = _this.handleDelete.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2406,19 +2406,28 @@ function (_React$Component) {
       var domNode = react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.findDOMNode(this);
 
       if (!domNode || !domNode.contains(e.target)) {
-        console.log(e.target);
         this.setState({
           showMenu: false
         });
-        this.container.focus();
       }
 
       ;
     }
   }, {
+    key: "handleDelete",
+    value: function handleDelete(e) {
+      var _this2 = this;
+
+      this.props.deleteComment(this.props.commentId).then(function () {
+        return _this2.setState({
+          showMenu: false
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "co-menu"
@@ -2428,7 +2437,9 @@ function (_React$Component) {
         id: "co-inner-triangle"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-edit"
-      }), " Edit..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }), " Edit..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: this.handleDelete
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-trash-alt"
       }), " Delete...")));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2436,12 +2447,9 @@ function (_React$Component) {
         id: this.state.showMenu ? "co-active" : null,
         tabIndex: "0",
         onClick: function onClick(e) {
-          return _this2.setState({
-            showMenu: !_this2.state.showMenu
+          return _this3.setState({
+            showMenu: !_this3.state.showMenu
           });
-        },
-        ref: function ref(_ref) {
-          return _this2.container = _ref;
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-ellipsis-h"
@@ -2593,11 +2601,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    deleteComment: function deleteComment(commentId) {
-      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__["deleteComment"])(commentId));
-    }
-  };
+  return {};
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_comment__WEBPACK_IMPORTED_MODULE_1__["default"]));

@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteComment: commentId => dispatch(deleteComment(commentId))
+    
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment)
