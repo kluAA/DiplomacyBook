@@ -1594,10 +1594,10 @@ a, button, input[type='submit'] {
     top: calc(50% - 6px);
     font-size: 12px;
     display: none;
-    cursor: pointer;
 }
 
 .comment-options .fa-ellipsis-h {
+    cursor: pointer;
     color: #bcbfc3;
 }
 
@@ -1606,7 +1606,7 @@ a, button, input[type='submit'] {
 }
 
 .comment-options:hover .fa-ellipsis-h {
-    color: rgba(0, 0, 0, 0.85);
+    color: #aaadb3;
 }
 
 #co-active {
@@ -1615,7 +1615,41 @@ a, button, input[type='submit'] {
 
 .co-menu {
     position: absolute;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #1d2129;
+    border: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+    border-radius: 3px;
+
 }
+
+.co-menu ul {
+    margin: 5px 0;
+}
+
+.co-menu li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 12px;
+}
+
+.co-menu li:hover {
+    background: #4267b2;
+    color: white;
+}
+
+.co-menu i {
+    width: 16px;
+    font-size: 15px;
+    margin-right: 5px;
+    color: #8e949e;
+}
+
+
 
 //emojis 
 

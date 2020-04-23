@@ -2422,7 +2422,11 @@ function (_React$Component) {
 
       var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "co-menu"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Edit..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Delete...")));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-edit"
+      }), " Edit..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-trash-alt"
+      }), " Delete...")));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "comment-options",
         id: this.state.showMenu && "co-active",
