@@ -32,6 +32,9 @@ class CommentOptions extends React.Component {
 
         const menu = (
             <div className="co-menu">
+                <div id="co-outer-triangle">
+                    <div id="co-inner-triangle"></div>
+                </div>
                 <ul>
                     <li>
                         <i className="fas fa-edit"></i> Edit...
@@ -44,7 +47,7 @@ class CommentOptions extends React.Component {
         )
         return (
             <div className="comment-options"
-                id={this.state.showMenu && "co-active"} 
+                id={this.state.showMenu ? "co-active" : null} 
                 tabIndex="0" 
                 onClick={e => this.setState({showMenu: !this.state.showMenu})}
                 ref={ref => this.container = ref}

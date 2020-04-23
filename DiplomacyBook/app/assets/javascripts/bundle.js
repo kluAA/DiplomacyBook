@@ -2422,14 +2422,18 @@ function (_React$Component) {
 
       var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "co-menu"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "co-outer-triangle"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "co-inner-triangle"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-edit"
       }), " Edit..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-trash-alt"
       }), " Delete...")));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "comment-options",
-        id: this.state.showMenu && "co-active",
+        id: this.state.showMenu ? "co-active" : null,
         tabIndex: "0",
         onClick: function onClick(e) {
           return _this2.setState({
