@@ -2416,18 +2416,12 @@ function (_React$Component) {
   }, {
     key: "handleDelete",
     value: function handleDelete(e) {
-      var _this2 = this;
-
-      this.props.deleteComment(this.props.commentId).then(function () {
-        return _this2.setState({
-          showMenu: false
-        });
-      });
+      this.props.deleteComment(this.props.commentId);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "co-menu"
@@ -2447,8 +2441,8 @@ function (_React$Component) {
         id: this.state.showMenu ? "co-active" : null,
         tabIndex: "0",
         onClick: function onClick(e) {
-          return _this3.setState({
-            showMenu: !_this3.state.showMenu
+          return _this2.setState({
+            showMenu: !_this2.state.showMenu
           });
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -5492,7 +5486,8 @@ var commentsReducer = function commentsReducer() {
 
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_COMMENT"]:
       nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
-      console.log(nextState);
+      delete nextState[action.comment.id];
+      return nextState;
 
     default:
       return state;
@@ -5768,7 +5763,7 @@ var postsReducer = function postsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-  var nextState, likeId, like, idx;
+  var nextState, likeId, like, idx, postId;
 
   switch (action.type) {
     case _actions_post_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_POSTS"]:
@@ -5786,6 +5781,13 @@ var postsReducer = function postsReducer() {
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_COMMENT"]:
       nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
       nextState[action.comment.post_id].comment_ids.push(action.comment.id);
+      return nextState;
+
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_COMMENT"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
+      postId = action.comment.post_id;
+      idx = nextState[postId].comment_ids.indexOf(action.comment.id);
+      nextState[postId].comment_ids.splice(idx, 1);
       return nextState;
 
     case _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__["LIKE_POST"]:

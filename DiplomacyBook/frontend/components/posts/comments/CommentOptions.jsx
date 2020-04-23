@@ -27,8 +27,7 @@ class CommentOptions extends React.Component {
     }
 
     handleDelete(e) {
-        this.props.deleteComment(this.props.commentId)
-            .then(() => this.setState({ showMenu: false }));
+        this.props.deleteComment(this.props.commentId);
     }
 
     render() {

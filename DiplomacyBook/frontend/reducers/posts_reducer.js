@@ -1,11 +1,11 @@
 import { RECEIVE_POST, RECEIVE_POSTS, REMOVE_POST } from '../actions/post_actions';
-import { RECEIVE_COMMENT } from '../actions/comment_actions';
+import { RECEIVE_COMMENT, REMOVE_COMMENT } from '../actions/comment_actions';
 import { LIKE_POST, UNLIKE_POST } from '../actions/like_actions';
 import { merge } from 'lodash';
 
 const postsReducer = (state={}, action) => {
     Object.freeze(state);
-    let nextState, likeId, like, idx;
+    let nextState, likeId, like, idx, postId;
     switch (action.type) {
         case RECEIVE_POSTS:
             if (!action.payload.posts) return {};
@@ -19,6 +19,12 @@ const postsReducer = (state={}, action) => {
         case RECEIVE_COMMENT:
             nextState = merge({}, state);
             nextState[action.comment.post_id].comment_ids.push(action.comment.id)
+            return nextState;
+        case REMOVE_COMMENT:
+            nextState = merge({}, state);
+            postId = action.comment.post_id;
+            idx = nextState[postId].comment_ids.indexOf(action.comment.id);
+            nextState[postId].comment_ids.splice(idx, 1);
             return nextState;
         case LIKE_POST:
             nextState = merge({}, state);

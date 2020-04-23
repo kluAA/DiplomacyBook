@@ -13,7 +13,8 @@ const commentsReducer = (state={}, action) => {
             return merge({}, state, { [action.comment.id]: action.comment });
         case REMOVE_COMMENT: 
             nextState = merge({}, state);
-            console.log(nextState);
+            delete nextState[action.comment.id];
+            return nextState;
         default:
             return state;
     }
