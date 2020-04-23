@@ -2666,7 +2666,7 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      if (e.key === "Enter") {
+      if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
         var post = {

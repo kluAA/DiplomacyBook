@@ -18,7 +18,7 @@ class CommentForm extends React.Component {
     }
 
     handleSubmit(e) {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             let parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
             const post = {
