@@ -128,7 +128,7 @@ class PostItem extends React.Component {
                 <div className="comments-container">
                     {post.comment_ids.map(comment_id => <CommentContainer key={comment_id} comment_id={comment_id}/>)}
                 </div>
-                <CommentFormContainer postId={postId} />
+                <CommentFormContainer postId={postId} comment={false} />
             </div>
         )
     }

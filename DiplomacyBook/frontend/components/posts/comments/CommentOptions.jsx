@@ -38,7 +38,9 @@ class CommentOptions extends React.Component {
                     <div id="co-inner-triangle"></div>
                 </div>
                 <ul>
-                    <li>
+                    <li onClick={e => {
+                        this.props.openEdit();
+                    }}>
                         <i className="fas fa-edit"></i> Edit...
                     </li>
                     <li onClick={this.handleDelete}>

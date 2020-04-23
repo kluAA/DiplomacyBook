@@ -4,7 +4,9 @@ import CommentEmoji from "./CommentEmoji";
 class CommentForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { body: "" }
+        this.state = { 
+            body: this.props.comment.body || "" 
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.multiline = React.createRef();
@@ -15,9 +17,21 @@ class CommentForm extends React.Component {
         if (this.multiline) {
             this.multiline.style.height = 'auto';
         }
+        // autofit height of content if edit form and focus at end
+        if (this.multiline && this.props.edit) {
+            this.multiline.style.height = this.multiline.scrollHeight + 10 + 'px';
+            
+            const length = this.multiline.value.length;
+            this.multiline.focus();
+            this.multiline.setSelectionRange(length, length);
+        }
     }
 
     handleSubmit(e) {
+        if (this.props.edit && e.key === "Escape") {
+            this.props.closeEdit();
+        }
+
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             let parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
@@ -48,16 +62,16 @@ class CommentForm extends React.Component {
     }
 
     render() {
-        const { currentUser, postId } = this.props;
+        const { currentUser, postId, edit } = this.props;
         return (
-            <form className="comment-form">
+            <form className="comment-form" id={edit ? "comment-edit" : null}>
                 <img className="comment-profile" src={currentUser.photoUrl} />
                 
                 <div className="comment-body-container">
                     <textarea 
                         rows={1}
                         id={`comment-${postId}`} 
-                        onKeyDown={this.handleSubmit} 
+                        onKeyDown={this.handleSubmit}
                         onChange={this.handleChange} 
                         className="comment-body" 
                         placeholder="Write a comment..." 

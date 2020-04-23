@@ -1505,6 +1505,12 @@ a, button, input[type='submit'] {
     display: flex; 
 }
 
+#comment-edit {
+    border-top: none;
+    padding-top: 5px;
+    padding-bottom: 0;
+}
+
 .comment-profile {
     width: 35px;
     height: 35px;
@@ -1674,6 +1680,21 @@ a, button, input[type='submit'] {
     color: #8e949e;
 }
 
+.co-escape {
+    margin-left: 57px;
+    font-size: 10px;
+    padding: 5px 0;
+    color: #90949c;
+}
+
+#co-cancel {
+    color: #385898;
+    cursor: pointer;
+}
+
+#co-cancel:hover {
+    text-decoration: underline;
+}
 
 
 //emojis 
