@@ -39,7 +39,8 @@ class CommentForm extends React.Component {
                 body: parsedBody,
                 post_id: this.props.postId,
             }
-            this.props.edit ? this.props.updateComment(comment, this.props.comment.id) : this.props.createComment(comment);
+            this.props.edit ? this.props.updateComment(comment, this.props.comment.id)
+                .then(() => this.props.closeEdit()) : this.props.createComment(comment);
             this.setState({ body: "" });
             this.multiline.style.height = 'auto';
         }

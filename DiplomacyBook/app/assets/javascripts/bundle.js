@@ -2735,6 +2735,8 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       if (this.props.edit && e.key === "Escape") {
         this.props.closeEdit();
       }
@@ -2746,7 +2748,9 @@ function (_React$Component) {
           body: parsedBody,
           post_id: this.props.postId
         };
-        this.props.edit ? this.props.updateComment(comment, this.props.comment.id) : this.props.createComment(comment);
+        this.props.edit ? this.props.updateComment(comment, this.props.comment.id).then(function () {
+          return _this2.props.closeEdit();
+        }) : this.props.createComment(comment);
         this.setState({
           body: ""
         });
@@ -2781,7 +2785,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
@@ -2804,7 +2808,7 @@ function (_React$Component) {
         placeholder: "Write a comment...",
         value: this.state.body,
         ref: function ref(_ref) {
-          return _this2.multiline = _ref;
+          return _this3.multiline = _ref;
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "emojitime"
