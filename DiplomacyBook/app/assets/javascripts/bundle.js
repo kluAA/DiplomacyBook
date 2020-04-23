@@ -2348,6 +2348,8 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2358,13 +2360,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -2374,19 +2377,67 @@ function (_React$Component) {
   _inherits(CommentOptions, _React$Component);
 
   function CommentOptions(props) {
+    var _this;
+
     _classCallCheck(this, CommentOptions);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(CommentOptions).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CommentOptions).call(this, props));
+    _this.state = {
+      showMenu: false
+    };
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.container = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+    return _this;
   }
 
   _createClass(CommentOptions, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.addEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClick, false);
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      var domNode = react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.findDOMNode(this);
+
+      if (!domNode || !domNode.contains(e.target)) {
+        console.log(e.target);
+        this.setState({
+          showMenu: false
+        });
+        this.container.focus();
+      }
+
+      ;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var menu = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "co-menu"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Edit..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Delete...")));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "comment-options"
+        className: "comment-options",
+        id: this.state.showMenu && "co-active",
+        tabIndex: "0",
+        onClick: function onClick(e) {
+          return _this2.setState({
+            showMenu: !_this2.state.showMenu
+          });
+        },
+        ref: function ref(_ref) {
+          return _this2.container = _ref;
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-ellipsis-h"
-      }));
+      }), this.state.showMenu && menu);
     }
   }]);
 
