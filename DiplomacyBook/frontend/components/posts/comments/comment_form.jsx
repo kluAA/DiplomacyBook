@@ -35,11 +35,11 @@ class CommentForm extends React.Component {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             let parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
-            const post = {
+            const comment = {
                 body: parsedBody,
                 post_id: this.props.postId,
             }
-            this.props.createComment(post)
+            this.props.edit ? this.props.updateComment(comment, this.props.comment.id) : this.props.createComment(comment);
             this.setState({ body: "" });
             this.multiline.style.height = 'auto';
         }

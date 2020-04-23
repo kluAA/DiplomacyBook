@@ -13,10 +13,10 @@ export const deleteComment = commentId => {
     })
 }
 
-export const updateComment = comment => {
+export const updateComment = (comment, commentId) => {
     return $.ajax({
         method: "PATCH",
-        url: `/api/comments/${comment.id}`,
+        url: `/api/comments/${commentId}`,
         data: { comment }
     })
 }

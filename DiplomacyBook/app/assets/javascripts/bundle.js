@@ -90,13 +90,14 @@
 /*!*********************************************!*\
   !*** ./frontend/actions/comment_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_COMMENT, REMOVE_COMMENT, createComment, deleteComment, updateComment */
+/*! exports provided: RECEIVE_COMMENT, REMOVE_COMMENT, UPDATE_COMMENT, createComment, deleteComment, updateComment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENT", function() { return RECEIVE_COMMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_COMMENT", function() { return REMOVE_COMMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_COMMENT", function() { return UPDATE_COMMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteComment", function() { return deleteComment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateComment", function() { return updateComment; });
@@ -104,6 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 var REMOVE_COMMENT = 'REMOVE_COMMENT';
+var UPDATE_COMMENT = 'UPDATE_COMMENT';
 
 var receiveComment = function receiveComment(comment) {
   return {
@@ -115,6 +117,13 @@ var receiveComment = function receiveComment(comment) {
 var removeComment = function removeComment(comment) {
   return {
     type: REMOVE_COMMENT,
+    comment: comment
+  };
+};
+
+var changeComment = function changeComment(comment) {
+  return {
+    type: UPDATE_COMMENT,
     comment: comment
   };
 };
@@ -133,10 +142,10 @@ var deleteComment = function deleteComment(commentId) {
     });
   };
 };
-var updateComment = function updateComment(comment) {
+var updateComment = function updateComment(comment, commentId) {
   return function (dispatch) {
-    return _utils_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["updateComment"](comment).then(function (comment) {
-      return dispatch(receiveComment(comment));
+    return _utils_comment_api_util__WEBPACK_IMPORTED_MODULE_0__["updateComment"](comment, commentId).then(function (comment) {
+      return dispatch(changeComment(comment));
     });
   };
 };
@@ -2733,11 +2742,11 @@ function (_React$Component) {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         var parsedBody = this.state.body.replace(/\n\s*\n\s*\n/g, '\n\n');
-        var post = {
+        var comment = {
           body: parsedBody,
           post_id: this.props.postId
         };
-        this.props.createComment(post);
+        this.props.edit ? this.props.updateComment(comment, this.props.comment.id) : this.props.createComment(comment);
         this.setState({
           body: ""
         });
@@ -2841,6 +2850,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createComment: function createComment(comment) {
       return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__["createComment"])(comment));
+    },
+    updateComment: function updateComment(comment, commentId) {
+      return dispatch(Object(_actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__["updateComment"])(comment, commentId));
     }
   };
 };
@@ -5556,6 +5568,11 @@ var commentsReducer = function commentsReducer() {
       delete nextState[action.comment.id];
       return nextState;
 
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_COMMENT"]:
+      nextState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
+      nextState[action.comment.id] = action.comment;
+      return nextState;
+
     default:
       return state;
   }
@@ -6129,10 +6146,10 @@ var deleteComment = function deleteComment(commentId) {
     url: "/api/comments/".concat(commentId)
   });
 };
-var updateComment = function updateComment(comment) {
+var updateComment = function updateComment(comment, commentId) {
   return $.ajax({
     method: "PATCH",
-    url: "/api/comments/".concat(comment.id),
+    url: "/api/comments/".concat(commentId),
     data: {
       comment: comment
     }
