@@ -4,7 +4,7 @@ import CommentFormContainer from './comments/comment_form_container';
 import CommentContainer from './comments/comment_container';
 import PostOptions from "./PostOptions";
 import PostLikesContainer from "./PostLikesContainer";
-
+import { MONTHS } from "../session/signup_form";
 
 class PostItem extends React.Component {
     constructor(props) {
@@ -35,7 +35,10 @@ class PostItem extends React.Component {
             return days === 1 ? `${days} day ago` : `${days} days ago`;
         }
         else {
-            return time.toDateString();
+            let month = time.getMonth();
+            let day = time.getDate();
+            let year = time.getFullYear();
+            return MONTHS[month] + " " + day + "," + " " + year;
         }
         
     }

@@ -3366,6 +3366,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _comments_comment_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./comments/comment_container */ "./frontend/components/posts/comments/comment_container.js");
 /* harmony import */ var _PostOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostOptions */ "./frontend/components/posts/PostOptions.jsx");
 /* harmony import */ var _PostLikesContainer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PostLikesContainer */ "./frontend/components/posts/PostLikesContainer.js");
+/* harmony import */ var _session_signup_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../session/signup_form */ "./frontend/components/session/signup_form.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3383,6 +3384,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -3427,7 +3429,10 @@ function (_React$Component) {
         var days = Math.floor(relTime / (3600 * 24));
         return days === 1 ? "".concat(days, " day ago") : "".concat(days, " days ago");
       } else {
-        return time.toDateString();
+        var month = time.getMonth();
+        var day = time.getDate();
+        var year = time.getFullYear();
+        return _session_signup_form__WEBPACK_IMPORTED_MODULE_6__["MONTHS"][month] + " " + day + "," + " " + year;
       }
     }
   }, {
@@ -4967,11 +4972,12 @@ function (_React$Component) {
 /*!*****************************************************!*\
   !*** ./frontend/components/session/signup_form.jsx ***!
   \*****************************************************/
-/*! exports provided: default */
+/*! exports provided: MONTHS, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MONTHS", function() { return MONTHS; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
