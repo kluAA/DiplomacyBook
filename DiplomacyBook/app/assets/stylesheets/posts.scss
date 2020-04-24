@@ -327,6 +327,46 @@
     border-radius: 2px;
 }
 
+.share {
+    position: relative;
+}
+
+.share:focus .later{
+    display: block;
+    animation: fade 3s ease-in-out forwards; 
+    animation-iteration-count: 1;
+}
+
+.later {
+    position: absolute;
+    padding: 10px 5px;
+    color: white;
+    font-size: 13px;
+    background: black;
+    border-radius: 3px;
+    top: -38px;
+    left: calc(50% - 54px);
+    display: none;
+}
+
+.later-triangle {
+    position: absolute;
+    border-top: 9px solid black;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    bottom: -9px;
+    left: 35px;
+}
+
+@keyframes fade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0
+    }
+}
+
 #liked {
     color: #1f78f4;
 }

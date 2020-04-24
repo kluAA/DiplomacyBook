@@ -123,10 +123,25 @@ class PostItem extends React.Component {
                 }
                 { postHasLikes ? likeInfo : null }
                 {(!post.photoUrl || postHasLikes) && <hr id="linebreak"></hr>}
-                <div className="post-options">
+                <div className="post-options" tab={0}>
                     {isLiked ? liked : like}
                     <label htmlFor={`comment-${postId}`} className="comment"><i className="far fa-comment-alt"></i>Comment</label>
-                    <div className="share"><i className="far fa-share-square"></i>Share</div>
+                    <div className="share" tabIndex="0"
+                        onClick={e => {
+                            //blurs target so message can pop again if clicked consecutively
+                            e.persist();
+                            this.timeOut = setTimeout(() => {
+                                e.target.blur()}
+                                , 3000);
+                        }}
+                        onBlur={e => clearTimeout(this.timeOut)}
+                    >
+                        <i className="far fa-share-square">
+                        <div className="later">
+                            <span>Coming in 2021!</span>
+                            <div className="later-triangle"></div>
+                        </div>
+                    </i>Share</div>
                 </div>
                 <div className="comments-container">
                     {post.comment_ids.map(comment_id => <CommentContainer key={comment_id} comment_id={comment_id}/>)}

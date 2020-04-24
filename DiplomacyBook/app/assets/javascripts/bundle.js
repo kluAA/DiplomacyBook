@@ -3549,17 +3549,33 @@ function (_React$Component) {
       })), postHasLikes ? likeInfo : null, (!post.photoUrl || postHasLikes) && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         id: "linebreak"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "post-options"
+        className: "post-options",
+        tab: 0
       }, isLiked ? liked : like, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comment-".concat(postId),
         className: "comment"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-comment-alt"
       }), "Comment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "share"
+        className: "share",
+        tabIndex: "0",
+        onClick: function onClick(e) {
+          //blurs target so message can pop again if clicked consecutively
+          e.persist();
+          _this2.timeOut = setTimeout(function () {
+            e.target.blur();
+          }, 3000);
+        },
+        onBlur: function onBlur(e) {
+          return clearTimeout(_this2.timeOut);
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "far fa-share-square"
-      }), "Share")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "later"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Coming in 2021!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "later-triangle"
+      }))), "Share")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "comments-container"
       }, post.comment_ids.map(function (comment_id) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_comment_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
