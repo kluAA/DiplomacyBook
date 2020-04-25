@@ -1163,15 +1163,19 @@ a, button, input[type='submit'] {
 
 .profile-component-header {
     background: #f5f6f7;
-    padding: 17px 10px;
+    padding: 17px 21px;
     border-bottom: 1px solid #d3d6db;
-
+    cursor: default;
 }
 
 .profile-component-header span {
     color: #4f4f56;
     font-size: 20px;
     font-weight: 700;
+}
+
+.profile-component-header i {
+    margin-right: 7px;
 }
 
 .profile-component-friends {

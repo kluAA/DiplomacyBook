@@ -32,7 +32,7 @@ class FriendsIndex extends React.Component {
         return (
             <div className="profile-component-container">
                 <div className="profile-component-header">
-                    <span><i className="fas fa-user-friends"></i> Friends</span>
+                    <span><i className="fas fa-user-friends"></i>Friends</span>
                 </div>
                 <ul className="profile-component-friends">
                         {listFriends}

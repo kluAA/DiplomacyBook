@@ -5,6 +5,7 @@ import ProfileFriendButtonContainer from './profile_friend_button_container';
 import FriendsIndexContainer from './friends/friends_index_container'
 import { ProtectedRoute } from '../../utils/route_util';
 import TimelineContainer from './timeline_container'
+import AboutIndexContainer from './about/about_index_container'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -123,6 +124,7 @@ class Profile extends React.Component {
                     </ul>
                     <Switch>
                         <ProtectedRoute exact path='/profile/:id/friends' component={FriendsIndexContainer} />
+                        <ProtectedRoute exact path='/profile/:id/about' component={AboutIndexContainer} />
                         <ProtectedRoute path='/profile/:id' component={TimelineContainer} />
 
                     </Switch>
@@ -134,12 +136,3 @@ class Profile extends React.Component {
 }
 
 export default Profile;
-
-//friends table
-//friend_1 => sender
-//friend_2 => receiver
-
-//polymorphic association/self join for reference with dependent destroy
-
-//friend request table 
-//transaction 
