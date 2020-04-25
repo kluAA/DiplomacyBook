@@ -5,7 +5,8 @@ import ProfileFriendButtonContainer from './profile_friend_button_container';
 import FriendsIndexContainer from './friends/friends_index_container'
 import { ProtectedRoute } from '../../utils/route_util';
 import TimelineContainer from './timeline_container'
-import AboutIndexContainer from './about/about_index_container'
+import AboutIndexContainer from './about/about_index_container';
+import PhotosIndexContainer from './photos/photos_index_container';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -125,6 +126,7 @@ class Profile extends React.Component {
                     <Switch>
                         <ProtectedRoute exact path='/profile/:id/friends' component={FriendsIndexContainer} />
                         <ProtectedRoute exact path='/profile/:id/about' component={AboutIndexContainer} />
+                        <ProtectedRoute exact path='/profile/:id/photos' component={PhotosIndexContainer} />
                         <ProtectedRoute path='/profile/:id' component={TimelineContainer} />
 
                     </Switch>
