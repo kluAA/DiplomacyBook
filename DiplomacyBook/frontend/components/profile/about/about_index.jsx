@@ -1,4 +1,5 @@
 import React from 'react';
+import WorkEducation from "./work_education";
 
 class AboutIndex extends React.Component {
     constructor(props) {
@@ -61,7 +62,7 @@ class AboutIndex extends React.Component {
                     </ul>
 
                     <div className="about-right">
-
+                        { showWork && <WorkEducation /> }
                     </div>
                 </div>
             </div>

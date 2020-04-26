@@ -26,7 +26,10 @@ class Api::UsersController < ApplicationController
         @user = current_user
         if params[:user][:photo]
             @user.photo.purge
+        elsif params[:user][:cover]
+            @user.cover.purge
         end
+
         # @user.photo.attach(:photo)
         if @user.update(user_params)
             render 'api/users/show'
@@ -38,6 +41,8 @@ class Api::UsersController < ApplicationController
 
     def user_params
         params.require(:user).permit(:email, :first_name,
-            :last_name, :birthday, :gender, :password, :photo, :cover)
+            :last_name, :birthday, :gender, :password, :photo, :cover,
+            :bio, :position, :workplace, :relationship, :location, :school
+        )
     end
 end

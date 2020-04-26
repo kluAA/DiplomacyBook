@@ -118,6 +118,8 @@ class User < ApplicationRecord
 end
 
 
+
+
 # == Schema Information
 #
 # Table name: users
@@ -132,10 +134,12 @@ end
 #  session_token   :string          not null
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
-#  bio             :string
 #  position        :string
 #  workplace       :string
 #  relationship    :string
 #  location        :string
+#  bio             :text
+#  school          :string
+#  gradYear        :integer(4)
 #
 
