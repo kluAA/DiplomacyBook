@@ -3646,6 +3646,38 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/profile/about/about_global_container.js":
+/*!*********************************************************************!*\
+  !*** ./frontend/components/profile/about/about_global_container.js ***!
+  \*********************************************************************/
+/*! exports provided: WorkEducationContainer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WorkEducationContainer", function() { return WorkEducationContainer; });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _work_education__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./work_education */ "./frontend/components/profile/about/work_education.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    user: state.entities.users[ownProps.match.params.id],
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+var WorkEducationContainer = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_work_education__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/profile/about/about_index.jsx":
 /*!***********************************************************!*\
   !*** ./frontend/components/profile/about/about_index.jsx ***!
@@ -3657,7 +3689,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _work_education__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./work_education */ "./frontend/components/profile/about/work_education.jsx");
+/* harmony import */ var _about_global_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./about_global_container */ "./frontend/components/profile/about/about_global_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -3755,7 +3787,7 @@ function (_React$Component) {
         onClick: this.handleShow("showRelationships")
       }, "Relationships")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "about-right"
-      }, showWork && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_work_education__WEBPACK_IMPORTED_MODULE_1__["default"], null))));
+      }, showWork && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_about_global_container__WEBPACK_IMPORTED_MODULE_1__["WorkEducationContainer"], null))));
     }
   }]);
 
@@ -3780,8 +3812,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {};
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    user: state.entities.users[ownProps.match.params.id],
+    currentUser: state.entities.users[state.session.id]
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -3924,25 +3959,41 @@ function (_React$Component) {
   _inherits(WorkEducation, _React$Component);
 
   function WorkEducation(props) {
+    var _this;
+
     _classCallCheck(this, WorkEducation);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(WorkEducation).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(WorkEducation).call(this, props));
+    _this.state = {
+      workForm: false,
+      schoolForm: false,
+      position: props.user.position,
+      workplace: props.user.workplace,
+      school: props.user.school,
+      gradYear: props.user.gradYear
+    };
+    return _this;
   }
 
   _createClass(WorkEducation, [{
     key: "render",
     value: function render() {
+      var _this$props = this.props,
+          user = _this$props.user,
+          currentUser = _this$props.currentUser;
+      var addWorkplace = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Work"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ar-option"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ar-add"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add a workplace")));
+      var addSchool = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "School"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ar-option"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ar-add"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add a school")));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "ar-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Work"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "ar-option"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "ar-add"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add a workplace"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "School"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "ar-option"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "ar-add"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Add a school"))));
+      }, user.id === currentUser.id && addWorkplace, user.id === currentUser.id && addSchool);
     }
   }]);
 

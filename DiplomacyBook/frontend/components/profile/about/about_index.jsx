@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkEducation from "./work_education";
+import { WorkEducationContainer } from "./about_global_container";
 
 class AboutIndex extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class AboutIndex extends React.Component {
 
     render() {
         const { showOverview, showWork, showContact, showRelationships } = this.state;
-
+  
         return (
             <div className="profile-component-container">
                 <div className="profile-component-header">
@@ -62,7 +62,7 @@ class AboutIndex extends React.Component {
                     </ul>
 
                     <div className="about-right">
-                        { showWork && <WorkEducation /> }
+                        { showWork && <WorkEducationContainer /> }
                     </div>
                 </div>
             </div>

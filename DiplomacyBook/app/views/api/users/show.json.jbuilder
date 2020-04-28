@@ -1,4 +1,5 @@
-json.extract! @user, :id, :email, :first_name, :last_name, :birthday, :gender
+json.extract! @user, :id, :email, :first_name, :last_name, :birthday, :gender, 
+    :position, :workplace, :relationship, :location, :bio, :school, :gradYear
 
 
 if @user.photo.attached? 

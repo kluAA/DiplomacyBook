@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import AboutIndex from "./about_index";
+import WorkEducation from "./work_education";
+import { withRouter } from "react-router-dom";
 
 const mapStateToProps = (state, ownProps) => ({
     user: state.entities.users[ownProps.match.params.id],
@@ -10,4 +11,4 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AboutIndex);
+export const WorkEducationContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(WorkEducation));
