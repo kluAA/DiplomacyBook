@@ -93,9 +93,25 @@ class FeedIndex extends React.Component {
                             <a href="https://kluaa.github.io/kosujs/">
                                 <li>
                                     <div className="icon-container">
-                                        <img className="fl-favicons" src={kosuIcon} />
+                                        <img className="fl-favicons" src={window.kosuIcon} />
                                     </div>
                                     <span>kosuJS</span>
+                                </li>
+                            </a>
+                            <a href="https://clscraper-pro.herokuapp.com">
+                                <li>
+                                    <div className="icon-container">
+                                        <img className="fl-favicons" src={window.scraperIcon} />
+                                    </div>
+                                    <span>CL Web Scraper</span>
+                                </li>
+                            </a>
+                            <a href="https://loadup-weather.herokuapp.com">
+                                <li>
+                                    <div className="icon-container">
+                                        <img className="fl-favicons" src={window.loadupIcon} />
+                                    </div>
+                                    <span>LoadUp Weather App</span>
                                 </li>
                             </a>
                         </ul>

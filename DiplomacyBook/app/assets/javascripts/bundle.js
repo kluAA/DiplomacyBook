@@ -879,8 +879,22 @@ function (_React$Component) {
         className: "icon-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "fl-favicons",
-        src: kosuIcon
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "kosuJS"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        src: window.kosuIcon
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "kosuJS"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://clscraper-pro.herokuapp.com"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "fl-favicons",
+        src: window.scraperIcon
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "CL Web Scraper"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://loadup-weather.herokuapp.com"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "fl-favicons",
+        src: window.loadupIcon
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "LoadUp Weather App"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "feed-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_feed_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "posts-container"
